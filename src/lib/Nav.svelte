@@ -25,6 +25,18 @@
 	<NavLink title="CV" href="/cv" />
 </nav>
 
+<noscript>
+    <!-- Don't allow the mobile menu to show if there's no JS -->
+    <style>
+        nav {
+            display: flex !important;
+        }
+        button.openMenu {
+            display: none;
+        }
+    </style>
+</noscript>
+
 <style lang="scss">
 	@import '../lib/scss/_variables';
 
@@ -41,6 +53,11 @@
 			&.mobile-open {
 				position: fixed;
 				background: #202020;
+
+                @include light-mode {
+                    background: #f2f2f2;
+                }
+
 				width: 100%;
 				height: 100vh;
                 z-index: 10000;
@@ -53,6 +70,7 @@
 
 				.menu-title {
 					display: flex;
+                    color: #f2f2f2;
 					justify-content: space-between;
 					padding: 1em;
 					background-color: $primary;
