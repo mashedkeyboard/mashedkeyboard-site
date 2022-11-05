@@ -35,4 +35,7 @@
   <p>
     I'm also an Emergency Ambulance Crew with St John Ambulance.
   </p>
+  <p>
+    This site is open source: <a href="https://github.com/mashedkeyboard/mashedkeyboard-site" rel="noreferrer" target="_blank">the code is on GitHub</a>.
+  </p>
 </section>
