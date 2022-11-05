@@ -1,0 +1,114 @@
+@import 'normalize.css';
+
+@import '_variables';
+@import '@fontsource/signika-negative/variable.css';
+@import '@fontsource/cabin/variable.css';
+@import '@fontsource/cabin/variable-italic.css';
+
+:root {
+  font-family: CabinVariable, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: $primary;
+  @include light-mode {
+    background-color: lighten($primary, 10%);
+  }
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+
+  @media screen and (min-width: $tablet_break) {
+    place-items: center;
+    place-content: center;
+  }
+}
+
+h1 {
+  font-size: 3.2rem;
+  line-height: 1.1;
+}
+
+main {
+  max-width: $tablet_break;
+  width: 100vw;
+
+  @media screen {
+    filter: drop-shadow(0 0 2rem rgba($primary_dark, 0.8));
+  }
+
+  @media screen and (min-width: $tablet_break) {
+    padding: 2em 0;
+  }
+
+  &> * {
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    margin: 0;
+
+    @media screen and (min-width: $tablet_break) {
+      border-radius: 1rem;
+    }
+    
+    background: #202020;
+    @include light-mode {
+      background-color: #f2f2f2;
+      color: #202020;
+    }
+
+    z-index: 1;
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      z-index: 10;
+    }
+
+    &:nth-child(2) {
+      padding-top: 1rem;
+    }
+
+    &:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 1.5em;
+    }
+  }
+}
+
+.flex-30 {
+  flex: 30%;
+}
+
+.flex-50 {
+  flex: 50%;
+}
+
+*:link {
+  color: lighten($primary, 10%);
+  @include light-mode {
+    color: $primary_dark;
+  }
+}
+
+*:visited {
+  color: lighten($primary, 5%);
+  @include light-mode {
+    color: lighten($primary_dark, 5%);
+  }
+}
