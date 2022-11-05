@@ -86,6 +86,7 @@
 		border: none;
 		font-size: 1em;
 		background-color: $primary_dark;
+        color: #f2f2f2;
 		text-transform: lowercase;
 		@media screen and (min-width: $mobile-break), not screen {
 			display: none;

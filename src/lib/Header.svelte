@@ -19,7 +19,7 @@
 	<picture class="me">
 		<source media="(min-width:1024px)" type="image/webp" srcset={me2x} />
 		<source type="image/webp" srcset={me} />
-		<img src={me_png} alt="Curtis Parfitt-Ford" />
+		<img src={me_png} width="600" height="627" alt="Curtis Parfitt-Ford" />
 	</picture>
 	<div class="header-text">
 		<div class="title">
@@ -30,24 +30,14 @@
 		</div>
 		<div class="contact-icons">
 			<span class="contact-intro">find me on:</span>
-			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf">
-				<i
-					class="fa-brands fa-mastodon fa-2xl"
-					aria-hidden="true"
-					title="Mastodon (federated social media)"
-				>
-					<span class="fa-sr-only">Mastodon</span>
-				</i>
+			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf" aria-label="Mastodon">
+				<i class="fa-brands fa-mastodon fa-2xl" aria-hidden="true" title="Mastodon (federated social media)"></i>
 			</a>
-			<a rel="noreferrer" target="_blank" href="https://github.com/mashedkeyboard">
-				<i class="fa-brands fa-github fa-2xl" aria-hidden="true" title="GitHub">
-					<span class="fa-sr-only">GitHub</span>
-				</i>
+			<a rel="noreferrer" target="_blank" href="https://github.com/mashedkeyboard" aria-label="GitHub">
+				<i class="fa-brands fa-github fa-2xl" aria-hidden="true" title="GitHub"></i>
 			</a>
-			<a href="mailto:curtis@mashedkeyboard.me">
-				<i class="fa-solid fa-envelope-open-text fa-2xl" aria-hidden="true" title="Email">
-					<span class="fa-sr-only">Email</span>
-				</i>
+			<a href="mailto:curtis@mashedkeyboard.me" aria-label="Email">
+				<i class="fa-solid fa-envelope-open-text fa-2xl" aria-hidden="true" title="Email"></i>
 			</a>
 		</div>
 	</div>
@@ -78,7 +68,12 @@
 		h1 {
 			font-size: 3rem;
 			&.main-title {
-				font-size: 4rem;
+				font-size: 15vw;
+
+				@media screen and (min-width: $mobile_break) {
+					font-size: 4rem;
+				}
+				
 				& + .pronouns {
 					@media screen and (min-width: $tablet_break) {
 						margin-top: -3em;
@@ -122,6 +117,7 @@
 		.me img {
 			height: 30vw;
 			padding: 1.5em;
+			width: auto;
 
 			@media screen and (min-width: $mobile_break) {
 				height: 40vw;
