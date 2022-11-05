@@ -64,6 +64,7 @@
 		background: $primary;
 		color: #f2f2f2;
 		align-items: end;
+		justify-content: space-between;
 
 		will-change: filter;
 		transition: filter 1s;
@@ -121,7 +122,6 @@
 		.me img {
 			height: 30vw;
 			padding: 1.5em;
-			padding-left: 1em;
 
 			@media screen and (min-width: $mobile_break) {
 				height: 40vw;
