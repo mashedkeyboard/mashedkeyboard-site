@@ -14,7 +14,7 @@
 	export let href;
 </script>
 
-<a {href} class={href === $page.route.id ? 'active' : ''}>{title}</a>
+<a {href} class:active={href === $page.route.id}>{title}</a>
 
 <style lang="scss">
 	@import '../lib/scss/_variables';
@@ -48,8 +48,8 @@
 			color: #f2f2f2;
 		}
 
-        &:hover {
-            background-color: rgba($primary, 0.7);
+		&:hover {
+			background-color: rgba($primary, 0.7);
 
 			@include light-mode {
 				&.active {
@@ -62,8 +62,8 @@
 				}
 			}
 
-            cursor: pointer;
-        }
+			cursor: pointer;
+		}
 
 		&:not(:first-of-type) {
 			border-top-left-radius: 0;
