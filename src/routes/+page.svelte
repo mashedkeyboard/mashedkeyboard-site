@@ -1,5 +1,5 @@
 <script>
-  import me_png from '../assets/img/me.png';
+  import me_png from '../assets/img/me.webp?width=1200&format=png';
 
   let json_ld = `<script type="application/ld+json">
         {

@@ -1,7 +1,7 @@
 <script>
-	import me2x from '../assets/img/me@2x.webp';
-	import me from '../assets/img/me.webp';
-	import me_png from '../assets/img/me.png';
+	import meAvif from '../assets/img/me.webp?width=150;300;600;1200&format=avif&srcset';
+	import meWebp from '../assets/img/me.webp?width=150;300;600;1200&format=webp&srcset';
+	import mePng from '../assets/img/me.webp?width=400&format=png';
 	
 	import Nav from '$lib/Nav.svelte';
 
@@ -17,9 +17,9 @@
 
 <header>
 	<picture class="me">
-		<source media="(min-width:1024px)" type="image/webp" srcset={me2x} />
-		<source type="image/webp" srcset={me} />
-		<img src={me_png} width="600" height="627" alt="Curtis Parfitt-Ford" />
+		<source type="image/avif" srcset={meAvif} />
+		<source type="image/webp" srcset={meWebp} />
+		<img src={mePng} width="400" height="418" alt="Curtis Parfitt-Ford" />
 	</picture>
 	<div class="header-text">
 		<div class="title">
