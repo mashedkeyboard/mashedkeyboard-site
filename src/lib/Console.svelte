@@ -3,6 +3,7 @@
     import commands from '$lib/console/commands';
     import ConsoleLine from "./ConsoleLine";
     import type CommandClass from './console/commandclass';
+	import { ConsoleProxy } from "./console/consoleproxy";
 
     /**
      * Toggles whether the console should be open or closed.
@@ -40,6 +41,11 @@
 	 * @param {KeyboardEvent} e
 	 */
     function handleKeypress(e: KeyboardEvent) {
+        if (e.key === "Escape") {
+            showConsole = false;
+            return;
+        }
+
         if (["ArrowUp", "ArrowDown"].includes(e.key)) {
             if (e.key === "ArrowUp") {
                 if (commandHistoryBrowserIndex < executed.length) commandHistoryBrowserIndex += 1;
@@ -57,12 +63,22 @@
             
             let [command, ...args] = currentCommand.split(" ");
 
+            let wantsClose = false;
+
+            let proxy = new ConsoleProxy(() => {wantsClose = true});
+
             if (commands.has(command)) {
-                output = commands.get(command)!.processCommand(command, args);
+                output = commands.get(command)!.processCommand(command, args, proxy);
             }
 
-            executed.push(new ConsoleLine(currentCommand, output));
-            executed = executed; // trigger assignment
+            if (wantsClose) {
+                showConsole = false;
+                executed = [];
+            } else {
+                executed.push(new ConsoleLine(currentCommand, output));
+                executed = executed; // trigger assignment
+            }
+
             currentCommand = "";
         }
     }
