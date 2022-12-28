@@ -3,9 +3,29 @@
 
     import Header from '$lib/Header.svelte';
 
+    import Console from '$lib/Console.svelte';
+
     import socialimg from '../assets/img/social.jpg';
 
     import { page } from '$app/stores';
+
+    /**
+     * Controls whether the console is visible or not.
+     * Originates from Console.svelte, bound in here.
+     * @type {boolean}
+     */
+    let showConsole;
+
+    /**
+     * Handles checking for console opening.
+	 * @param {KeyboardEvent} e
+	 */
+    function handleKeydown(e) {
+        if(e.key === "`" && !showConsole) {
+            e.preventDefault();
+            showConsole = true;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -20,8 +40,11 @@
     <meta name="description" content={$page.data.description} />
 </svelte:head>
 
+<svelte:window on:keydown={handleKeydown}/>
+
 <main>
-    <Header heading={$page.data.heading || null}/>
+    <Header heading={$page.data.heading || null} on:easter={(e) => showConsole = true} />
     <slot></slot>
 </main>
-  
+
+<Console bind:showConsole={showConsole} />
