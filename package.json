@@ -1,6 +1,6 @@
 {
 	"name": "mashedkeyboard-site",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -36,7 +36,9 @@
 	"dependencies": {
 		"@fontsource/cabin": "^4.5.9",
 		"@fontsource/signika-negative": "^4.5.11",
-		"@fortawesome/fontawesome-free": "^6.2.0",
+		"@fortawesome/fontawesome-svg-core": "^6.2.1",
+		"@fortawesome/free-brands-svg-icons": "^6.2.1",
+		"@fortawesome/free-solid-svg-icons": "^6.2.1",
 		"normalize.css": "^8.0.1"
 	}
 }

@@ -1,6 +1,8 @@
 <script>
 	import NavLink from '$lib/NavLink.svelte';
-	import {beforeNavigate, afterNavigate} from '$app/navigation';
+	import {afterNavigate} from '$app/navigation';
+	import {faEllipsisVertical, faSquareXmark} from '@fortawesome/free-solid-svg-icons';
+	import FaIcon from './FAIcon.svelte';
 
 	let showNav = false;
 
@@ -10,15 +12,14 @@
 </script>
 
 <button class="openMenu" on:click={() => (showNav = true)}>
-    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true" /> Menu
+    <FaIcon icon={faEllipsisVertical} /> Menu
 </button>
 
 <nav class={showNav ? 'mobile-open' : ''}>
 	<div class="menu-title">
 		<h2>Curtis Parfitt-Ford</h2>
 		<button on:click={() => (showNav = false)}>
-			<i class="fa-solid fa-square-xmark" title="Close menu" aria-hidden="true" />
-			<span class="sr-only">Close menu</span>
+			<FaIcon icon={faSquareXmark} opts={{title: "Close menu"}} />
 		</button>
 	</div>
 	<NavLink title="Home" href="/" />

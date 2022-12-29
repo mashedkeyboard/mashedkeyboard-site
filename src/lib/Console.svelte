@@ -4,6 +4,8 @@
     import ConsoleLine from "./ConsoleLine";
     import type CommandClass from './console/commandclass';
 	import { ConsoleProxy } from "./console/consoleproxy";
+	import FaIcon from "./FAIcon.svelte";
+    import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
     /**
      * Toggles whether the console should be open or closed.
@@ -92,7 +94,7 @@
 {#if showConsole}
 <div class="console-overlay">
 	<div class="console" bind:this={console}>
-        <button on:click={e => showConsole = false}><i class="fa-solid fa-times" aria-hidden="true" title="Close the console"></i></button>
+        <button on:click={e => showConsole = false}><FaIcon icon={faTimes} opts={{title: "Close the console"}} /></button>
 		<ul>
             {#each executed as execution}
                 <li>

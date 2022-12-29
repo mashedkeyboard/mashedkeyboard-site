@@ -9,10 +9,12 @@
 	
 	import Nav from '$lib/Nav.svelte';
 
-	import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
-	import '@fortawesome/fontawesome-free/scss/brands.scss';
-	import '@fortawesome/fontawesome-free/scss/solid.scss';
 	import { createEventDispatcher, onMount } from 'svelte';
+
+	import FaIcon from './FAIcon.svelte';
+	import {faEnvelopeOpenText} from '@fortawesome/free-solid-svg-icons';
+	import {faMastodon} from '@fortawesome/free-brands-svg-icons';
+	import {faGithub} from '@fortawesome/free-brands-svg-icons';
 
 	/**
 	 * The heading for the header.
@@ -63,14 +65,14 @@
 		</div>
 		<div class="contact-icons">
 			<span class="contact-intro">find me on:</span>
-			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf" aria-label="Mastodon">
-				<i class="fa-brands fa-mastodon fa-2xl" aria-hidden="true" title="Mastodon (federated social media)"></i>
+			<a rel="me noreferrer" target="_blank" href="https://socialfmashed.cloud/@curtispf" aria-label="Mastodon">
+				<FaIcon icon={faMastodon} opts={{title: "Mastodon (federated social media)", classes: "fa-2xl"}} />
 			</a>
 			<a rel="noreferrer" target="_blank" href="https://github.com/mashedkeyboard" aria-label="GitHub">
-				<i class="fa-brands fa-github fa-2xl" aria-hidden="true" title="GitHub"></i>
+				<FaIcon icon={faGithub} opts={{title: "GitHub", classes: "fa-2xl"}} />
 			</a>
 			<a href="mailto:curtis@mashedkeyboard.me" aria-label="Email">
-				<i class="fa-solid fa-envelope-open-text fa-2xl" aria-hidden="true" title="Email"></i>
+				<FaIcon icon={faEnvelopeOpenText} opts={{title: "Email", classes: "fa-2xl"}} />
 			</a>
 		</div>
 	</div>
@@ -176,10 +178,10 @@
 				&:not(:last-child) {
 					margin-right: 1em;
 				}
+			}
 
-				i {
-					color: #f2f2f2;
-				}
+			:global(svg) {
+				color: #f2f2f2;
 			}
 
 			.contact-intro {
