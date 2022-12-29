@@ -32,7 +32,7 @@
     <title>{$page.data.title}</title>
 
 	<meta property="og:type" content="website">
-    <meta property="og:url" content="https://mashedkeyboard.me{$page.route.id}">
+    <meta property="og:url" content="https://cpf.sh{$page.route.id}">
     <meta property="og:image" content={socialimg}>
     <meta property="og:title" content="{$page.data.social_title || $page.data.title}">
     <meta property="og:description" content={$page.data.description}>

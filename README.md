@@ -1,6 +1,6 @@
 # Hi! This is my personal website.
 
-It's live at https://mashedkeyboard.me/.
+It's live at https://cpf.sh/.
 
 Use node 16 or greater to build - I use node 18.
 

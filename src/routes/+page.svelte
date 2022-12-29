@@ -6,9 +6,10 @@
             "@context": "http://schema.org/",
             "@type": "Person",
             "name": "Curtis Parfitt-Ford",
-            "image": "https://mashedkeyboard.me` + me_png + `",
-            "url": "https://mashedkeyboard.me/",
+            "image": "https://cpf.sh` + me_png + `",
+            "url": "https://cpf.sh/",
             "sameAs": [
+                "https://mashedkeyboard.me/",
                 "https://twitter.com/mashedkeyboard",
                 "https://github.com/mashedkeyboard",
                 "https://social.mashed.cloud/@curtispf"
