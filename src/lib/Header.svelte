@@ -65,7 +65,7 @@
 		</div>
 		<div class="contact-icons">
 			<span class="contact-intro">find me on:</span>
-			<a rel="me noreferrer" target="_blank" href="https://socialfmashed.cloud/@curtispf" aria-label="Mastodon">
+			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf" aria-label="Mastodon">
 				<FaIcon icon={faMastodon} opts={{title: "Mastodon (federated social media)", classes: "fa-2xl"}} />
 			</a>
 			<a rel="noreferrer" target="_blank" href="https://github.com/mashedkeyboard" aria-label="GitHub">
