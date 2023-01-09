@@ -13,8 +13,7 @@ const config = {
 			precompress: true,
 			strict: true
 		}),
-		inlineStyleThreshold: 4096, // inline styles smaller than 4kb
-		trailingSlash: 'never'
+		inlineStyleThreshold: 4096 // inline styles smaller than 4kb
 	},
 	preprocess: sveltePreprocess({preserve: ['ld+json']})
 };
