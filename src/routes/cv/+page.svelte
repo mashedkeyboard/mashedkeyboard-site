@@ -181,7 +181,7 @@
 							<li>Principles of Cyber Security</li>
 							<li>Web and Cloud Based Security</li>
 							<li>Engineering Management and Law</li>
-							<li>Security of Cyber-Physical Systems</li>
+							<li>Advanced Databases</li>
 							<li>Advanced Computer Networks</li>
 						</ul>
 					</aside>
