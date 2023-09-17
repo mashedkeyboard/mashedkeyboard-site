@@ -1,8 +1,8 @@
 <script>
-	import NavLink from '$lib/NavLink.svelte';
+	import NavLink from '$lib/components/NavLink.svelte';
 	import {afterNavigate} from '$app/navigation';
 	import {faEllipsisVertical, faSquareXmark} from '@fortawesome/free-solid-svg-icons';
-	import FaIcon from './FAIcon.svelte';
+	import FaIcon from '$lib/components/FAIcon.svelte';
 
 	let showNav = false;
 
@@ -24,6 +24,7 @@
 	</div>
 	<NavLink title="Home" href="/" />
 	<NavLink title="CV" href="/cv" />
+	<NavLink title="Blog" href="/blog" />
 </nav>
 
 <noscript>
@@ -39,9 +40,11 @@
 </noscript>
 
 <style lang="scss">
-	@import '../lib/scss/_variables';
+	@import '../scss/_variables';
 
 	nav {
+		z-index: 999 !important;
+
 		justify-content: space-around;
 		padding: 0.5em;
 		display: none;
@@ -53,10 +56,10 @@
 		@media screen and (max-width: calc($mobile-break - 1px)) {
 			&.mobile-open {
 				position: fixed;
-				background: #202020;
+				background: $dark;
 
                 @include light-mode {
-                    background: #f2f2f2;
+                    background: $light;
                 }
 
 				width: 100%;
@@ -71,7 +74,7 @@
 
 				.menu-title {
 					display: flex;
-                    color: #f2f2f2;
+                    color: $light;
 					justify-content: space-between;
 					padding: 1em;
 					background-color: $primary;
@@ -106,7 +109,7 @@
 		border: none;
 		font-size: 1em;
 		background-color: $primary_dark;
-        color: #f2f2f2;
+        color: $light;
 		text-transform: lowercase;
 		@media screen and (min-width: $mobile-break), not screen {
 			display: none;

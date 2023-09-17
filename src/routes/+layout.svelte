@@ -1,9 +1,9 @@
 <script>
-    import '$lib/scss/app.scss';
+    import '../app.scss';
 
-    import Header from '$lib/Header.svelte';
+    import Header from '$lib/components/Header.svelte';
 
-    import Console from '$lib/Console.svelte';
+    import Console from '$lib/components/Console.svelte';
 
     import socialimg from '../assets/img/social.jpg';
 
@@ -26,25 +26,38 @@
             showConsole = true;
         }
     }
+
+    const canonicalPath = `https://cpf.sh${$page.url.pathname}`;
 </script>
 
 <svelte:head>
-    <title>{$page.data.title}</title>
+    <title>{$page.data.meta_title}</title>
 
-	<meta property="og:type" content="website">
-    <meta property="og:url" content="https://cpf.sh{$page.route.id}">
-    <meta property="og:image" content={socialimg}>
-    <meta property="og:title" content="{$page.data.social_title || $page.data.title}">
+    <link rel="canonical" href={canonicalPath}>
+
+	<meta property="og:type" content="{$page.data.open_graph_type || 'website'}">
+    <meta property="og:url" content={canonicalPath}>
+    <meta property="og:image" content={$page.data.social_image || socialimg}>
+    <meta property="og:title" content="{$page.data.social_title || $page.data.meta_title}">
     <meta property="og:description" content={$page.data.description}>
+    {#if $page.data.open_graph}
+        {#each Object.entries($page.data.open_graph) as ogData}
+        <meta property="og:{ogData[0]}" content={ogData[1]}>
+        {/each}
+    {/if}
 
     <meta name="description" content={$page.data.description} />
 </svelte:head>
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<main>
+<a href="#content" class="skip-link">Skip to main content</a>
+
+<div class="container">
     <Header heading={$page.data.heading || null} on:easter={(e) => showConsole = true} />
-    <slot></slot>
-</main>
+    <main id="content">
+        <slot></slot>
+    </main>
+</div>
 
 <Console bind:showConsole={showConsole} />

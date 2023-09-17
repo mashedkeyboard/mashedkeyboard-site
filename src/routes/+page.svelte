@@ -25,7 +25,7 @@
 <section class="makestuff">
   <h2>I make stuff and ask questions</h2>
   <p>
-    I'm a developer, tech policy wonk, communications nerd and activist, currently based in Southampton in the UK.
+    I'm a developer, tech policy wonk, communications nerd and activist, currently based in Southampton in the UK. I work for <a href="https://poteris.co.uk/">Poteris</a>, a non-profit tech-for-good consultancy.
   </p>
   <p>
     I'm particularly interested in human-computer interaction and the policy surrounding it. Technology gives us a lot of power, but that poses huge dangers if it's not properly regulated.

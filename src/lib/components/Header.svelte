@@ -1,13 +1,13 @@
 <script lang="ts">
 	// below lines are ts-ignored due to their using imagetools
 	// @ts-ignore
-	import meAvif from '../assets/img/me.webp?width=150;300;600;1200&format=avif&srcset';
+	import meAvif from '../../assets/img/me.webp?width=150;300;600;1200&format=avif&srcset';
 	// @ts-ignore
-	import meWebp from '../assets/img/me.webp?width=150;300;600;1200&format=webp&srcset';
+	import meWebp from '../../assets/img/me.webp?width=150;300;600;1200&format=webp&srcset';
 	// @ts-ignore
-	import mePng from '../assets/img/me.webp?width=400&format=png';
+	import mePng from '../../assets/img/me.webp?width=400&format=png';
 	
-	import Nav from '$lib/Nav.svelte';
+	import Nav from '$lib/components/Nav.svelte';
 
 	import { createEventDispatcher, onMount } from 'svelte';
 
@@ -61,7 +61,7 @@
 			<h1 class:main-title={heading === null}>
 				<span class="allow-smaller"><strong>Hi!</strong> {#if heading === null} I'm{/if}</span> {#if heading === null} Curtis{:else}{heading}{/if}
 			</h1>
-			<div class="pronouns">{#if heading === null}My pronouns are <em>he/him</em>{:else}Curtis Parfitt-Ford (<em>he/him</em>){/if} 🏳️‍🌈</div>
+			<div class="pronouns">{#if heading === null}My pronouns are <em>he/they</em>{:else}Curtis Parfitt-Ford (<em>he/they</em>){/if} 🏳️‍🌈</div>
 		</div>
 		<div class="contact-icons">
 			<span class="contact-intro">find me on:</span>
@@ -80,7 +80,7 @@
 <Nav />
 
 <style lang="scss">
-	@import '../lib/scss/_variables';
+	@import '../scss/_variables';
 
 	header {
 		display: flex;
@@ -89,7 +89,7 @@
 		background: $primary;
 		transition: background-color 0.1s ease-in-out;
 
-		color: #f2f2f2;
+		color: $light;
 		align-items: end;
 		justify-content: space-between;
 
@@ -181,7 +181,7 @@
 			}
 
 			:global(svg) {
-				color: #f2f2f2;
+				color: $light;
 			}
 
 			.contact-intro {

@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import FaIcon from '$lib/FAIcon.svelte';
 	import {
 		faBriefcase,
 		faAddressCard,
 		faLaptopCode,
+		faCalendarCheck,
 		faScaleBalanced,
 		faHandPeace,
 		faAmbulance,
@@ -41,6 +42,21 @@
 <div class="cv">
 	<section class="places">
 		<h3><FaIcon icon={faBriefcase} /> Places I've worked</h3>
+		<details>
+			<summary
+				><FaIcon icon={faLaptopCode} /> <strong>Full Stack Developer</strong> at Poteris: July 2023 &mdash;
+				present</summary
+			>
+			<p>
+				Loudspeek provides digital advocacy solutions to some of the UK's largest progressive change
+				campaigns and charities. I am the founder and director, and wrote the codebase myself, which
+				processes nearly 2 million user requests per month at peak. I have experience from this role
+				developing with Ruby on Rails, PostgreSQL and Redis, among various other technologies. In
+				terms of soft skills, I also overcame significant adversity in the process of founding
+				Loudspeek because of my age, including not being able to open a bank account for the company
+				for more than six months until I finally persuaded a bank to do so.
+			</p>
+		</details>
 		<details>
 			<summary
 				><FaIcon icon={faAddressCard} /> <strong>Director</strong> at Loudspeek: February 2019 &mdash;
@@ -90,21 +106,14 @@
 		<details>
 			<summary
 				><FaIcon icon={faAmbulance} />
-				<strong>Emergency Ambulance Crew and Unit Events Lead</strong> at St John Ambulance: June 2021
+				<strong>Emergency Ambulance Crew</strong> at St John Ambulance: October 2022
 				&mdash; present</summary
 			>
 			<p>
-				St John Ambulance is the UK's auxiliary ambulance service, its leading first aid charity,
-				and its national health volunteer reserve. Student Volunteering Units in St John act as
-				regular Event Services Units, and we are trained and run to the same standard as any other
-				adult unit.
-				<br />
-				As Unit Events Lead of the University of Southampton unit, my role is to manage the deployment
-				to events of students at the university who volunteer with us, and ensure we are appropriately
-				staffing our events.
-				<br />
-				I also qualified as an Emergency Ambulance Crew with St John in October 2022, meaning I attend
-				medical emergencies on behalf of the NHS 999 and 111 services.
+				St John Ambulance is now the UK's national Ambulance Auxiliary, meaning we provide support to NHS ambulance services across the UK all year round. I qualified as an Emergency Ambulance Crew with St John in October 2022, meaning I attend medical emergencies on behalf of the NHS 999 and 111 services.St John Ambulance is now the UK's national Ambulance Auxiliary, meaning we provide support to NHS ambulance services across the UK all year round.
+			</p>
+			<p>
+				I qualified as an Emergency Ambulance Crew with St John in October 2022, meaning I attend medical emergencies on behalf of the NHS 999 and 111 services.
 			</p>
 		</details>
 		<details>
@@ -113,9 +122,25 @@
 				Students' Union: July 2022 &mdash; July 2023</summary
 			>
 			<p>
-				I am currently a serving Student Trustee of SUSU - the University of Southampton Students'
-				Union. In this role I am responsible for ensuring the Union is operating in accordance with
+				I served as a Student Trustee of SUSU - the University of Southampton Students'
+				Union - in my final year of study at the University of Southampton. In this role I was responsible for ensuring the Union is operating in accordance with
 				its policies, its objects and the law.
+			</p>
+			<p>
+				I worked with a Board composed of members with a wide range of multidisciplinary backgrounds, and oversaw the beginning of a broad-ranging governance transformation project. I sat on the Union's Audit and Risk Subcommittee of the Board, working alongside external auditors examining risks including financial, reputational, and safeguarding risks.
+			</p>
+		</details>
+		<details>
+			<summary
+				><FaIcon icon={faCalendarCheck} />
+				<strong>Unit Events Lead</strong> at St John Ambulance University of Southampton: June 2021
+				&mdash; May 2023</summary
+			>
+			<p>
+				St John Ambulance is the UK's auxiliary ambulance service, its leading first aid charity, and its national health volunteer reserve. Student Volunteering Units in St John act as regular Event Services Units, and are trained and run to the same standard as any other adult unit.
+			</p>
+			<p>
+				As Unit Events Lead of the University of Southampton unit, my role was to manage the deployment to events of students at the university giving up their time to volunteer with St John, and ensuring we appropriately staffed our events.
 			</p>
 		</details>
 		<details>
@@ -173,8 +198,9 @@
 			<section class="flex-30">
 				<h4>University of Southampton</h4>
 				<section>
-					<h5>2020 &mdash; 2023 (current)</h5>
-					<p>Computer Science BSc - average 1st across both first and second years</p>
+					<h5>2020 &mdash; 2023</h5>
+					<p>BSc Computer Science</p>
+					<p>First Class Honours</p>
 					<aside>
 						<h6>Optional modules</h6>
 						<ul>
@@ -247,9 +273,7 @@
 	Convinced? <a href="mailto:curtis@mashedkeyboard.me">Pop me an email.</a>
 </aside>
 
-<style type="scss">
-	@import '../../lib/scss/_variables';
-
+<style lang="scss">
 	.intro {
 		text-align: center;
 	}
@@ -257,8 +281,9 @@
 	.cv > section {
 		padding-bottom: 1em;
 		border: 0.3em dashed #353535;
+
 		@include light-mode {
-			border-color: $primary-dark;
+			border-color: $primary_dark;
 		}
 
 		border-left: none;
