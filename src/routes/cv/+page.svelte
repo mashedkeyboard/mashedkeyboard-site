@@ -1,5 +1,5 @@
 <script lang="ts">
-	import FaIcon from '$lib/FAIcon.svelte';
+	import FaIcon from '$lib/components/FAIcon.svelte';
 	import {
 		faBriefcase,
 		faAddressCard,
