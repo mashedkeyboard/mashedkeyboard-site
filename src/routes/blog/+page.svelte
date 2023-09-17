@@ -7,25 +7,29 @@
     let posts: Post[] = JSON.parse($page.data.posts).map((postMeta: PostMetadata) => Post.fromMetadata(postMeta));
 </script>
 
-<h2>Thoughts on tech and society</h2>
-<p><small>No promises as to how often this gets updated, but sometimes there's things longer than a Toot that I want to share.</small></p>
-
-<ol>
-    {#each posts as post}
-        <li>
-            <article>
-                <a href="/blog/{post.getSlug()}">
-                    <div>
-                        <PostImage {post} />
-                    </div>
-                    <h3>{post.getTitle()}</h3>
-                    <p>{post.getDate().toLocaleDateString()}</p>
-                    <p>{post.getSummary()}</p>
-                </a>
-            </article>
-        </li>
-    {/each}
-</ol>
+<div class="h-feed">
+    <!-- svelte-ignore a11y-missing-content -->
+	<a class="u-url" href="/" aria-hidden="true"></a>
+    <h2 class="p-name">Thoughts on tech and society</h2>
+    <p><small>No promises as to how often this gets updated, but sometimes there's things longer than a Toot that I want to share.</small></p>
+    
+    <ol>
+        {#each posts as post}
+            <li>
+                <article class="h-entry">
+                    <a class="u-url" href="/blog/{post.getSlug()}">
+                        <div>
+                            <PostImage {post} />
+                        </div>
+                        <h3 class="p-name">{post.getTitle()}</h3>
+                        <p class="dt-published">{post.getDate().toLocaleDateString()}</p>
+                        <p class="p-summary">{post.getSummary()}</p>
+                    </a>
+                </article>
+            </li>
+        {/each}
+    </ol>
+</div>
 
 <style lang="scss">
     ol {

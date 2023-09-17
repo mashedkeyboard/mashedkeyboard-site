@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Post } from "$lib/Post";
+	import type { Post } from "$lib/blog/Post";
 
     export let post: Post;
     export let headerBg: boolean = false;
@@ -9,7 +9,7 @@
     <picture class:headerBg>
         <source type="image/avif" srcset={post.getImage()?.avifSrcsetImage} />
         <source type="image/webp" srcset={post.getImage()?.webpSrcsetImage} />
-        <img src={post.getImage()?.fallbackImage} alt="{post.getImage()?.alt}" />
+        <img src={post.getImage()?.fallbackImage} alt="{post.getImage()?.alt}" class="u-photo" />
     </picture>
 {/if}
 

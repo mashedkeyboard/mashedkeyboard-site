@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { Post } from "$lib/Post";
+	import type { Post } from "$lib/blog/Post";
 	import PostImage from "$lib/components/blog/PostImage.svelte";
 
     const post: Post = $page.data.post;
 </script>
 
-<article>
+<article class="h-entry">
+    <!-- svelte-ignore a11y-missing-content -->
+    <a class="u-author" href="/" aria-hidden="true"></a>
     <header>
         <PostImage {post} headerBg={true} />
         <div>
-            <span>{post.getDate().toLocaleDateString()}</span>
-            <h1>{post.getTitle()}</h1>
+            <span class="dt-published">{post.getDate().toLocaleDateString()}</span>
+            <h1 class="p-name">{post.getTitle()}</h1>
         </div>
     </header>
-    <svelte:component this={post.getBody()} />
+    <div class="e-content">
+        <svelte:component this={post.getBody()} />
+    </div>
 </article>
 
 <style lang="scss">
