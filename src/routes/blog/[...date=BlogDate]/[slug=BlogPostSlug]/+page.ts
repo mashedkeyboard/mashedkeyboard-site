@@ -1,4 +1,4 @@
-import { getPost } from '$lib/PostManager.js';
+import { getPost } from '$lib/blog/PostManager.js';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */

@@ -1,4 +1,5 @@
 import { Post, type ImportedPostFile } from "./Post";
+import type { PostMetadata } from "./PostMetadata";
 
 type PostCache = {[slug: string]: Post};
 
@@ -30,13 +31,18 @@ async function loadPosts(): Promise<PostCache> {
 }
 
 /**
- * getAllPosts gets all posts, sorted by sort order.
+ * getAllPostMetadata gets all post metadata, sorted by sort order.
  *
  * @export
- * @return {Promise<Post[]>} the post array
+ * @return {Promise<PostMetadata[]>} the post metadata array
  */
-export async function getAllPosts(): Promise<Post[]> {
-    return await loadPosts().then((posts) => Object.values(posts).sort((p1, p2) => p2.getSortOrder() - p1.getSortOrder()));
+export async function getAllPostMetadata(): Promise<PostMetadata[]> {
+    /**
+     * This is really awkward, dehydrating here again, rather than just not hydrating to start with.
+     * Unfortunately, getting dynamic imports working without this hacky workaround wasn't looking possible -
+     * at least, as of September 2023.
+     */
+    return await loadPosts().then((posts) => Object.values(posts).sort((p1, p2) => p2.getSortOrder() - p1.getSortOrder()).map((post) => post.getMetadata()));
 }
 
 /**

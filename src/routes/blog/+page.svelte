@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { Post } from "$lib/Post";
+	import { Post } from "$lib/blog/Post";
+	import type { PostMetadata } from "$lib/blog/PostMetadata";
 	import PostImage from "$lib/components/blog/PostImage.svelte";
 
-    let posts: Post[] = $page.data.posts;
+    let posts: Post[] = JSON.parse($page.data.posts).map((postMeta: PostMetadata) => Post.fromMetadata(postMeta));
 </script>
 
 <h2>Thoughts on tech and society</h2>

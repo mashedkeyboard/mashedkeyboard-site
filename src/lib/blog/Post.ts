@@ -1,8 +1,9 @@
 import type { SvelteComponent } from 'svelte';
-import type { GENERATED_IMAGES } from './blog/ImagesImportGenerator';
+import type { GENERATED_IMAGES } from './ImagesImportGenerator';
+import type { PostMetadata } from './PostMetadata';
 
 export type BlogPostImage = {[key in keyof typeof GENERATED_IMAGES]: string} & {alt: string}
-export type ImportedPostFile = { images: BlogPostImage | null, metadata: { [key: string]: string | null }, default: SvelteComponent };
+export type ImportedPostFile = { images?: BlogPostImage, metadata: { [key: string]: string | undefined }, default: SvelteComponent };
 
 /**
  * A Post is a post in the blog, materialised from a .svx file.
@@ -14,18 +15,18 @@ export class Post {
     private slug: string;
     private title: string;
     private date: Date;
-    private image: BlogPostImage | null;
-    private summary: string | null;
+    private image?: BlogPostImage;
+    private summary?: string;
     private plaintext: string;
-    private body: SvelteComponent;
+    private body?: SvelteComponent;
 
-    constructor(slug: string, title: string, date: Date, image: BlogPostImage | null, summary: string | null, plaintext: string, body: SvelteComponent) {
+    constructor(slug: string, title: string, date: Date, image: BlogPostImage | undefined, summary: string | undefined, plaintext: string, body?: SvelteComponent) {
         this.slug = slug;
         this.title = title;
         this.date = date;
         this.image = image;
         this.summary = summary;
-        this.plaintext = plaintext;
+        this.plaintext = plaintext.slice(0, 500);
         this.body = body;
     }
 
@@ -48,6 +49,10 @@ export class Post {
             importedModule.metadata.plaintext || 'No text',
             importedModule.default
         )
+    }
+
+    public static fromMetadata(metadata: PostMetadata) {
+        return new Post(metadata.slug, metadata.title, new Date(metadata.date), metadata.image, metadata.summary, metadata.plaintext);
     }
 
     /**
@@ -78,7 +83,7 @@ export class Post {
      * @param {number} [charCount] the number of characters to include in the summary. If
      *                             this is not specified, it will default to returning the
      *                             entire contents of the summary metadata if specified, or
-     *                             40 characters if not.
+     *                             40 characters if not. Max 500 characters.
      * @return {string} the summary
      * @memberof Post
      */
@@ -95,7 +100,7 @@ export class Post {
             words = this.plaintext.split(' ');
         }
 
-        if (!charCount) charCount = 40;
+        if (!charCount) charCount = 80;
         charCount = charCount - 3;
         let summary = "";
         for (let word of words) {
@@ -110,6 +115,23 @@ export class Post {
         if (!this.image) return null;
 
         return this.image;
+    }
+    
+    /**
+     * getMetadata returns an object of {@link PostMetadata}.
+     *
+     * @return {PostMetadata} this post's metadata only
+     * @memberof Post
+     */
+    public getMetadata(): PostMetadata {
+        return {
+            slug: this.slug,
+            title: this.title,
+            date: this.date.valueOf(),
+            image: this.image,
+            summary: this.summary,
+            plaintext: this.plaintext
+        }
     }
 
     public getSlug() { return this.slug; }
