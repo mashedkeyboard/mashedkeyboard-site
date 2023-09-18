@@ -1,0 +1,5 @@
+---
+title: Test Linker
+date: 2023-09-02 18:00
+---
+<a class="u-repost-of" href="http://localhost:8788/blog/2023/09/15/test-post"></a>

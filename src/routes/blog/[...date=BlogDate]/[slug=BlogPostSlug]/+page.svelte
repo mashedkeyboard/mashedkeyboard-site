@@ -2,8 +2,18 @@
 	import { page } from "$app/stores";
 	import type { Post } from "$lib/blog/Post";
 	import PostImage from "$lib/components/blog/PostImage.svelte";
+	import Mentions from "$lib/components/blog/Mentions.svelte";
+	import { onMount } from "svelte";
 
     const post: Post = $page.data.post;
+
+    let mentionsRequest: Promise<Response> = new Promise(() => {});
+
+    let mentionsPath = `/blog/${post.getSlug()}/mentions`;
+
+    onMount(() => {
+        mentionsRequest = fetch(`${mentionsPath}.json`);
+    });
 </script>
 
 <article class="h-entry">
@@ -19,6 +29,21 @@
     <div class="e-content">
         <svelte:component this={post.getBody()} />
     </div>
+
+    {#await mentionsRequest}
+    <a href={mentionsPath}>View mentions</a>
+    {:then mentionsResponse}
+    {#await mentionsResponse.json() then mentions}
+    <aside>
+        <h2>Mentions</h2>
+        <Mentions {mentions} />
+    </aside>
+    {:catch}
+    <span>Failed to parse mentions data.</span>
+    {/await}
+    {:catch}
+    <span>Failed to fetch mentions response.</span>
+    {/await}
 </article>
 
 <style lang="scss">

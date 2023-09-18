@@ -8,8 +8,15 @@ import setBlogImages from './src/lib/blog/ImagesImportGenerator.js';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: adapter(),
-		inlineStyleThreshold: 4096 // inline styles smaller than 4kb
+		adapter: adapter({
+			routes: {
+				include: ['/blog/*/mentions', '/blog/webmention']
+			}
+		}),
+		inlineStyleThreshold: 4096, // inline styles smaller than 4kb
+		csrf: {
+			checkOrigin: false // this is normally very sensible behaviour, but the only route we use here is webmention, and we don't want it for it.
+		}
 	},
 	extensions: [
 		'.svelte',

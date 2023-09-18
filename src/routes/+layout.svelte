@@ -8,6 +8,7 @@
     import socialimg from '../assets/img/social.jpg';
 
     import { page } from '$app/stores';
+	import { PUBLIC_HOSTNAME } from '$env/static/public';
 
     /**
      * Controls whether the console is visible or not.
@@ -27,7 +28,7 @@
         }
     }
 
-    const canonicalPath = `https://cpf.sh${$page.url.pathname}`;
+    const canonicalPath = `https://${PUBLIC_HOSTNAME}${$page.url.pathname}`;
 </script>
 
 <svelte:head>

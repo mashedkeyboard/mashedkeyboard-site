@@ -1,9 +1,11 @@
+import { PUBLIC_HOSTNAME } from '$env/static/public';
 import { getPost } from '$lib/blog/PostManager.js';
+import { resolveSlug } from './SlugResolver.js';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
-    return getPost(decodeURIComponent(params.date + '/' + params.slug)).then((post) => {
+    return getPost(resolveSlug(params)).then((post) => {
         return {
             post: post,
             meta_title: post.getTitle(),
@@ -11,7 +13,7 @@ export async function load({ params }) {
             description: post.getSummary(),
             open_graph_type: 'article',
             open_graph: {
-                "article:author": "https://cpf.sh/",
+                "article:author": `https://${PUBLIC_HOSTNAME}/`,
                 "article:published_time": post.getDate().toISOString(),
             }
         };
