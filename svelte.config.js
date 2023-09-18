@@ -10,7 +10,7 @@ const config = {
 	kit: {
 		adapter: adapter({
 			routes: {
-				include: ['/blog/*/mentions', '/blog/webmention']
+				include: ['/blog/*/mentions.json', '/blog/*/mentions', '/blog/webmention']
 			}
 		}),
 		inlineStyleThreshold: 4096, // inline styles smaller than 4kb

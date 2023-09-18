@@ -9,6 +9,7 @@ export enum VALID_WEBMENTION_TARGET_TYPE {
 export interface Webmention {
     url: string;
     date: string;
-    mfItem: ReturnType<typeof mf2>['items'][number];
+    mfItem?: ReturnType<typeof mf2>['items'][number];
     type: VALID_WEBMENTION_TARGET_TYPE | 'link';
+    replies?: Webmention[]
 }

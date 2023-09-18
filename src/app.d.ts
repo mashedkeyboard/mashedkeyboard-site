@@ -6,6 +6,9 @@ declare namespace App {
 	// interface PageData {}
 	// interface Error {}
 	interface Platform {
+		caches?: {
+			default: Cache;
+		};
 		env?: {
 			BLOG_WEBMENTIONS: KVNamespace;
 		};

@@ -46,12 +46,15 @@ export async function POST({ request, platform }) {
         });
 
         await generateSourceUrlHash(sourceUrl).then(async (hash) => {
-            await webmentions_store.put(targetUrl.pathname.replace('/blog/', '') + '/mentions/' + hash, JSON.stringify({
+            const resolvedSlug = targetUrl.pathname.replace('/blog/', '');
+            await webmentions_store.put(resolvedSlug + '/mentions/' + hash, JSON.stringify({
                 url: sourceUrl,
                 mfItem: validItem,
                 date: validItem && validItem.properties['dt-published'] ? new Date(validItem.properties['dt-published'][0].toString()) : new Date(),
                 type: Object.values(VALID_WEBMENTION_TARGET_TYPE).filter((v) => Object.keys(validItem?.properties || {}).includes(v)) || 'link'
             }));
+
+            await webmentions_store.put(resolvedSlug, new Date().valueOf());
         });
 
         return new Response();

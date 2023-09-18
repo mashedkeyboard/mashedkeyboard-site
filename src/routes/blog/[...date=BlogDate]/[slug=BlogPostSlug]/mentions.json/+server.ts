@@ -6,12 +6,20 @@ import { dev } from '$app/environment';
 export const prerender = false;
 
 /** @type {import('./$types').PageServerLoad} */
-export async function GET({ params, platform }) {
+export async function GET({ request, params, platform }) {
     const resolvedSlug = resolveSlug(params);
     let allMentions = [];
 
     const kvStore = platform?.env?.BLOG_WEBMENTIONS;
-    if (kvStore) {
+    const cache = platform?.caches?.default;
+    let cacheKeyUrl;
+
+    if (kvStore && cache) {
+        const blogCacheKey = await kvStore.get(resolvedSlug);
+        cacheKeyUrl = request.url + "?cache=" + blogCacheKey;
+        const response = await cache.match(cacheKeyUrl);
+        if (response) return response;
+
         let mentionKeys: {keys: [{name: string}], list_complete: boolean, cursor: string} | undefined;
         do {
             mentionKeys = await kvStore.list({ prefix: resolvedSlug + '/mentions', cursor: mentionKeys?.cursor });
@@ -23,5 +31,24 @@ export async function GET({ params, platform }) {
         throw error(500, 'no KV store available');
     }
 
-    return json(allMentions.sort((m1, m2) => m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1));
+    let mentionsSet = new Set<Webmention>(allMentions);
+    let mentionsUrls: {[url: string]: Webmention} = Object.fromEntries(allMentions.map((mention) => [mention.mfItem?.properties?.url || mention.url, mention]));
+
+    mentionsSet.forEach((mention) => {
+      const inReplyTo = mention.mfItem?.properties?.["in-reply-to"];
+      if (inReplyTo) {
+        for (let replyUrl of inReplyTo) {
+          if (mentionsUrls[replyUrl.toString()]) {
+            const replyToMention = mentionsUrls[replyUrl.toString()];
+            replyToMention.replies ||= [];
+            replyToMention.replies.push(mention);
+            mentionsSet.delete(mention);
+          }
+        }
+      }
+    })
+
+    const resp = json(Array.from(mentionsSet).sort((m1, m2) => m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1));
+    if (cache && cacheKeyUrl) await cache.put(cacheKeyUrl, resp.clone());
+    return resp;
   }
