@@ -16,6 +16,10 @@
     });
 </script>
 
+<svelte:head>
+    <link href="/blog/webmention" rel="webmention" />
+</svelte:head>
+
 <article class="h-entry">
     <!-- svelte-ignore a11y-missing-content -->
     <a class="u-author" href="/" aria-hidden="true"></a>
