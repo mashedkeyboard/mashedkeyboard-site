@@ -105,6 +105,8 @@
 	}
 
 	button.openMenu {
+		z-index: 999 !important;
+		
 		width: 100%;
 		border: none;
 		font-size: 1em;

@@ -66,6 +66,10 @@
         margin-top: -4.1em;
         text-align: right;
 
+        @media screen and (max-width: calc($mobile-break - 1px)) {
+            margin-top: -3em;
+        }
+
         position: relative;
 
         div {
@@ -81,6 +85,11 @@
             padding-top: 5em;
             margin: -1em;
             margin-top: -5em;
+
+            @media screen and (max-width: calc($mobile-break - 1px)) {
+                padding-top: 3em;
+                margin-top: -3em;
+            }
         }
     }
 </style>

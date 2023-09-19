@@ -52,6 +52,7 @@ body {
     width: 100vw;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
   
     background: $dark;
     @include light-mode {
@@ -61,6 +62,7 @@ body {
   
     @media screen and (min-width: $tablet_break) {
       border-radius: 1rem;
+      min-height: 0;
     }
   
     @media screen and (min-width: $tablet_break) {

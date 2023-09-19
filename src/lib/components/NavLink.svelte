@@ -49,6 +49,14 @@
 
 		@media screen and (min-width: $mobile-break) {
 			border-radius: 0.5em;
+			
+			&:first-of-type {
+				border-left: $nav_link_border;
+			}
+
+			&:last-of-type {
+				border-right: $nav_link_border;
+			}
 		}
 
 		&.active {
@@ -82,17 +90,9 @@
 			border-bottom-left-radius: 0;
 		}
 
-		&:first-of-type {
-			border-left: $nav_link_border;
-		}
-
 		&:not(:last-of-type) {
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
-		}
-
-		&:last-of-type {
-			border-right: $nav_link_border;
 		}
 	}
 </style>
