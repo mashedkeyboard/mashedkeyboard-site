@@ -4,23 +4,18 @@ import type { Webmention } from '$lib/blog/Webmention';
 import { dev } from '$app/environment';
 import { PUBLIC_HOSTNAME } from '$env/static/public';
 
-export const prerender = false;
+// Redeploy on update
+export const prerender = true;
 
 /** @type {import('./$types').PageServerLoad} */
-export async function GET({ request, params, platform }) {
+export async function GET({ params, platform }) {
   const resolvedSlug = resolveSlug(params);
   const normalisedUrl = `https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`;
   let allMentions = [];
 
   const kvStore = platform?.env?.BLOG_WEBMENTIONS;
-  const cache = platform?.caches?.default;
 
-  if (kvStore && cache) {
-    console.log(normalisedUrl);
-    const response = await cache.match(normalisedUrl);
-    console.log(response ? JSON.stringify(response.headers) : "No response in cache");
-    if (response && !response.headers.has('X-Is-Expired')) return response;
-
+  if (kvStore) {
     let mentionKeys: { keys: [{ name: string }], list_complete: boolean, cursor: string } | undefined;
     do {
       mentionKeys = await kvStore.list({ prefix: resolvedSlug + '/mentions', cursor: mentionKeys?.cursor });
@@ -49,14 +44,5 @@ export async function GET({ request, params, platform }) {
     }
   })
 
-  const resp = json(Array.from(mentionsSet).sort((m1, m2) => m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1));
-
-  if (cache) {
-    const cacheResp = resp.clone();
-    cacheResp.headers.append("Cache-Control", "public, s-maxage=604800");
-    console.log(cacheResp);
-    await cache.put(normalisedUrl, cacheResp);
-  }
-
-  return resp;
+  return json(Array.from(mentionsSet).sort((m1, m2) => m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1));
 }

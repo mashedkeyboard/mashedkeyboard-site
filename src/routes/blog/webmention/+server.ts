@@ -1,5 +1,6 @@
 import { error } from "@sveltejs/kit";
 import { PUBLIC_HOSTNAME } from '$env/static/public';
+import { HOOK_ON_INVALIDATE_COMMENTS } from '$env/static/private';
 import { mf2 } from 'microformats-parser';
 import { VALID_WEBMENTION_TARGET_TYPE } from "$lib/blog/Webmention";
 
@@ -54,16 +55,9 @@ export async function POST({ request, platform }) {
                 type: Object.values(VALID_WEBMENTION_TARGET_TYPE).filter((v) => Object.keys(validItem?.properties || {}).includes(v)) || 'link'
             }));
 
-            console.log(resolvedSlug);
-
-            // deletion seems to be unreliable: see https://github.com/cloudflare/workers-sdk/issues/2790
-            // and https://community.cloudflare.com/t/unable-to-delete-cached-response-error/300698
-            const workaroundResponse = new Response();
-            workaroundResponse.headers.append('Cache-Control', 'max-age=0');
-            workaroundResponse.headers.append('X-Is-Expired', 'true');
-            console.log(
-                await platform?.caches?.default?.put(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`, workaroundResponse)
-            );
+            if (HOOK_ON_INVALIDATE_COMMENTS) await fetch(HOOK_ON_INVALIDATE_COMMENTS, {
+                method: 'POST'
+            });
         });
 
         return new Response();
