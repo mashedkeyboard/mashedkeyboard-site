@@ -54,7 +54,7 @@ export async function POST({ request, platform }) {
                 type: Object.values(VALID_WEBMENTION_TARGET_TYPE).filter((v) => Object.keys(validItem?.properties || {}).includes(v)) || 'link'
             }));
 
-            await webmentions_store.put(resolvedSlug, new Date().valueOf());
+            await platform?.caches?.default?.delete(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`)
         });
 
         return new Response();

@@ -2,22 +2,21 @@ import { error, json } from '@sveltejs/kit';
 import { resolveSlug } from '../SlugResolver';
 import type { Webmention } from '$lib/blog/Webmention';
 import { dev } from '$app/environment';
+import { PUBLIC_HOSTNAME } from '$env/static/public';
 
 export const prerender = false;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function GET({ request, params, platform }) {
     const resolvedSlug = resolveSlug(params);
+    const normalisedUrl = `https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`;
     let allMentions = [];
 
     const kvStore = platform?.env?.BLOG_WEBMENTIONS;
     const cache = platform?.caches?.default;
-    let cacheKeyUrl;
 
     if (kvStore && cache) {
-        const blogCacheKey = await kvStore.get(resolvedSlug);
-        cacheKeyUrl = request.url + "?cache=" + blogCacheKey;
-        const response = await cache.match(cacheKeyUrl);
+        const response = await cache.match(normalisedUrl);
         if (response) return response;
 
         let mentionKeys: {keys: [{name: string}], list_complete: boolean, cursor: string} | undefined;
@@ -49,6 +48,6 @@ export async function GET({ request, params, platform }) {
     })
 
     const resp = json(Array.from(mentionsSet).sort((m1, m2) => m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1));
-    if (cache && cacheKeyUrl) await cache.put(cacheKeyUrl, resp.clone());
+    if (cache) await cache.put(normalisedUrl, resp.clone());
     return resp;
   }
