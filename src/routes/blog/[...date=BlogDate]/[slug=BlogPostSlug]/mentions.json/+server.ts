@@ -48,6 +48,12 @@ export async function GET({ request, params, platform }) {
     })
 
     const resp = json(Array.from(mentionsSet).sort((m1, m2) => m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1));
-    if (cache) await cache.put(normalisedUrl, resp.clone());
+
+    if (cache) {
+      const cacheResp = resp.clone();
+      cacheResp.headers.append("Cache-Control", "public, s-maxage=604800");
+      await cache.put(normalisedUrl, cacheResp);
+    }
+
     return resp;
   }
