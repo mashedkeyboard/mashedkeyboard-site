@@ -55,7 +55,14 @@ export async function POST({ request, platform }) {
             }));
 
             console.log(resolvedSlug);
-            console.log(await platform?.caches?.default?.delete(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`));
+
+            // deletion seems to be unreliable: see https://github.com/cloudflare/workers-sdk/issues/2790
+            // and https://community.cloudflare.com/t/unable-to-delete-cached-response-error/300698
+            const workaroundResponse = new Response();
+            workaroundResponse.headers.append('Cache-Control', 'max-age=0');
+            console.log(
+                await platform?.caches?.default?.put(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`, workaroundResponse)
+            );
         });
 
         return new Response();
