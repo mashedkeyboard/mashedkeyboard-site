@@ -18,8 +18,8 @@ export async function GET({ request, params, platform }) {
   if (kvStore && cache) {
     console.log(normalisedUrl);
     const response = await cache.match(normalisedUrl);
-    console.log(response || "No response in cache");
-    if (response) return response;
+    console.log(response ? JSON.stringify(response.headers) : "No response in cache");
+    if (response && !response.headers.has('X-Is-Expired')) return response;
 
     let mentionKeys: { keys: [{ name: string }], list_complete: boolean, cursor: string } | undefined;
     do {

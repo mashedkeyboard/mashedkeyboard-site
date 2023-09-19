@@ -60,6 +60,7 @@ export async function POST({ request, platform }) {
             // and https://community.cloudflare.com/t/unable-to-delete-cached-response-error/300698
             const workaroundResponse = new Response();
             workaroundResponse.headers.append('Cache-Control', 'max-age=0');
+            workaroundResponse.headers.append('X-Is-Expired', 'true');
             console.log(
                 await platform?.caches?.default?.put(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`, workaroundResponse)
             );
