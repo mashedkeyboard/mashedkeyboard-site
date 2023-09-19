@@ -54,7 +54,8 @@ export async function POST({ request, platform }) {
                 type: Object.values(VALID_WEBMENTION_TARGET_TYPE).filter((v) => Object.keys(validItem?.properties || {}).includes(v)) || 'link'
             }));
 
-            await platform?.caches?.default?.delete(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`)
+            console.log(resolvedSlug);
+            console.log(await platform?.caches?.default?.delete(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`));
         });
 
         return new Response();
