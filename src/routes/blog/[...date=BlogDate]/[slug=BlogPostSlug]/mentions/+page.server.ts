@@ -4,6 +4,8 @@ import type { Webmention } from '$lib/blog/Webmention';
 import { dev } from '$app/environment';
 import { getPost } from '$lib/blog/PostManager';
 
+export const prerender = false;
+
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params, fetch }) {
     return {
