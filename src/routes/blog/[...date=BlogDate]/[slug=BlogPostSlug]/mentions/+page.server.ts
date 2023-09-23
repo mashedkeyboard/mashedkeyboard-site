@@ -8,8 +8,10 @@ export const prerender = false;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params, fetch }) {
+    const post = await getPost(resolveSlug(params));
     return {
         mentions: (await (await fetch(`/blog/${resolveSlug(params)}/mentions.json`)).json()),
-        postName: (await getPost(resolveSlug(params))).getTitle()
+        postName: post.getTitle(),
+        postMastoUrl: post.getMastodonPost()
     }
 }

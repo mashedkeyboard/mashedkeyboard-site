@@ -25,4 +25,6 @@ export interface PostMetadata {
     summary?: string;
 
     plaintext: string;
+
+    mastodon_post?: string;
 }

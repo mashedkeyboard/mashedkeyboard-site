@@ -1,26 +1,17 @@
 <script lang="ts">
 	import type { Webmention } from "$lib/blog/Webmention";
+	import FaIcon from "../FAIcon.svelte";
+    import {faComment} from '@fortawesome/free-solid-svg-icons';
+
 	import WebmentionCard from "./WebmentionCard.svelte";
 
     export let mentions: Webmention[];
 
-    let mastodonPostUrl: string | undefined;
-    
-    mentions.filter((m) => !!m.mfItem).find((item) => {
-        for (let urlType of (item.mfItem?.properties?.url || []).concat(item.mfItem?.properties?.["in-reply-to"]?.reverse() || [])) {
-            if (urlType) {
-                const url = new URL(urlType.toString());
-                if (url.hostname == "social.mashed.cloud" && url.pathname.startsWith("/@curtispf")) {
-                    mastodonPostUrl = url.toString();
-                    return true;
-                }
-            }
-        }
-        return false;
-    });
+    export let mastodonPostUrl: string | undefined = undefined;
 </script>
 {#if mastodonPostUrl}
 <div class="wm-intro">
+    <FaIcon icon={faComment} />
     <p>
         <a href={mastodonPostUrl}>You can reply to this post on Mastodon</a>, or by Webmention.
     </p>
@@ -35,3 +26,15 @@
 {:else}
 no mentions yet
 {/if}
+
+<style lang="scss">
+    .wm-intro {
+        border-left: 1em solid $primary;
+        padding: 0.1em 1em;
+
+        p {
+            display: inline-block;
+            padding-left: 0.25em;
+        }
+    }
+</style>

@@ -18,6 +18,7 @@
 
 <svelte:head>
     <link href="/blog/webmention" rel="webmention" />
+    <link href="https://brid.gy/publish/mastodon" />
 </svelte:head>
 
 <article class="h-entry">
@@ -40,7 +41,7 @@
     {#await mentionsResponse.json() then mentions}
     <aside>
         <h2>Mentions</h2>
-        <Mentions {mentions} />
+        <Mentions {mentions} mastodonPostUrl={post.getMastodonPost()} />
     </aside>
     {:catch}
     <span>Failed to parse mentions data.</span>

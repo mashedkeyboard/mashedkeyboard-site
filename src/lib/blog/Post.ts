@@ -17,15 +17,23 @@ export class Post {
     private date: Date;
     private image?: BlogPostImage;
     private summary?: string;
+    private mastodon_post?: string;
+
     private plaintext: string;
     private body?: SvelteComponent;
 
-    constructor(slug: string, title: string, date: Date, image: BlogPostImage | undefined, summary: string | undefined, plaintext: string, body?: SvelteComponent) {
+    constructor(
+        slug: string, title: string, date: Date,
+        image: BlogPostImage | undefined, summary: string | undefined,
+        mastodon_post: string | undefined, plaintext: string, body?: SvelteComponent
+    ) {
         this.slug = slug;
         this.title = title;
         this.date = date;
         this.image = image;
         this.summary = summary;
+        this.mastodon_post = mastodon_post;
+
         this.plaintext = plaintext.slice(0, 500);
         this.body = body;
     }
@@ -46,13 +54,19 @@ export class Post {
             new Date(importedModule.metadata.date || ''),
             importedModule.images,
             importedModule.metadata.summary,
+            importedModule.metadata.mastodon_post,
             importedModule.metadata.plaintext || 'No text',
             importedModule.default
         )
     }
 
     public static fromMetadata(metadata: PostMetadata) {
-        return new Post(metadata.slug, metadata.title, new Date(metadata.date), metadata.image, metadata.summary, metadata.plaintext);
+        return new Post(
+            metadata.slug, metadata.title,
+            new Date(metadata.date), metadata.image,
+            metadata.summary, metadata.mastodon_post,
+            metadata.plaintext
+        );
     }
 
     /**
@@ -130,7 +144,8 @@ export class Post {
             date: this.date.valueOf(),
             image: this.image,
             summary: this.summary,
-            plaintext: this.plaintext
+            plaintext: this.plaintext,
+            mastodon_post: this.mastodon_post
         }
     }
 
@@ -138,4 +153,5 @@ export class Post {
     public getTitle() { return this.title; }
     public getDate() { return this.date; }
     public getBody() { return this.body; }
+    public getMastodonPost() { return this.mastodon_post; }
 }

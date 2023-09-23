@@ -1,7 +1,7 @@
 import { Post, type ImportedPostFile } from "./Post";
 import type { PostMetadata } from "./PostMetadata";
 
-type PostCache = {[slug: string]: Post};
+export type PostCache = {[slug: string]: Post};
 
 let posts: PostCache;
 
@@ -11,7 +11,7 @@ let posts: PostCache;
  *
  * @return {Promise<PostCache>} the post cache
  */
-async function loadPosts(): Promise<PostCache> {
+export async function loadPosts(): Promise<PostCache> {
     const modules = import.meta.glob('/posts/*/**/*.svx');
     if (!posts?.length) {
         await Promise.all(Object.entries(modules).map(async (moduleEntry) => {

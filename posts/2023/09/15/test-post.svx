@@ -1,6 +1,7 @@
 ---
 title: Test Post
-date: 2023-09-02 18:00
+date: '2023-09-02 18:00'
+mastodon_post: 'https://test.com/'
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a ligula leo. Proin ligula dui, semper facilisis velit eget, semper elementum tellus. Fusce porta diam et ullamcorper rhoncus. Aenean quis dolor magna. Suspendisse potenti. In aliquet lectus id nibh dapibus rutrum. Suspendisse ac placerat dui. Nam erat nunc, auctor blandit dapibus eu, rhoncus vitae lectus. Morbi purus odio, malesuada ac erat eu, semper feugiat ligula. Phasellus feugiat felis quis quam fringilla dignissim. Nunc auctor ut libero nec vehicula. Vivamus placerat tincidunt vehicula. Donec a felis a massa tincidunt pulvinar.
 
