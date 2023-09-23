@@ -1,3 +1,0 @@
-kv_namespaces = [
-  { binding = "BLOG_WEBMENTIONS", id = "466b2883221f47b0a8f99814e8315889" }
-]

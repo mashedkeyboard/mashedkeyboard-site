@@ -2,6 +2,7 @@ import { error } from "@sveltejs/kit";
 import { PUBLIC_HOSTNAME } from '$env/static/public';
 import { mf2 } from 'microformats-parser';
 import { VALID_WEBMENTION_TARGET_TYPE } from "$lib/blog/Webmention";
+import { getCustomCache } from "$lib/Cache";
 
 const TRUSTED_THIRD_PARTY_MICROFORMATS_SOURCES = ['brid.gy']
 
@@ -11,8 +12,10 @@ export async function POST({ request, platform }) {
     const formData = await request.formData().catch(() => { throw error(400) });
     if (!(formData.has('source') && formData.has('target'))) throw error(400, 'webmentions must specify a source and target');
 
-	const webmentions_store = platform?.env?.BLOG_WEBMENTIONS;
-    if (!webmentions_store) throw error(500, 'no KV store found');
+	const db = platform?.env?.BLOGDB;
+    if (!db) throw error(500, 'no db found');
+
+    const customCache = await getCustomCache(platform?.caches);
 
     const sourceUrl = new URL(formData.get('source')!.toString());
     const targetUrl = new URL(formData.get('target')!.toString());
@@ -40,41 +43,38 @@ export async function POST({ request, platform }) {
                 return Object.values(VALID_WEBMENTION_TARGET_TYPE).includes(propName as VALID_WEBMENTION_TARGET_TYPE) && property.map((prop) => prop.toString()).some(matchesTarget)
             }) && (
                 mfItem.properties.url == null
-                || mfItem.properties.url?.some((url) => url == sourceUrl.toString())
+                || mfItem.properties.url?.some((url: string) => url == sourceUrl.toString())
                 || TRUSTED_THIRD_PARTY_MICROFORMATS_SOURCES.includes(sourceUrl.hostname) && sourceUrl.protocol == 'https:'
             );
         });
 
-        await generateSourceUrlHash(sourceUrl).then(async (hash) => {
-            const resolvedSlug = targetUrl.pathname.replace('/blog/', '');
-            await webmentions_store.put(resolvedSlug + '/mentions/' + hash, JSON.stringify({
-                url: sourceUrl,
-                mfItem: validItem,
-                date: validItem && validItem.properties['dt-published'] ? new Date(validItem.properties['dt-published'][0].toString()) : new Date(),
-                type: Object.values(VALID_WEBMENTION_TARGET_TYPE).filter((v) => Object.keys(validItem?.properties || {}).includes(v)) || 'link'
-            }));
+        const resolvedSlug = targetUrl.pathname.replace('/blog/', '');
+        const date = validItem && validItem.properties['dt-published'] ? new Date(validItem.properties['dt-published'][0].toString()) : new Date();
+        const foundTypes = Object.values(VALID_WEBMENTION_TARGET_TYPE).filter((v) => Object.keys(validItem?.properties || {}).includes(v));
+        const {
+            success,
+            error: dbErr
+        } = await db.prepare("insert into mentions(slug, url, date, type, mfItem) values (?, ?, ?, ?, ?);")
+                    .bind(
+                            resolvedSlug,
+                            sourceUrl.toString(),
+                            date.toISOString(),
+                            foundTypes.length ? foundTypes.join() : 'link',
+                            JSON.stringify(validItem) || null
+                         )
+                    .run();
 
-            console.log(resolvedSlug);
+        if (success) {
+            const resolvedUrl = `https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`;
+            if (customCache && platform.context?.waitUntil) {
+                platform.context.waitUntil(customCache.delete(resolvedUrl));
+            }
 
-            // deletion seems to be unreliable: see https://github.com/cloudflare/workers-sdk/issues/2790
-            // and https://community.cloudflare.com/t/unable-to-delete-cached-response-error/300698
-            const workaroundResponse = new Response();
-            workaroundResponse.headers.append('Cache-Control', 'max-age=0');
-            workaroundResponse.headers.append('X-Is-Expired', 'true');
-            console.log(
-                await platform?.caches?.default?.put(`https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`, workaroundResponse)
-            );
-        });
-
-        return new Response();
+            return new Response();
+        } else {
+            throw error(500, dbErr);
+        }
     }, (e) => {
         throw error(422, `source URL could not be reached: ${e}`);
-    });
-}
-
-async function generateSourceUrlHash(sourceUrl: URL) {
-    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(sourceUrl.toString())).then((digestBuffer) => {
-        // conversion code from https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
-        return Array.from(new Uint8Array(digestBuffer)).map((b) => b.toString(16).padStart(2, "0")).join("");
     });
 }

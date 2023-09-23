@@ -36,6 +36,8 @@
         throw new Error(`Missing action type for '${type}'`);
     };
 
+    const bestUrl = mention.mfItem?.properties?.url?.[0]?.toString() || mention.url;
+
     let url: string;
 
     onMount(() => url = window.location.href);
@@ -44,16 +46,16 @@
 <svelte:element this={li ? 'li' : 'div'}>
     <article>
         {#if mention.mfItem}
-        {#each mention.mfItem.properties.author as author}
+        {#each mention.mfItem.properties?.author as author}
             {@const authorName = getAuthorName(author)}
             <a href={isMicroformatRoot(author) && author.properties.url ? author.properties.url[0].toString() : mention.url} rel="nofollow">{authorName}</a>
         {/each}
             {@const thisPostUrl = mention.mfItem.properties[mention.type][0].toString()}
             {@const showTo = !reply && url !== thisPostUrl}
-            <a href={mention.mfItem.properties.url?.[0].toString()} rel="nofollow">{actionType(mention.type, showTo)}</a>
+            <a href={bestUrl} rel="nofollow">{actionType(mention.type, showTo)}</a>
             {#if showTo}<a href={thisPostUrl} rel="nofollow">this post</a>{/if}
         {:else}
-            <a href={mention.url} rel="nofollow">linked to by {mentionUrl.hostname}</a>
+            <a href={url} rel="nofollow">linked to by {mentionUrl.hostname}</a>
         {/if}
         at {new Date(mention.date).toLocaleString()}{#if isMicroformatRoot(mention.mfItem?.properties?.content[0])}:
         {mention.mfItem.properties.content[0].value}
