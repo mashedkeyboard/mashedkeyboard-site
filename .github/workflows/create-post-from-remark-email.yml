@@ -1,0 +1,47 @@
+# This is a basic workflow that is manually triggered
+
+name: Remarkable post from email
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      path:
+        description: 'File full path, including filename'
+        required: true
+        type: string
+      markdown:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Markdown content of post'
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  greet:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Write file
+      uses: "DamianReeves/write-file-action@master"
+      with:
+        path: ${{ inputs.path }}
+        write-mode: overwrite
+        contents: ${{ inputs.markdown }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5.0.2
+      with:
+        commit-message: Adding blog post from email
+        delete-branch: true
+        
