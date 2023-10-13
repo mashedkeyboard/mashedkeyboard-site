@@ -19,7 +19,6 @@
     "@octokit/core": "^5.0.1",
     "date-fns": "^2.30.0",
     "eml-parse-js": "^1.1.13",
-    "slugify": "^1.6.6",
-    "turndown": "mixmark-io/turndown#4afc32881bd371a34284d262613c1e1363809963"
+    "slugify": "^1.6.6"
   }
 }

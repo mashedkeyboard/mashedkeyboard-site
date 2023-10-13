@@ -1,4 +1,3 @@
-import TurndownService from 'turndown';
 import { Octokit } from '@octokit/core';
 import { readEml } from 'eml-parse-js';
 import { lightFormat } from 'date-fns';
@@ -17,13 +16,6 @@ const fullBodyRegex = new RegExp(bodyStartRegex.source + '(.*?)' + bodyEndRegex.
 const h1Regex = /<\s*h1\s*[^>]*>((?:(?:[^<])|(?:<\s*em\s*[^>]*>[^<]+<\s*\/em\s*>))+)<\s*\/h1\s*>/;
 
 async function htmlToFileForGitHub(html: string, env: Env, message?: ForwardableEmailMessage) {
-	// Don't escape markdown: I want to write in it.
-	TurndownService.prototype.escape = (x) => x;
-
-	const turndownService = new TurndownService();
-
-	console.log('Initialised Turndown');
-
 	let h1 = '';
 	let headers = '';
 	let mainBodyHtml;
@@ -98,9 +90,8 @@ imageAlt: ${parsedHeaders.imageAlt}`
 
 	console.log('Making request to GitHub');
 
-	const resp = await octokit.request(
-		'POST /repos/mashedkeyboard/mashedkeyboard-site/' + 'actions/workflows/create-post-from-remark-email/dispatches',
-		{
+	octokit
+		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/' + 'actions/workflows/create-post-from-remark-email/dispatches', {
 			ref: env.BRANCH,
 			inputs: {
 				path: `${lightFormat(postDate, 'yyyy/MM/dd')}/${postSlug}.svx`,
@@ -111,10 +102,9 @@ imageAlt: ${parsedHeaders.imageAlt}`
 			headers: {
 				'X-GitHub-Api-Version': '2022-11-28',
 			},
-		},
-	);
-
-	console.log('GitHub responded with ', resp.status, ': ', resp.data);
+		})
+		.then((resp) => console.log('GitHub responded with ', resp.status, ': ', resp.data))
+		.catch((e) => console.error('GitHub errored with ', e));
 }
 
 export default {

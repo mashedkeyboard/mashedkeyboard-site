@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Convert issue body to markdown
         id: html_to_markdown
-        uses: lowg6/action-html-to-markdown@v0.1.0
+        uses: "mashedkeyboard/action-html-to-markdown@main"
         with:
           html-text: ${{ inputs.html }}
 
