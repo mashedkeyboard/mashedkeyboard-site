@@ -39,7 +39,15 @@ export default {
 
 			console.log('Initialised Turndown');
 
-			const [headers, mainBodyHtml] = html.split(/<\s*hr\s*\/?>/, 2);
+			const hrRegex = /<\s*hr\s*\/?>/;
+			let headers;
+			let mainBodyHtml;
+			if (html.match(hrRegex)) {
+				[headers, mainBodyHtml] = html.split(hrRegex, 2);
+			} else {
+				headers = '';
+				mainBodyHtml = html;
+			}
 
 			console.log('Detected headers: ', headers);
 
@@ -56,17 +64,19 @@ export default {
 				image?: string;
 				imageAlt?: string;
 			} = Object.fromEntries(
-				headers
-					.split(/<\s*body\s*>/, 2)[1]
-					.split(/(?:<\s*br\s*\/?>|\n)+/)
-					.flatMap((item) => {
-						const returnedItems = [];
+				headers.length
+					? headers
+							.split(/<\s*body\s*>/, 2)[1]
+							.split(/(?:<\s*br\s*\/?>|\n)+/)
+							.flatMap((item) => {
+								const returnedItems = [];
 
-						item = item.trim();
-						if (item.length) returnedItems.push(item.split(':').map((i) => i.trim()));
+								item = item.trim();
+								if (item.length) returnedItems.push(item.split(':').map((i) => i.trim()));
 
-						return returnedItems;
-					}),
+								return returnedItems;
+							})
+					: [],
 			);
 
 			const postTitle = parsedHeaders.title || h1 || 'Untitled';
