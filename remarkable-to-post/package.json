@@ -8,7 +8,17 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230419.0",
+    "@types/mailparser": "^3.4.1",
+    "@types/node": "^20.6.5",
+    "@types/turndown": "^5.0.2",
     "typescript": "^5.0.4",
     "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "@octokit/core": "^5.0.1",
+    "date-fns": "^2.30.0",
+    "mailparser": "^3.6.5",
+    "slugify": "^1.6.6",
+    "turndown": "^7.1.2"
   }
 }

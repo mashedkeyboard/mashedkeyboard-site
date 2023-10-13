@@ -1,0 +1,9 @@
+[[d1_databases]]
+binding = "PREVIEW"
+database_name = "blog-preview"
+database_id = "24c938eb-3261-4527-936f-c9f9f80c0e21"
+
+[[d1_databases]]
+binding = "PROD"
+database_name = "blog"
+database_id = "be9eb7fa-4fd2-4af1-acec-0620563c92f1"
