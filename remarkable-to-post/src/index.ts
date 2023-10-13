@@ -32,10 +32,14 @@ export default {
 
 			const [headers, mainBodyHtml] = parsed.html.split(/<\s*hr\s*\/?>/, 2);
 
+			const h1 = new DOMParser().parseFromString(mainBodyHtml, "text/html").querySelector("h1")?.innerHTML;
+
+			turndownService.remove('h1');
+
 			const mainMarkdown = turndownService.turndown(mainBodyHtml.split(/<\s*\/body\s*>/, 1)[0]);
 
 			const parsedHeaders: {
-				title: string,
+				title?: string,
 				date?: string,
 				slug?: string,
 				image?: string,
@@ -48,6 +52,8 @@ export default {
 
 				return returnedItems;
 			}))
+
+			parsedHeaders.title ||= h1 || "Untitled";
 
 			const octokit = new Octokit({
 				auth: env.GITHUB_AUTH_TOKEN
