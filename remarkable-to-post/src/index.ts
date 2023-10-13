@@ -1,6 +1,6 @@
 import TurndownService from 'turndown';
 import { Octokit } from "@octokit/core";
-import { simpleParser } from 'mailparser';
+import { readEml } from 'eml-parse-js';
 import { lightFormat } from 'date-fns';
 import slugify from 'slugify';
 
@@ -8,20 +8,6 @@ export interface Env {
 	RECV_KEY: string;
 	GITHUB_AUTH_TOKEN: string;
 	BRANCH: string;
-}
-
-async function readableStreamToBuffer(stream: ReadableStream, streamSize: number) {
-	let result = new Uint8Array(streamSize);
-	
-	let bytesRead = 0;
-	let done, value;
-	const reader = stream.getReader();
-	while (({ done, value } = await reader.read()) && !done) {
-		result.set(value, bytesRead);
-		bytesRead += value.length;
-	}
-
-	return Buffer.from(result);
 }
 
 export default {
@@ -32,8 +18,15 @@ export default {
 			return;
 		}
 
-		simpleParser(await readableStreamToBuffer(message.raw, message.rawSize)).then(async (parsed) => {
-			if (!parsed.html) {
+		readEml(await new Response(message.raw).text(), async (err, emlJson) => {
+			if (err) {
+				console.error("Errored while parsing email: ", err);
+				message.setReject("Failed to process due to email parsing error");
+				return;
+			}
+
+			const html = emlJson?.html;
+			if (!html) {
 				console.error("No parseable HTML detected, rejecting");
 				message.setReject("No HTML");
 				return;
@@ -46,7 +39,7 @@ export default {
 
 			console.log("Initialised Turndown");
 
-			const [headers, mainBodyHtml] = parsed.html.split(/<\s*hr\s*\/?>/, 2);
+			const [headers, mainBodyHtml] = html.split(/<\s*hr\s*\/?>/, 2);
 
 			console.log("Detected headers: ", headers);
 
@@ -81,12 +74,12 @@ export default {
 			const postSlug = parsedHeaders.slug || slugify(postTitle)
 
 			const markdown = `---
-title: ${postTitle}
-date: ${postDate.toISOString()}
-${parsedHeaders.image ? `image: ${parsedHeaders.image}
-imageAlt: ${parsedHeaders.imageAlt}` : ''}
----
-${mainMarkdown}`
+	title: ${postTitle}
+	date: ${postDate.toISOString()}
+	${parsedHeaders.image ? `image: ${parsedHeaders.image}
+	imageAlt: ${parsedHeaders.imageAlt}` : ''}
+	---
+	${mainMarkdown}`
 
 			console.log("Making request to GitHub");
 
