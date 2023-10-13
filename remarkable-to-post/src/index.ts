@@ -1,8 +1,6 @@
 import TurndownService from 'turndown';
 import { Octokit } from "@octokit/core";
 import { simpleParser } from 'mailparser';
-import { Readable } from 'node:stream';
-import type { ReadableStream } from 'node:stream/web';
 import { lightFormat } from 'date-fns';
 import slugify from 'slugify';
 
@@ -10,6 +8,19 @@ export interface Env {
 	RECV_KEY: string;
 	GITHUB_AUTH_TOKEN: string;
 	BRANCH: string;
+}
+
+async function readableStreamToBuffer(stream: ReadableStream, streamSize: number) {
+	let result = new Uint8Array(streamSize);
+	
+	let bytesRead = 0;
+	let done, value;
+	while (({ done, value } = await stream.getReader().read()) && !done) {
+		result.set(value, bytesRead);
+		bytesRead += value.length;
+	}
+
+	return Buffer.from(result);
 }
 
 export default {
@@ -20,7 +31,7 @@ export default {
 			return;
 		}
 
-		simpleParser(Readable.fromWeb(message.raw as ReadableStream)).then(async (parsed) => {
+		simpleParser(await readableStreamToBuffer(message.raw, message.rawSize)).then(async (parsed) => {
 			if (!parsed.html) {
 				console.error("No parseable HTML detected, rejecting");
 				message.setReject("No HTML");
