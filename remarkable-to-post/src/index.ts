@@ -14,7 +14,7 @@ export interface Env {
 
 export default {
 	async email(message: ForwardableEmailMessage, env: Env, ctx: ExecutionContext) {
-		if (!message.to.includes(env.RECV_KEY) || message.from != 'my@remarkable.com') {
+		if (!message.to.includes(env.RECV_KEY) || !message.from.endsWith('@my.remarkable.com')) {
 			message.setReject("Unknown address");
 			return;
 		}
