@@ -53,17 +53,20 @@ export default {
 				return returnedItems;
 			}))
 
-			parsedHeaders.title ||= h1 || "Untitled";
+			const postTitle = parsedHeaders.title || h1 || "Untitled";
 
 			const octokit = new Octokit({
 				auth: env.GITHUB_AUTH_TOKEN
 			})
 
-			const postDate = parsedHeaders.date ? new Date(parsedHeaders.date) : Date.now()
-			const postSlug = parsedHeaders.slug || slugify(parsedHeaders.title)
+			const postDate = parsedHeaders.date ? new Date(parsedHeaders.date) : new Date()
+			const postSlug = parsedHeaders.slug || slugify(postTitle)
 
 			const markdown = `---
-${Object.entries(parsedHeaders).map(([k, v]) => `${k}: ${v}`).join("\n")}
+title: ${postTitle}
+date: ${postDate.toISOString()}
+${parsedHeaders.image ? `image: ${parsedHeaders.image}
+imageAlt: ${parsedHeaders.imageAlt}` : ''}
 ---
 ${mainMarkdown}`
 
@@ -72,7 +75,7 @@ ${mainMarkdown}`
 				ref: env.BRANCH,
 				inputs: {
 					path: `${lightFormat(postDate, 'yyyy/MM/dd')}/${postSlug}.svx`,
-					title: parsedHeaders.title,
+					title: postTitle,
 					markdown: markdown
 				},
 				headers: {
