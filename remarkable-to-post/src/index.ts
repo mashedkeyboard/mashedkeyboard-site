@@ -15,7 +15,8 @@ async function readableStreamToBuffer(stream: ReadableStream, streamSize: number
 	
 	let bytesRead = 0;
 	let done, value;
-	while (({ done, value } = await stream.getReader().read()) && !done) {
+	const reader = stream.getReader();
+	while (({ done, value } = await reader.read()) && !done) {
 		result.set(value, bytesRead);
 		bytesRead += value.length;
 	}
