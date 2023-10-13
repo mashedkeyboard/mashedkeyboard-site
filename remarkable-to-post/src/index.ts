@@ -15,12 +15,14 @@ export interface Env {
 export default {
 	async email(message: ForwardableEmailMessage, env: Env, ctx: ExecutionContext) {
 		if (!message.to.includes(env.RECV_KEY) || !message.from.endsWith('@my.remarkable.com')) {
+			console.error("Unknown address, rejecting");
 			message.setReject("Unknown address");
 			return;
 		}
 
 		simpleParser(Readable.fromWeb(message.raw as ReadableStream)).then(async (parsed) => {
 			if (!parsed.html) {
+				console.error("No parseable HTML detected, rejecting");
 				message.setReject("No HTML");
 				return;
 			}
@@ -30,7 +32,11 @@ export default {
 
 			const turndownService = new TurndownService();
 
+			console.log("Initialised Turndown");
+
 			const [headers, mainBodyHtml] = parsed.html.split(/<\s*hr\s*\/?>/, 2);
+
+			console.log("Detected headers: ", headers);
 
 			const h1 = new DOMParser().parseFromString(mainBodyHtml, "text/html").querySelector("h1")?.innerHTML;
 
@@ -70,7 +76,9 @@ imageAlt: ${parsedHeaders.imageAlt}` : ''}
 ---
 ${mainMarkdown}`
 
-			await octokit.request('POST /repos/mashedkeyboard/mashedkeyboard-site/' + 
+			console.log("Making request to GitHub");
+
+			const resp = await octokit.request('POST /repos/mashedkeyboard/mashedkeyboard-site/' + 
 								'actions/workflows/create-post-from-remark-email/dispatches', {
 				ref: env.BRANCH,
 				inputs: {
@@ -81,7 +89,9 @@ ${mainMarkdown}`
 				headers: {
 					'X-GitHub-Api-Version': '2022-11-28'
 				}
-			})
+			});
+
+			console.log("GitHub responded with ", resp.status, ": ", resp.data)
 		});
 	}
 };
