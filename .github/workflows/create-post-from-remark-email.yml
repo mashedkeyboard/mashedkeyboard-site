@@ -16,12 +16,13 @@ on:
         description: 'Post title'
         required: true
         type: string
-      markdown:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Markdown content of post'
-        # Input has to be provided for the workflow to run
+      frontmatter:
+        description: 'Markdown metadata header'
         required: true
-        # The data type of the input
+        type: string
+      html:
+        description: 'Main post HTML'
+        required: true
         type: string
 
 jobs:
@@ -30,21 +31,27 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Convert issue body to markdown
+        id: html_to_markdown
+        uses: lowg6/action-html-to-markdown@v0.1.0
+        with:
+          html-text: ${{ inputs.html }}
 
-    - name: Write file
-      uses: "DamianReeves/write-file-action@master"
-      with:
-        path: posts/${{ inputs.path }}
-        write-mode: overwrite
-        contents: ${{ inputs.markdown }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5.0.2
-      with:
-        commit-message: Adding blog post "${{ inputs.title }}" from email
-        title: ${{ inputs.title }}
-        assignees: mashedkeyboard
-        delete-branch: true
+      - name: Write file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: posts/${{ inputs.path }}
+          write-mode: overwrite
+          contents: ${{ format('{0}{1}', inputs.frontmatter, steps.html_to_markdown.outputs.markdown-text) }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5.0.2
+        with:
+          commit-message: Adding blog post "${{ inputs.title }}" from email
+          title: ${{ inputs.title }}
+          assignees: mashedkeyboard
+          delete-branch: true
         
