@@ -1,0 +1,57 @@
+# This is a basic workflow that is manually triggered
+
+name: Remarkable post from email
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      path:
+        description: 'Path to post'
+        required: true
+        type: string
+      title:
+        description: 'Post title'
+        required: true
+        type: string
+      frontmatter:
+        description: 'Markdown metadata header'
+        required: true
+        type: string
+      html:
+        description: 'Main post HTML'
+        required: true
+        type: string
+
+jobs:
+  create-post:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Convert issue body to markdown
+        id: html_to_markdown
+        uses: "mashedkeyboard/action-html-to-markdown@main"
+        with:
+          html-text: ${{ inputs.html }}
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Write file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: posts/${{ inputs.path }}
+          write-mode: overwrite
+          contents: ${{ format('{0}{1}', inputs.frontmatter, steps.html_to_markdown.outputs.markdown-text) }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5.0.2
+        with:
+          commit-message: Adding blog post "${{ inputs.title }}" from email
+          title: ${{ inputs.title }}
+          assignees: mashedkeyboard
+          delete-branch: true
+        
