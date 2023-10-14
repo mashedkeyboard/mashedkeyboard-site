@@ -94,7 +94,8 @@ imageAlt: ${parsedHeaders.imageAlt}`
 		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/actions/workflows/create-post-from-remark-email.yml/dispatches', {
 			ref: env.BRANCH,
 			inputs: {
-				path: `${lightFormat(postDate, 'yyyy/MM/dd')}/${postSlug}.svx`,
+				slug: postSlug,
+				date: lightFormat(postDate, 'yyyy/MM/dd'),
 				title: postTitle,
 				frontmatter: markdownHeader,
 				html: mainBodyHtml,
