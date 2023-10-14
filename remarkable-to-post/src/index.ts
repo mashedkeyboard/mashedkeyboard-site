@@ -91,7 +91,7 @@ imageAlt: ${parsedHeaders.imageAlt}`
 	console.log('Making request to GitHub');
 
 	await octokit
-		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/actions/workflows/create-post-from-remark-email/dispatches', {
+		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/actions/workflows/create-post-from-remark-email.yml/dispatches', {
 			ref: env.BRANCH,
 			inputs: {
 				path: `${lightFormat(postDate, 'yyyy/MM/dd')}/${postSlug}.svx`,
