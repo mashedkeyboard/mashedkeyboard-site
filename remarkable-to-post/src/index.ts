@@ -90,8 +90,8 @@ imageAlt: ${parsedHeaders.imageAlt}`
 
 	console.log('Making request to GitHub');
 
-	octokit
-		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/' + 'actions/workflows/create-post-from-remark-email/dispatches', {
+	await octokit
+		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/actions/workflows/create-post-from-remark-email/dispatches', {
 			ref: env.BRANCH,
 			inputs: {
 				path: `${lightFormat(postDate, 'yyyy/MM/dd')}/${postSlug}.svx`,
@@ -120,21 +120,26 @@ export default {
 			return;
 		}
 
-		readEml(await new Response(message.raw).text(), async (err, emlJson) => {
-			if (err) {
-				console.error('Errored while parsing email: ', err);
-				message.setReject('Failed to process due to email parsing error');
-				return;
-			}
+		return await new Promise<void>(async (res, rej) => {
+			readEml(await new Response(message.raw).text(), async (err, emlJson) => {
+				if (err) {
+					console.error('Errored while parsing email: ', err);
+					message.setReject('Failed to process due to email parsing error');
+					rej(err);
+					return;
+				}
 
-			const html = emlJson?.html;
-			if (!html) {
-				console.error('No parseable HTML detected, rejecting');
-				message.setReject('No HTML');
-				return;
-			}
+				const html = emlJson?.html;
+				if (!html) {
+					console.error('No parseable HTML detected, rejecting');
+					message.setReject('No HTML');
+					rej();
+					return;
+				}
 
-			htmlToFileForGitHub(html, env, message);
+				await htmlToFileForGitHub(html, env, message);
+				res();
+			});
 		});
 	},
 };
