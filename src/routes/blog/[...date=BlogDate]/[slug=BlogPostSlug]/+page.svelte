@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import type { Post } from "$lib/blog/Post";
+	import { Post } from "$lib/blog/Post";
 	import PostImage from "$lib/components/blog/PostImage.svelte";
 	import Mentions from "$lib/components/blog/Mentions.svelte";
 	import { onMount } from "svelte";
@@ -31,6 +31,11 @@
             <h1 class="p-name">{post.getTitle()}</h1>
         </div>
     </header>
+    {#if post.hasSummary()}
+    <div class="p-summary e-bridgy-mastodon-content">
+        {@html post.getSummary().replaceAll(Post.tagRegex, `<a class="p-category" href="/blog/tag/$1">#$1</a>`)}
+    </div>
+    {/if}
     <div class="e-content">
         <svelte:component this={post.getBody()} />
     </div>
@@ -92,5 +97,25 @@
                 margin-top: -3em;
             }
         }
+    }
+
+    .p-summary {
+        @include light-mode {
+            color: $primary_dark;
+        }
+
+        @include dark-mode {
+            background-color: $primary_dark;
+
+            :global(a) {
+                color: #fff;
+            }
+        }
+
+        padding: 1em;
+        margin-left: -3em;
+        margin-right: -3em;
+        padding-left: 3em;
+        font-style: italic;
     }
 </style>

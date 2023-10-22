@@ -106,7 +106,12 @@
 		}
 
 		h1 {
-			font-size: 3rem;
+			font-size: 2rem;
+			
+			@media screen and (min-width: $tiny_break) {
+				font-size: 3rem;
+			}
+
 			&.main-title {
 				font-size: 15vw;
 

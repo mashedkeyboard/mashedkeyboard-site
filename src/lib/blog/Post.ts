@@ -22,6 +22,8 @@ export class Post {
     private plaintext: string;
     private body?: SvelteComponent;
 
+    public static tagRegex = /(?<=\s)#([\w_]+)/g;
+
     constructor(
         slug: string, title: string, date: Date,
         image: BlogPostImage | undefined, summary: string | undefined,
@@ -125,6 +127,17 @@ export class Post {
         return summary.endsWith('.') || summary == this.plaintext ? summary : summary += "...";
     }
 
+    /**
+     * hasSummary returns true if the blog post has a specified summary,
+     * and false otherwise.
+     *
+     * @return {boolean} true if the post has a manually-written summary
+     * @memberof Post
+     */
+    public hasSummary(): boolean {
+        return !!this.summary;
+    }
+
     public getImage(): BlogPostImage | null {
         if (!this.image) return null;
 
@@ -147,6 +160,25 @@ export class Post {
             plaintext: this.plaintext,
             mastodon_post: this.mastodon_post
         }
+    }
+
+    /**
+     * getTags gets an array of string tags from the post
+     * summary.
+     *
+     * @return {string[]} an array of tags on the post
+     * @memberof Post
+     */
+    public getTags(): string[] {
+        if (!this.summary) return [];
+
+        const tags = [];
+
+        for (const match of this.summary.matchAll(Post.tagRegex)) {
+            tags.push(match[1]);
+        }
+
+        return tags;
     }
 
     public getSlug() { return this.slug; }
