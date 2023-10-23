@@ -8,6 +8,8 @@
     export let mentions: Webmention[];
 
     export let mastodonPostUrl: string | undefined = undefined;
+
+    export let isInline = false;
 </script>
 {#if mastodonPostUrl}
 <div class="wm-intro">
@@ -20,7 +22,7 @@
 {#if mentions.length}
 <ol>
     {#each mentions as mention}
-    <WebmentionCard {mention} li />
+    <WebmentionCard {mention} li {isInline} />
     {/each}
 </ol>
 {:else}

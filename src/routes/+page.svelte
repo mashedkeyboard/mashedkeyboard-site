@@ -1,5 +1,5 @@
 <script>
-	import { PUBLIC_HOSTNAME } from '$env/static/public';
+	import { urlFor } from '$lib/Helpers';
   import me_png from '../assets/img/me.webp?width=1200&format=png';
 
   let json_ld = `<script type="application/ld+json">
@@ -7,8 +7,8 @@
             "@context": "http://schema.org/",
             "@type": "Person",
             "name": "Curtis Parfitt-Ford",
-            "image": "https://${PUBLIC_HOSTNAME}${me_png}",
-            "url": "https://${PUBLIC_HOSTNAME}/",
+            "image": "${urlFor(me_png)}",
+            "url": "${urlFor()}",
             "sameAs": [
                 "https://mashedkeyboard.me/",
                 "https://twitter.com/mashedkeyboard",

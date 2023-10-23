@@ -8,7 +8,7 @@
     import socialimg from '../assets/img/social.jpg';
 
     import { page } from '$app/stores';
-	import { PUBLIC_HOSTNAME } from '$env/static/public';
+	import { urlFor } from '$lib/Helpers';
 
     /**
      * Controls whether the console is visible or not.
@@ -28,7 +28,7 @@
         }
     }
 
-    const canonicalPath = `https://${PUBLIC_HOSTNAME}${$page.url.pathname}`;
+    const canonicalPath = urlFor($page.url.pathname);
 </script>
 
 <svelte:head>

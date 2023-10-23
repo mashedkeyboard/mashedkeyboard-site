@@ -1,8 +1,8 @@
 import { error, json } from '@sveltejs/kit';
 import { resolveSlug } from '../SlugResolver';
 import type { Webmention } from '$lib/blog/Webmention';
-import { PUBLIC_HOSTNAME } from '$env/static/public';
 import { getCustomCache } from '$lib/Cache';
+import { urlFor } from '$lib/Helpers';
 
 export const prerender = false;
 
@@ -13,7 +13,7 @@ const CLOUDFLARE_MAX_AGE = 'public, max-age=0, s-maxage=60';
 export async function GET({ params, platform }) {
 	const resolvedSlug = resolveSlug(params);
 
-	const normalisedUrl = `https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`;
+	const normalisedUrl = urlFor(`blog/${resolvedSlug}/mentions.json`);
 	let allMentions: Webmention[] = [];
 
 	const db = platform?.env?.BLOGDB;

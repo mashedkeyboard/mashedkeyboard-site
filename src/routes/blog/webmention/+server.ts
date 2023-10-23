@@ -3,6 +3,7 @@ import { PUBLIC_HOSTNAME } from '$env/static/public';
 import { mf2 } from 'microformats-parser';
 import { VALID_WEBMENTION_TARGET_TYPE } from "$lib/blog/Webmention";
 import { getCustomCache } from "$lib/Cache";
+import { urlFor } from "$lib/Helpers";
 
 const TRUSTED_THIRD_PARTY_MICROFORMATS_SOURCES = ['brid.gy']
 
@@ -65,7 +66,7 @@ export async function POST({ request, platform }) {
                     .run();
 
         if (success) {
-            const resolvedUrl = `https://${PUBLIC_HOSTNAME}/blog/${resolvedSlug}/mentions.json`;
+            const resolvedUrl = urlFor(`blog/${resolvedSlug}/mentions.json`);
             if (customCache && platform.context?.waitUntil) {
                 platform.context.waitUntil(customCache.delete(resolvedUrl));
             }
