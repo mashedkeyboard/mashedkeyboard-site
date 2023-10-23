@@ -119,6 +119,7 @@
 
 		@include dark-mode {
 			background-color: $primary_dark;
+            color: $light;
 
 			:global(a) {
 				color: #fff;

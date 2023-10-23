@@ -5,6 +5,8 @@ $tiny_break: 350px;
 
 $primary: rgb(231, 76, 59);
 $primary_dark: darken($primary, 20%);
+// used where primary has text on top of it!
+$primary_light: lighten($primary, 20%);
 $dark: #202020;
 $light: #f2f2f2;
 
@@ -15,7 +17,7 @@ $light: #f2f2f2;
 }
 
 @mixin dark-mode {
-    @media screen and (prefers-color-scheme: dark) {
+    @media screen and not (prefers-color-scheme: dark) {
         @content;
     }
 }

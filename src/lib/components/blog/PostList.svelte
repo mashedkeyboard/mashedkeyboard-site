@@ -43,21 +43,39 @@
 	}
 
 	article {
-		background-color: $primary;
+		background-color: $primary_dark;
 		padding: 1em;
 		margin: 1em;
 
 		a {
-			color: $light;
+            color: $light;
 			text-decoration: none;
 			display: block;
 			margin: -1em;
 			padding: 1em;
+
+            h3 {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
 
 			div {
 				margin: -1em;
 				padding-bottom: 1em;
 			}
 		}
+
+        @include light-mode {
+            background: none;
+            border: 1px solid $primary_dark;
+
+            a {
+                color: $dark;
+
+                h3 {
+                    color: $primary_dark;
+                }
+            }
+        }
 	}
 </style>
