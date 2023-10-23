@@ -20,7 +20,7 @@
 					<div>
 						<PostImage {post} />
 					</div>
-					<h3 class="p-name" itemprop="name">{post.getTitle()}</h3>
+					<h3 class="p-name" itemprop="headline name">{post.getTitle()}</h3>
 					<PostDate {post} />
 					<p class="p-summary" itemprop="abstract">{post.getSummary()}</p>
 				</a>
