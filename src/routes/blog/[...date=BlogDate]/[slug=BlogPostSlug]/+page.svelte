@@ -21,6 +21,7 @@
 
 <svelte:head>
 	<link href="/blog/webmention" rel="webmention" />
+    <link href="/" rel="author" />
 	<link href="https://brid.gy/publish/mastodon" />
 </svelte:head>
 
@@ -35,7 +36,7 @@
 		<PostImage {post} headerBg={true} />
 		<div>
 			<PostDate {post} />
-			<h1 class="p-name" itemprop="name">{post.getTitle()}</h1>
+			<h1 class="p-name" itemprop="headline name">{post.getTitle()}</h1>
 		</div>
 	</header>
 	{#if post.hasSummary()}
