@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { urlFor } from '$lib/Helpers';
 	import { Post } from '$lib/blog/Post';
 	import type { PostMetadata } from '$lib/blog/PostMetadata';
 	import PostImage from '$lib/components/blog/PostImage.svelte';
@@ -17,7 +16,7 @@
 				itemscope
 				itemtype="https://schema.org/BlogPosting"
 				class="h-entry">
-				<a itemprop="url" class="u-url" href={urlFor(`blog/${post.getSlug()}`)}>
+				<a itemprop="url" class="u-url" href='/blog/{post.getSlug()}'>
 					<div>
 						<PostImage {post} />
 					</div>
