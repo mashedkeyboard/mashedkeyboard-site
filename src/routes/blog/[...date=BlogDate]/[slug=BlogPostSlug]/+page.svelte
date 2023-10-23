@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PostDate from '../../../../lib/components/blog/PostDate.svelte';
+	import PostDate from '../../../../lib/components/blog/PostDate.svelte';
 
 	import { page } from '$app/stores';
 	import { Post } from '$lib/blog/Post';
@@ -42,7 +42,10 @@
 		<div class="p-summary e-bridgy-mastodon-content" itemprop="abstract">
 			{@html post
 				.getSummary()
-				.replaceAll(Post.tagRegex, `<a class="p-category" href="/blog/tag/$1">#$1</a>`)}
+				.replaceAll(
+					Post.tagRegex,
+					`<a class="p-category" itemprop="keywords" href="/blog/tag/$1">#$1</a>`
+				)}
 		</div>
 	{/if}
 	<div class="e-content" itemprop="articleBody">
