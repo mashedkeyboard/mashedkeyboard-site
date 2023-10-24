@@ -37,11 +37,11 @@
         }
 
         a.rss {
-            text-decoration: none;
             color: $light;
             font-size: 0.8em;
 
             @media screen and (min-width: calc($tablet-break)) {
+                text-decoration: none;
                 padding: 1em;
                 background-color: $primary_dark;
                 font-size: 1em;
