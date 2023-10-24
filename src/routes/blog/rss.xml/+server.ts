@@ -2,6 +2,8 @@ import { loadPosts } from "$lib/blog/PostManager";
 import { blogTitle } from "$lib/blog/Settings";
 import { urlFor, urlForPost } from "$lib/Helpers";
 
+export const prerender = true;
+
 export async function GET({ fetch }) {
     // This function is expensive. That's okay, though! We prerender this, it's
     // not ever running live.
@@ -12,7 +14,7 @@ export async function GET({ fetch }) {
     const feed = `<?xml version="1.0" encoding="utf-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<atom:link href="${urlFor('/blog/rss')}" rel="self" type="application/rss+xml" />
+<atom:link href="${urlFor('/blog/rss.xml')}" rel="self" type="application/rss+xml" />
 <title>Curtis Parfitt-Ford</title>
 <description>${blogTitle}</description>
 <lastBuildDate>${(new Date()).toUTCString()}</lastBuildDate>
