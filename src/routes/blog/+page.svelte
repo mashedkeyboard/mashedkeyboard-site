@@ -38,14 +38,19 @@
 
         a.rss {
             text-decoration: none;
-            background-color: $primary_dark;
             color: $light;
-            padding: 1em;
+            font-size: 0.8em;
 
-            @include light-mode {
-                background-color: $light;
-                color: $primary_dark;
-                border: 1px solid $primary_dark;
+            @media screen and (min-width: calc($tablet-break)) {
+                padding: 1em;
+                background-color: $primary_dark;
+                font-size: 1em;
+
+                @include light-mode {
+                    background-color: $light;
+                    color: $primary_dark;
+                    border: 1px solid $primary_dark;
+                }
             }
         }
     }
