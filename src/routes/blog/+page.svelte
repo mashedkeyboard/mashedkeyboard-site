@@ -19,7 +19,7 @@
 	<link class="u-url" href={urlFor('blog')} itemprop="url" />
     <header>
         <h2 itemprop="name" class="p-name">{blogTitle}</h2>
-        <a href="/blog/rss" class="rss"><FaIcon icon={faRss} /> RSS feed</a>
+        <a href="/blog/rss" class="rss"><FaIcon icon={faRss} /><span>{' '}RSS feed</span></a>
     </header>
     <p><small>No promises as to how often this gets updated, but sometimes there's things longer than a Toot that I want to share.</small></p>
     
@@ -32,23 +32,32 @@
         justify-content: space-between;
         align-items: center;
 
-        @media screen and (max-width: calc($tablet-break - 1px)) {
+        @media screen and (max-width: calc($mobile-break - 1px)) {
             display: block;
         }
 
         a.rss {
             color: $light;
             font-size: 0.8em;
+            text-decoration: none;
+            border-bottom: 1px solid $light;
+
+            @include light-mode {
+                color: $primary_dark;
+                border-bottom: 1px solid $primary_dark;
+            }
 
             @media screen and (min-width: calc($tablet-break)) {
-                text-decoration: none;
+                span {
+                    display: none;
+                }
+                
                 padding: 1em;
-                background-color: $primary_dark;
+                border: 1px solid $light;
                 font-size: 1em;
 
                 @include light-mode {
                     background-color: $light;
-                    color: $primary_dark;
                     border: 1px solid $primary_dark;
                 }
             }

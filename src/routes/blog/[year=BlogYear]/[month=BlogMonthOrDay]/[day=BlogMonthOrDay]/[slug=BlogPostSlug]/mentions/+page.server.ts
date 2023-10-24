@@ -1,7 +1,4 @@
-import { error, json } from '@sveltejs/kit';
 import { resolveSlug } from '../SlugResolver';
-import type { Webmention } from '$lib/blog/Webmention';
-import { dev } from '$app/environment';
 import { getPost } from '$lib/blog/PostManager';
 
 export const prerender = false;

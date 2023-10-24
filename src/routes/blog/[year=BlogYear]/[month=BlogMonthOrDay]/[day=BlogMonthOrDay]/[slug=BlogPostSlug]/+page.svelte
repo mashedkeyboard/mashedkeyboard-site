@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PostDate from '../../../../lib/components/blog/PostDate.svelte';
+	import PostDate from '$lib/components/blog/PostDate.svelte';
 
 	import { page } from '$app/stores';
 	import { Post } from '$lib/blog/Post';
