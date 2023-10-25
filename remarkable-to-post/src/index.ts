@@ -26,10 +26,11 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 		return;
 	}
 
-	if (matchedContent[1].match(hrRegex)) {
-		[headers, mainBodyHtml] = matchedContent[1].split(hrRegex, 2);
-	} else {
-		mainBodyHtml = matchedContent[1];
+	mainBodyHtml = matchedContent[1];
+
+	if (html.match(hrRegex)) {
+		// remove meta tags and other stuff that comes before our actual content
+		headers = html.split(hrRegex, 2)[0].replace(/^(.*?)(?=\w+: )/ms, '');
 	}
 
 	const h1match = mainBodyHtml.match(h1Regex);
