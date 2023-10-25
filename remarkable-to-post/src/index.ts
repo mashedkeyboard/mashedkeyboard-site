@@ -1,4 +1,3 @@
-import { Octokit } from '@octokit/core';
 import { readEml } from 'eml-parse-js';
 import { lightFormat } from 'date-fns';
 import slugify from 'slugify';
@@ -13,7 +12,7 @@ const hrRegex = /<\s*hr\s*\/?>/;
 const bodyStartRegex = /<\s*body\s*>/;
 const bodyEndRegex = /<\s*\/body\s*>/;
 const fullBodyRegex = new RegExp(bodyStartRegex.source + '(.*?)' + bodyEndRegex.source, 'im');
-const h1Regex = /<\s*h1\s*[^>]*>((?:(?:[^<])|(?:<\s*em\s*[^>]*>[^<]+<\s*\/em\s*>))+)<\s*\/h1\s*>/;
+const h1Regex = /<\s*h1\s*[^>]*>([^<]+)<\s*\/h1\s*>/;
 
 async function htmlToFileForGitHub(html: string, env: Env, message?: ForwardableEmailMessage) {
 	let h1 = '';
@@ -30,7 +29,8 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 
 	if (html.match(hrRegex)) {
 		// remove meta tags and other stuff that comes before our actual content
-		headers = html.split(hrRegex, 2)[0].replace(/^(.*)>\n?(?=\w+: )/ms, '');
+		// avoid matching up to br tags between lines of metadata
+		headers = html.split(hrRegex, 2)[0].replace(/^(?:<[^>]*(?:(?:[^r\/\s]|[^b]r])\s*\/?)>\n?)+(?=\w+: )/m, '');
 	}
 
 	const h1match = mainBodyHtml.match(h1Regex);
@@ -46,6 +46,7 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 		slug?: string;
 		image?: string;
 		imageAlt?: string;
+		summary?: string;
 	} = Object.fromEntries(
 		headers.length
 			? headers
@@ -64,21 +65,13 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 	console.log('Got parsedHeaders: ', JSON.stringify(parsedHeaders));
 
 	const postTitle = parsedHeaders.title || h1 || 'Untitled';
-
-	console.log('Authenticating with Octokit...');
-
-	const octokit = new Octokit({
-		auth: env.GITHUB_AUTH_TOKEN,
-	});
-
-	console.log('Authenticated with Octokit');
-
 	const postDate = parsedHeaders.date ? new Date(parsedHeaders.date) : new Date();
 	const postSlug = parsedHeaders.slug || slugify(postTitle);
 
 	const markdownHeader = `---
 title: ${postTitle}
 date: ${postDate.toISOString()}
+${parsedHeaders.summary ? `summary: ${parsedHeaders.summary}` : ''}
 ${
 	parsedHeaders.image
 		? `image: ${parsedHeaders.image}
@@ -86,12 +79,18 @@ imageAlt: ${parsedHeaders.imageAlt}`
 		: ''
 }
 ---
-`;
+`.replace(/^\s*\n/gm, '');
 
 	console.log('Making request to GitHub');
 
-	await octokit
-		.request('POST /repos/mashedkeyboard/mashedkeyboard-site/actions/workflows/create-post-from-remark-email.yml/dispatches', {
+	const req = new Request('https://api.github.com/repos/mashedkeyboard/mashedkeyboard-site/actions/workflows/create-post-from-remark-email.yml/dispatches', {
+		headers: {
+			Authorization: `Bearer ${env.GITHUB_AUTH_TOKEN}`,
+			Accept: 'application/vnd.github+json',
+			'X-GitHub-Api-Version': '2022-11-28'
+		},
+		method: 'POST',
+		body: JSON.stringify({
 			ref: env.BRANCH,
 			inputs: {
 				slug: postSlug,
@@ -99,12 +98,12 @@ imageAlt: ${parsedHeaders.imageAlt}`
 				title: postTitle,
 				frontmatter: markdownHeader,
 				html: mainBodyHtml,
-			},
-			headers: {
-				'X-GitHub-Api-Version': '2022-11-28',
-			},
+			}
 		})
-		.then((resp) => console.log('GitHub responded with ', resp.status, ': ', resp.data))
+	});
+
+	await fetch(req)
+		.then(async (resp) => console.log('GitHub responded with ', resp.status, ': ', await resp.text()))
 		.catch((e) => console.error('GitHub errored with ', e));
 }
 
