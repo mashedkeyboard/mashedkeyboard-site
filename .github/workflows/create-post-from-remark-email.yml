@@ -56,7 +56,7 @@ jobs:
         with:
           commit-message: Adding blog post "${{ inputs.title }}" from email
           title: ${{ inputs.title }}
-          branch: blog/${{ inputs.slug }}
+          branch: posts/${{ inputs.slug }}
           assignees: mashedkeyboard
           delete-branch: true
         
