@@ -49,7 +49,6 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 	} = Object.fromEntries(
 		headers.length
 			? headers
-					.split(bodyEndRegex, 2)[1]
 					.split(/(?:<\s*br\s*\/?>|\n)+/)
 					.flatMap((item) => {
 						const returnedItems = [];
