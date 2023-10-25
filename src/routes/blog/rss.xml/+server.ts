@@ -19,6 +19,7 @@ export async function GET({ fetch }) {
 <description>${blogTitle}</description>
 <lastBuildDate>${(new Date()).toUTCString()}</lastBuildDate>
 <link>${urlFor('/blog')}</link>
+<ttl>60</ttl>
 ${(await Promise.all(Object.values(posts.slugs).map(async (post) => {
     let enclosure = '';
     const image = post.getImage();
@@ -32,7 +33,6 @@ ${(await Promise.all(Object.values(posts.slugs).map(async (post) => {
     <title>${post.getTitle()}</title>
     <comments>${urlForPost(post)}/mentions</comments>
     <link>${urlForPost(post)}</link>
-    <ttl>60</ttl>
     <description>${post.getSummary()}</description>
     ${post.getTags().map((t) => `<category>${t}</category>`).join("\n")}
     <pubDate>${post.getDate().toUTCString()}</pubDate>${enclosure}
