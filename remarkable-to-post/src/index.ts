@@ -30,7 +30,7 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 
 	if (html.match(hrRegex)) {
 		// remove meta tags and other stuff that comes before our actual content
-		headers = html.split(hrRegex, 2)[0].replace(/^(.*?)(?=\w+: )/ms, '');
+		headers = html.split(hrRegex, 2)[0].replace(/^(.*)>\n?(?=\w+: )/ms, '');
 	}
 
 	const h1match = mainBodyHtml.match(h1Regex);
