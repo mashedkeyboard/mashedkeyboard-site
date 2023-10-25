@@ -1,0 +1,62 @@
+---
+title: How to build a blog the hard way
+date: 2023-10-25T22:22:22.286Z
+
+---
+# How to build a blog the hard way
+
+I've finally accumulated enough longer-form things to say that I wanted to create a blog on my website to host them. I'm also a big stickler for web performance, and I had an existing site built in [SvelteKit](https://kit.svelte.dev) which I wanted to continue to use. So, I did things the hard way, and this is the result: a fully-static-content, edge-rendered, progressively-enhanced blog with Webmentions support for comments.
+
+## The problem spec
+
+For reasons I'll talk about in a later post, I had a bunch of requirements that I wanted to meet here. A few of the important ones were
+
+*   no actual functionality can require the client to run any JavaScript, at all. Everything needs to run just as well on someone's phone on a train with a poor connection as it does on a desktop in an office.
+*   the site should be fast and light - achieving at least a 90% score on PageSpeed's performance test on both desktop and mobile, and having a largest contentful paint of at most 2 seconds.
+*   the editing experience has to be easy, with the caveat that it's easy for me. I don't need a GUI, but I do want to not have to write any involved code when I just want to publish a post.
+*   the site should support commenting and interactions as well as just static pages, and the comments must not be stored in the git repository (to allow for easy deletion upon request), whilst still complying with all of the above requirements.
+*   as much of the site as possible should be prerendered static pages - both for performance and to reduce the hosting bill!
+
+## The basics
+
+The site as a whole is built in SvelteKit. I've become quite fond of [Svelte](https://svelte.dev/) over time: it just works, does the things you expect it to, and still produces a fully-server-side-rendered experience by default that doesn't require any client-side JavaScript. I've found SvelteKit to be incredibly helpful in achieving the first two goals on my list, and Svelte itself is handy for the third: I still wouldn't ideally want to have to write each blog post as its own Svelte file, but I honestly wouldn't hate doing so. Svelte is simple, fast, reactive, and keeps you as the developer in touch with the HTML source that you're emitting - making you far more aware of the markup that you're producing and the way it is structured semantically than I feel you get with systems like React with JSX syntax.
+
+It's then all built out of [this site's GitHub repository](https://github.com/mashedkeyboard/mashedkeyboard-site) by CloudFlare Pages, and hosted at their CDN edge. Pages is easy, cheap, and importantly, blazing fast thanks to being syndicated around to various points of presence around the world.
+
+## The blog
+
+Looking around at options for how to make the blog itself happen, I was thoroughly impressed by [MDSveX](https://mdsvex.com/)' format and syntax. Combining the simplicity of Markdown with the versatility of being able to embed arbitrary Svelte components if I came across the need to seemed like an excellent option. This would also allow me to easily keep to the principle of keeping everything as static and DRY as possible: SvelteKit is powered on the backend by [Vite](https://vitejs.dev/), and so by keeping the posts in a specific folder, I can get post lists, metadata and full content just by using its `import.meta.glob` functionality over the Markdown-Svelte files (which then become full-fat Svelte components). Crucially, though, all of this complicated work and transformation is done during the build step, and is completely transparent to the client.
+
+Because MDSveX files are materialised into Svelte components in their own right, you can just stick them in `src/routes` in a SvelteKit app without any trouble whatsoever. However, I decided to put them in a separate `/posts` directory in my layout, and import them from there instead: firstly because, in this context, I don't consider them "application source" in the traditional way, but also because I wanted to be able to list them easily, and meta importing other routes into a list route felt wrong! In any event, all this meant was defining my directory structure - in this case, year/week/day/post-name - and then defining some SvelteKit matchers for those route parameters.
+
+## Webmention support
+
+Now for the challenging bit: I've got at this stage a fully functioning static blog and site, but here I am trying to add what is for all intents and purposes dynamic content to it - and I've set myself the goal of doing so without any required client-side scripting. How do those things fit together?
+
+Cloudflare Pages has functionality called Pages Functions, which allows you to call a Cloudflare Worker on certain pages routes defined in a JSON file. And, with an adapter for SvelteKit, SvelteKit can generate these automatically[^1]! This means the ability to create a set of dynamic routes for Webmentions to be received on and listed through.
+
+[^1]: Okay, so, technically, it's not generating "these" plural - it generates a single worker that dynamically responds to different routes - but that's probably too into the weeds for here.
+
+So, the remaining challenge then becomes storage. Workers, like virtually all serverless functions, have no filesystem access, so we've gotta find somewhere else to store our mentions data. My first thought was going to be relying on Cloudflare Workers KV, a key-value storage platform designed to be used specifically with Workers; however, using KV was not without issues, to say the least. The KV documentation specifies that concurrent writes to keys can cause overwrites, and as a consequence "a common pattern" is writing from a single thread. Whilst that makes sense from a technical perspective thinking about the way that the KV service works, it's not hugely useful with non-unique keys in a context where you could have multiple concurrent HTTP requests, except perhaps using the additional Cloudflare Queues service to enqueue writes to a single consumer worker (meaning spending more money). The obvious solution to this, of course, is to write a new key for each comment, and indeed that's how I first implemented it: writing a `[slug]/mentions/[SHA256 hash of the URL of the webmention]` key each time that a new mention was received. This meant implementing the mentions list endpoint as a KV list request with a bunch of gets tacked onto the end, though, which not only isn't ideal from a code cleanliness and performance perspective, but essentially produced a limit of 1,000 mentions per day even with perfect caching, as the Workers KV free plan is limited to 1000 list requests per day. That's... not ideal, especially when the intention is that a new mention is received each time that a Mastodon post mentioning the URL is reblogged, which could happen more times than that fairly easily at some stage.
+
+The easy getaround solution for this is using Cloudflare's Durable Objects, which provide much stronger guarantees than KV does; however, Durable Objects don't have a free plan on Cloudflare. What does, though, is the perhaps less trendy but faithful relational database! [Their new D1 service offers 100,000 writes for free per day](https://developers.cloudflare.com/d1/platform/pricing) - which is, I think it's fair to say, a limit that a personal blog is unlikely to hit, and frankly if I do I'll be happy to pay for it. This does mean adding the overhead of using an RDBMS when one isn't super needed in this particular case, but in the context here of producing responses that are aggressively cached for end users anyway, this overhead isn't one I'm too terribly worried about.
+
+## Linking up to Mastodon
+
+The primary idea of having Webmentions on the site was to be able to use [Bridgy](https://brid.gy/)'s excellent set of tools for interacting between websites and social media. And, indeed, this "just works" with the webmentions system: a few tweaks to pick up microformats data in the page, and we're away! All good.
+
+Then, publishing should be easy, right? Just copy and paste the link, obviously. Except for the fact that, if your "comments" system works through Mastodon replies, you sort of need to direct people to the post where they can actually send one. So, that's now also done using Bridgy Publish! Once a new version of the site is successfully deployed (like when creating a new blog post, for instance!), a GitHub action runs through the site's posts, finds ones that don't have Mastodon URLs specified, and syndicates them; it then saves the URL that Bridgy Publish returns into the frontmatter of the file and commits it. One more quick site rebuild and we're done!
+
+## Publishing from not-a-computer
+
+I have a reMarkable 2 e-ink tablet: I find it super handy for notetaking, and I definitely don't feel like it strains my eyes as much as staring at an LCD all day. I wanted to have the option to write posts up on there using the Type Folio, and have them automatically be ready for publication on the blog.
+
+Typed documents on the reMarkable can be exported either as a PDF, a PNG, an SVG, or as text in an email: the SVG option exports the text as paths, so it looks like the reality pretty strongly favoured doing some parsing of the text in the email. Fortunately, it's sent as HTML, and HTML that's produced in a pretty regular format. So, that should be pretty easy to parse in, right?
+
+Unfortunately, the challenge here was Workers' lack of support for DOM parsing. The Workers runtime is built around the idea of rewariting origin responses in real time, and for very valid technical reasons that [Cloudflare discuss in detail in a blog post connected to their HTMLRewriter API](https://blog.cloudflare,com/introducing-htmlrewriter), doing full DOM parsing in that process is all but impossible. This does, though, mean that in contexts like this one, where really that's what would make most sense, that processing has to be offloaded elsewhere. Other projects like [losfair's notion-fetch](https://github.com/losfair/notion-fetch) implemented this by building their DOM parser in another language, compiling to WebAssembly and then running that: for me, though, that seemed like a lot of overhead for this specific application, and I just shoved that unit of work into the GitHub Action that the Worker calls.
+
+## The end result
+
+The final product is a blog that's easy for me to write, easy for readers to read, looks attractive, and operates fast. None of the overheads of WordPress or other conventional CMS systems here - just edge-accelerated content, syndicated into the Fediverse, and ready to update whenever! Core Web Vitals wise, a blog post loads with an FCP and LCP of half a second, and a CLS of just 0.022 - which I'm pretty pleased with overall!
+
+As always, [the code's available on GitHub](https://github.com/mashedkeyboard/mashedkeyboard-site) :)
