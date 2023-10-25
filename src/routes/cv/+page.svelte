@@ -110,11 +110,7 @@
 				<strong>Emergency Ambulance Crew</strong> at St John Ambulance: October 2022 &mdash; present</summary>
 			<p>
 				St John Ambulance is now the UK's national Ambulance Auxiliary, meaning we provide support
-				to NHS ambulance services across the UK all year round. I qualified as an Emergency
-				Ambulance Crew with St John in October 2022, meaning I attend medical emergencies on behalf
-				of the NHS 999 and 111 services.St John Ambulance is now the UK's national Ambulance
-				Auxiliary, meaning we provide support to NHS ambulance services across the UK all year
-				round.
+				to NHS ambulance services across the UK all year round.
 			</p>
 			<p>
 				I qualified as an Emergency Ambulance Crew with St John in October 2022, meaning I attend
