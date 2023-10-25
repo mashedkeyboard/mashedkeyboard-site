@@ -161,12 +161,13 @@
 		.me,
 		.me img {
 			height: 30vw;
+			flex: 1;
 			padding: 1.5em;
 			width: auto;
 
 			@media screen and (min-width: $mobile_break) {
 				height: 40vw;
-				padding-left: 1.5em;
+				padding-left: 2em;
 			}
 
 			@media screen and (min-width: $tablet_break) {
