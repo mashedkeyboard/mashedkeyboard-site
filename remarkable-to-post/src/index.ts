@@ -1,5 +1,4 @@
 import { readEml } from 'eml-parse-js';
-import { lightFormat } from 'date-fns';
 import slug from 'slug';
 
 export interface Env {
@@ -55,7 +54,13 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 						const returnedItems = [];
 
 						item = item.trim();
-						if (item.length) returnedItems.push(item.split(':').map((i) => i.trim()));
+						if (item.length) {
+							const firstColon = item.indexOf(':');
+							returnedItems.push([
+								item.substring(0, firstColon),
+								item.substring(firstColon + 1)
+							].map((t) => t.trim()));
+						}
 
 						return returnedItems;
 					})
@@ -87,14 +92,15 @@ imageAlt: ${parsedHeaders.imageAlt}`
 		headers: {
 			Authorization: `Bearer ${env.GITHUB_AUTH_TOKEN}`,
 			Accept: 'application/vnd.github+json',
-			'X-GitHub-Api-Version': '2022-11-28'
+			'X-GitHub-Api-Version': '2022-11-28',
+			'User-Agent': 'mashedkeyboard/mashedkeyboard-site/remarkable-to-post'
 		},
 		method: 'POST',
 		body: JSON.stringify({
 			ref: env.BRANCH,
 			inputs: {
 				slug: postSlug,
-				date: lightFormat(postDate, 'yyyy/MM/dd'),
+				date: `${postDate.getFullYear()}/${postDate.getMonth()}/${postDate.getDate()}`,
 				title: postTitle,
 				frontmatter: markdownHeader,
 				html: mainBodyHtml,
@@ -109,7 +115,7 @@ imageAlt: ${parsedHeaders.imageAlt}`
 
 export default {
 	async fetch(request: Request, env: Env) {
-		htmlToFileForGitHub('<html><body>Debug Payload</body></html>', env);
+		await htmlToFileForGitHub('<html><body>Debug Payload</body></html>', env);
 		return new Response('OK');
 	},
 
