@@ -15,5 +15,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - run: npm install
-      - run: npx ts-node --esm scripts/PublishPosts.ts
+      - run: yarn install
+      - run: node --loader ts-node/esm scripts/PublishPosts.ts
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Add Mastodon URLs to newly-created posts
