@@ -76,7 +76,7 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 	const markdownHeader = `---
 title: ${postTitle}
 date: ${postDate.toISOString()}
-${parsedHeaders.summary ? `summary: ${parsedHeaders.summary}` : ''}
+${parsedHeaders.summary ? `summary: "${parsedHeaders.summary.replaceAll("\"", "\\\"")}"` : ''}
 ${
 	parsedHeaders.image
 		? `image: ${parsedHeaders.image}
