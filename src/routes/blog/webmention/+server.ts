@@ -68,7 +68,8 @@ export async function POST({ request, platform }) {
         if (success) {
             const resolvedUrl = urlFor(`blog/${resolvedSlug}/mentions.json`);
             if (customCache && platform.context?.waitUntil) {
-                platform.context.waitUntil(customCache.delete(resolvedUrl));
+                // Workaround for https://github.com/cloudflare/workers-sdk/issues/2790
+                platform.context.waitUntil(customCache.put(resolvedUrl, new Response('', { headers: { "Cache-Control": 'max-age=0', 'Expires': new Date(0).toUTCString() } })));
             }
 
             return new Response();
