@@ -75,7 +75,7 @@
 		<date itemprop="dateCreated" datetime={mentionDate.toISOString()}>
 			{mentionDate.toLocaleString()}
 		</date>
-		{#if mention.mfItem && isMicroformatRoot(mention.mfItem.properties?.content[0])}:
+		{#if mention.mfItem && isMicroformatRoot(mention.mfItem.properties?.content?.[0])}:
 			<p itemprop="text">{mention.mfItem.properties.content[0].value}</p>
 		{/if}
 		{#if mention.replies}
