@@ -17,6 +17,8 @@ jobs:
           node-version: '20'
       - run: yarn install
       - run: node --loader ts-node/esm scripts/PublishPosts.ts
+        env:
+          PUBLIC_HOSTNAME: ${{ vars.PUBLIC_HOSTNAME }}
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Add Mastodon URLs to newly-created posts
