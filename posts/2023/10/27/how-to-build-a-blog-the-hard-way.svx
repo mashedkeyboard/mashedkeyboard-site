@@ -1,9 +1,15 @@
 ---
-title: How to build a blog, the hard way
+title: 'How to build a blog, the hard way'
 date: 2023-10-27T15:20:00.000Z
-summary: "So, I finally caved and built a #blog. However! This is me, and I couldn't do it the easy way. Have a weird journey into #CloudflareWorkers, the #reMarkable and #svelte to kick us off..."
+summary: >-
+  So, I finally caved and built a #blog. However! This is me, and I couldn't do
+  it the easy way. Have a weird journey into #CloudflareWorkers, the #reMarkable
+  and #svelte to kick us off...
 image: pen.jpg
-imageAlt: A fountain pen resting on a stack of paper. Admittedly not the way this blog is written!
+imageAlt: >-
+  A fountain pen resting on a stack of paper. Admittedly not the way this blog
+  is written!
+mastodon_post: 'https://social.mashed.cloud/@curtispf/111307871347324008'
 ---
 I've finally accumulated enough longer-form things to say that I wanted to create a blog on my website to host them. I'm also a big stickler for web performance, and I had an existing site built in [SvelteKit](https://kit.svelte.dev) which I wanted to continue to use. So, I did things the hard way, and this is the result: a fully-static-content, edge-rendered, progressively-enhanced blog with Webmentions support for comments.
 
