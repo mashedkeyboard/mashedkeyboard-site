@@ -22,6 +22,7 @@
 		"@sveltejs/kit": "^1.25.0",
 		"@tsconfig/svelte": "^3.0.0",
 		"@types/mdast": "^4.0.0",
+		"@types/node": "^20.8.9",
 		"directory-tree": "^3.5.1",
 		"esbuild": "^0.19.3",
 		"eslint": "^8.50.0",
@@ -56,5 +57,5 @@
 		"microformats-parser": "^1.5.2",
 		"normalize.css": "^8.0.1"
 	},
-	"packageManager": "yarn@3.6.3"
+	"packageManager": "yarn@4.0.0"
 }

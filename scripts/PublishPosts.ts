@@ -2,6 +2,8 @@ import { writeFile } from "fs";
 import Matter from 'gray-matter';
 import DirTree from 'directory-tree';
 
+console.log(`Publishing for hostname ${process.env.PUBLIC_HOSTNAME}`);
+
 console.log("Loading posts...");
 DirTree('./posts', { extensions: /\.svx/ }, (item) => {
     if (!/\d{4}\/\d{2}\/\d{2}/.test(item.path)) {
