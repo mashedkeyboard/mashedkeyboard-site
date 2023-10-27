@@ -1,6 +1,6 @@
 import { readEml } from 'eml-parse-js';
 import { lightFormat } from 'date-fns';
-import slugify from 'slugify';
+import slug from 'slug';
 
 export interface Env {
 	RECV_KEY: string;
@@ -12,7 +12,7 @@ const hrRegex = /<\s*hr\s*\/?>/;
 const bodyStartRegex = /<\s*body\s*>/;
 const bodyEndRegex = /<\s*\/body\s*>/;
 const fullBodyRegex = new RegExp(bodyStartRegex.source + '(.*?)' + bodyEndRegex.source, 'im');
-const h1Regex = /<\s*h1\s*[^>]*>([^<]+)<\s*\/h1\s*>/;
+const h1Regex = /<\s*h1\s*[^>]*>((?:(?:[^<])|(?:<\s*em\s*[^>]*>[^<]+<\s*\/em\s*>))+)<\s*\/h1\s*>/;
 
 async function htmlToFileForGitHub(html: string, env: Env, message?: ForwardableEmailMessage) {
 	let h1 = '';
@@ -66,7 +66,7 @@ async function htmlToFileForGitHub(html: string, env: Env, message?: Forwardable
 
 	const postTitle = parsedHeaders.title || h1 || 'Untitled';
 	const postDate = parsedHeaders.date ? new Date(parsedHeaders.date) : new Date();
-	const postSlug = parsedHeaders.slug || slugify(postTitle);
+	const postSlug = parsedHeaders.slug || slug(postTitle);
 
 	const markdownHeader = `---
 title: ${postTitle}
