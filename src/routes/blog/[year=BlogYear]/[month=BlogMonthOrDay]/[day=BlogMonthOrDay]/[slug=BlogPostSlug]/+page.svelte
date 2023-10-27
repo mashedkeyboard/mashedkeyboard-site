@@ -130,6 +130,7 @@
 		margin-left: -3em;
 		margin-right: -3em;
 		padding-left: 3em;
+		padding-right: 3em;
 		font-style: italic;
 	}
 </style>
