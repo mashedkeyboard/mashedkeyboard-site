@@ -12,20 +12,28 @@
 	 * @type {String}
 	 */
 	export let href;
+
+	$: isActive = href == '/' ? $page.route.id == href : $page.route.id?.startsWith(href);
 </script>
 
-<a {href} class:active={href === $page.route.id}>{title}</a>
+<a {href} class:active={isActive} class:subrouteActive={isActive && href != $page.route.id}>{title}</a>
 
 <style lang="scss">
-	@import '../lib/scss/_variables';
+	@import '../scss/_variables';
+
+	$nav_link_border: 1px solid $primary_dark;
 
 	a {
 		padding: 0.5em 1em;
 		text-decoration: none;
-		color: #f2f2f2;
+		color: $light;
+		border-top: $nav_link_border;
+		border-bottom: $nav_link_border;
+		background-color: $dark;
 
 		@include light-mode {
-			color: #202020;
+			color: $dark;
+			background-color: $light;
 		}
 
 		font-weight: 800;
@@ -41,11 +49,23 @@
 
 		@media screen and (min-width: $mobile-break) {
 			border-radius: 0.5em;
+			
+			&:first-of-type {
+				border-left: $nav_link_border;
+			}
+
+			&:last-of-type {
+				border-right: $nav_link_border;
+			}
 		}
 
 		&.active {
 			background: darken($primary, 20%);
-			color: #f2f2f2;
+			color: $light;
+		}
+
+		&.subrouteActive {
+			background: darken($primary, 30%);
 		}
 
 		&:hover {
@@ -57,7 +77,7 @@
 				}
 
 				&:not(.active) {
-					background-color: #f2f2f2;
+					background-color: darken($light, 5%);
 					color: $primary;
 				}
 			}

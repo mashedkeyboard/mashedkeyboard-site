@@ -1,9 +1,14 @@
 $desktop_break: 1024px;
 $tablet_break: 768px;
 $mobile_break: 480px;
+$tiny_break: 350px;
 
 $primary: rgb(231, 76, 59);
 $primary_dark: darken($primary, 20%);
+// used where primary has text on top of it!
+$primary_light: lighten($primary, 20%);
+$dark: #202020;
+$light: #f2f2f2;
 
 @mixin light-mode {
     @media (prefers-color-scheme: light), print {
@@ -12,7 +17,7 @@ $primary_dark: darken($primary, 20%);
 }
 
 @mixin dark-mode {
-    @media screen and (prefers-color-scheme: dark) {
+    @media screen and not (prefers-color-scheme: light) {
         @content;
     }
 }

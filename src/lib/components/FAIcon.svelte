@@ -3,7 +3,7 @@
     import type {IconDefinition, IconParams} from '@fortawesome/fontawesome-svg-core';
     import '@fortawesome/fontawesome-svg-core/styles';
 
-    export let icon : IconDefinition;
+    export let icon: IconDefinition;
     export let opts: IconParams = {};
 
     library.add(icon);

@@ -8,8 +8,12 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      path:
-        description: 'Path to post'
+      date:
+        description: 'Post date, formatted as yyyy/mm/dd'
+        required: true
+        type: string
+      slug:
+        description: 'Post slug'
         required: true
         type: string
       title:
@@ -43,7 +47,7 @@ jobs:
       - name: Write file
         uses: "DamianReeves/write-file-action@master"
         with:
-          path: posts/${{ inputs.path }}
+          path: posts/${{ inputs.date }}/${{ inputs.slug }}.svx
           write-mode: overwrite
           contents: ${{ format('{0}{1}', inputs.frontmatter, steps.html_to_markdown.outputs.markdown-text) }}
 
@@ -52,6 +56,7 @@ jobs:
         with:
           commit-message: Adding blog post "${{ inputs.title }}" from email
           title: ${{ inputs.title }}
+          branch: posts/${{ inputs.slug }}
           assignees: mashedkeyboard
           delete-branch: true
         

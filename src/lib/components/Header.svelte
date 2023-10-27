@@ -1,13 +1,13 @@
 <script lang="ts">
 	// below lines are ts-ignored due to their using imagetools
 	// @ts-ignore
-	import meAvif from '../assets/img/me.webp?width=150;300;600;1200&format=avif&srcset';
+	import meAvif from '../../assets/img/me.webp?width=150;300;600;1200&format=avif&srcset';
 	// @ts-ignore
-	import meWebp from '../assets/img/me.webp?width=150;300;600;1200&format=webp&srcset';
+	import meWebp from '../../assets/img/me.webp?width=150;300;600;1200&format=webp&srcset';
 	// @ts-ignore
-	import mePng from '../assets/img/me.webp?width=400&format=png';
+	import mePng from '../../assets/img/me.webp?width=400&format=png';
 	
-	import Nav from '$lib/Nav.svelte';
+	import Nav from '$lib/components/Nav.svelte';
 
 	import { createEventDispatcher, onMount } from 'svelte';
 
@@ -15,6 +15,7 @@
 	import {faEnvelopeOpenText} from '@fortawesome/free-solid-svg-icons';
 	import {faMastodon} from '@fortawesome/free-brands-svg-icons';
 	import {faGithub} from '@fortawesome/free-brands-svg-icons';
+	import Pronouns from './Pronouns.svelte';
 
 	/**
 	 * The heading for the header.
@@ -50,28 +51,30 @@
 	}
 </script>
 
-<header>
+<header class="h-card">
+	<!-- svelte-ignore a11y-missing-content -->
+	<a class="u-url" href="/" aria-hidden="true"></a>
 	<picture class="me" on:touchstart|preventDefault={(e) => tapCount += 1} style:rotate={isPrompting ? "-" + ((tapCount - 5) * 2) + "deg" : "0deg"}>
 		<source type="image/avif" srcset={meAvif} />
 		<source type="image/webp" srcset={meWebp} />
-		<img src={mePng} width="400" height="418" alt="Curtis Parfitt-Ford" />
+		<img src={mePng} class="p-name" width="400" height="418" alt="Curtis Parfitt-Ford" />
 	</picture>
 	<div class="header-text">
 		<div class="title">
 			<h1 class:main-title={heading === null}>
 				<span class="allow-smaller"><strong>Hi!</strong> {#if heading === null} I'm{/if}</span> {#if heading === null} Curtis{:else}{heading}{/if}
 			</h1>
-			<div class="pronouns">{#if heading === null}My pronouns are <em>he/him</em>{:else}Curtis Parfitt-Ford (<em>he/him</em>){/if} 🏳️‍🌈</div>
+			<div class="pronouns">{#if heading === null}My pronouns are <Pronouns />{:else}Curtis Parfitt-Ford (<Pronouns />){/if} 🏳️‍🌈</div>
 		</div>
 		<div class="contact-icons">
 			<span class="contact-intro">find me on:</span>
-			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf" aria-label="Mastodon">
+			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf" class="u-url" aria-label="Mastodon">
 				<FaIcon icon={faMastodon} opts={{title: "Mastodon (federated social media)", classes: "fa-2xl"}} />
 			</a>
-			<a rel="noreferrer" target="_blank" href="https://github.com/mashedkeyboard" aria-label="GitHub">
+			<a rel="me noreferrer" target="_blank" href="https://github.com/mashedkeyboard" class="u-url" aria-label="GitHub">
 				<FaIcon icon={faGithub} opts={{title: "GitHub", classes: "fa-2xl"}} />
 			</a>
-			<a href="mailto:curtis@mashedkeyboard.me" aria-label="Email">
+			<a href="mailto:curtis@mashedkeyboard.me" class="u-email" aria-label="Email">
 				<FaIcon icon={faEnvelopeOpenText} opts={{title: "Email", classes: "fa-2xl"}} />
 			</a>
 		</div>
@@ -80,7 +83,7 @@
 <Nav />
 
 <style lang="scss">
-	@import '../lib/scss/_variables';
+	@import '../scss/_variables';
 
 	header {
 		display: flex;
@@ -89,7 +92,7 @@
 		background: $primary;
 		transition: background-color 0.1s ease-in-out;
 
-		color: #f2f2f2;
+		color: $light;
 		align-items: end;
 		justify-content: space-between;
 
@@ -103,7 +106,12 @@
 		}
 
 		h1 {
-			font-size: 3rem;
+			font-size: 2rem;
+			
+			@media screen and (min-width: $tiny_break) {
+				font-size: 3rem;
+			}
+
 			&.main-title {
 				font-size: 15vw;
 
@@ -153,12 +161,13 @@
 		.me,
 		.me img {
 			height: 30vw;
+			flex: 1;
 			padding: 1.5em;
 			width: auto;
 
 			@media screen and (min-width: $mobile_break) {
 				height: 40vw;
-				padding-left: 1.5em;
+				padding-left: 2em;
 			}
 
 			@media screen and (min-width: $tablet_break) {
@@ -181,7 +190,7 @@
 			}
 
 			:global(svg) {
-				color: #f2f2f2;
+				color: $light;
 			}
 
 			.contact-intro {

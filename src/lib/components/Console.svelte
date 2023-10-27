@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { afterUpdate } from "svelte";
     import commands from '$lib/console/commands';
-    import ConsoleLine from "./ConsoleLine";
-    import type CommandClass from './console/commandclass';
-	import { ConsoleProxy } from "./console/consoleproxy";
+    import ConsoleLine from "$lib/ConsoleLine";
+	import { ConsoleProxy } from "$lib/console/consoleproxy";
 	import FaIcon from "./FAIcon.svelte";
     import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
@@ -111,14 +110,14 @@
 {/if}
 
 <style lang="scss">
-    @import '../lib/scss/_variables';
+    @import '../scss/_variables';
     
 	.console-overlay {
 		position: absolute;
 		z-index: 1000;
 		width: 100%;
 		height: 100%;
-        color: #f2f2f2;
+        color: $light;
 
 		.console {
 			position: fixed;
@@ -142,7 +141,7 @@
                 top: 2em;
                 margin: 2em;
                 text-transform: uppercase;
-                color: #f2f2f2;
+                color: $light;
                 border: 1px solid white;
                 padding: 1em;
                 background: none;

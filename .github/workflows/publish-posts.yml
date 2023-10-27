@@ -1,0 +1,19 @@
+name: Publish new posts
+
+on:
+  check_run:
+    types: [completed]
+
+jobs:
+  publish-post:
+    runs-on: ubuntu-latest
+    environment: Production
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npx ts-node --esm scripts/PublishPosts.ts
