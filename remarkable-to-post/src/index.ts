@@ -100,7 +100,7 @@ imageAlt: ${parsedHeaders.imageAlt}`
 			ref: env.BRANCH,
 			inputs: {
 				slug: postSlug,
-				date: `${postDate.getFullYear()}/${postDate.getMonth()}/${postDate.getDate()}`,
+				date: `${postDate.getFullYear()}/${padForDate(postDate.getMonth() + 1)}/${padForDate(postDate.getDate())}`,
 				title: postTitle,
 				frontmatter: markdownHeader,
 				html: mainBodyHtml,
@@ -111,6 +111,10 @@ imageAlt: ${parsedHeaders.imageAlt}`
 	await fetch(req)
 		.then(async (resp) => console.log('GitHub responded with ', resp.status, ': ', await resp.text()))
 		.catch((e) => console.error('GitHub errored with ', e));
+}
+
+function padForDate(datePart: number) {
+	return datePart.toString().padStart(2, '0');
 }
 
 export default {
