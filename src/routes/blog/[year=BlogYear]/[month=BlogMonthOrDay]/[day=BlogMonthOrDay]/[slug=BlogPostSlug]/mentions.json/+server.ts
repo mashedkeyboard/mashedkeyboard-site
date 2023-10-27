@@ -7,7 +7,9 @@ import { urlFor } from '$lib/Helpers';
 export const prerender = false;
 
 const CACHE_CONTROL = 'Cache-Control';
-const CLOUDFLARE_MAX_AGE = 'public, max-age=0, s-maxage=60';
+const WEB_MAX_AGE = 'public, max-age=60, stale-while-revalidate=30'
+const CDN_CACHE_CONTROL = 'CDN-Cache-Control';
+const CLOUDFLARE_MAX_AGE = 'max-age=604800';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function GET({ params, platform }) {
@@ -23,9 +25,8 @@ export async function GET({ params, platform }) {
 		console.log(normalisedUrl);
 		const cachedResponse = await cache.match(normalisedUrl);
 		if (cachedResponse) {
-      const response = new Response(cachedResponse.body, cachedResponse);
+      		const response = new Response(cachedResponse.body, cachedResponse);
 
-			response.headers.set(CACHE_CONTROL, CLOUDFLARE_MAX_AGE);
 			console.log(JSON.stringify(response.headers));
 
 			return response;
@@ -70,14 +71,14 @@ export async function GET({ params, platform }) {
 		Array.from(mentionsSet).sort((m1, m2) => (m2.date > m1.date ? 1 : m2.date == m1.date ? 0 : -1))
 	);
 
-	resp.headers.append(CACHE_CONTROL, CLOUDFLARE_MAX_AGE);
-  
+	resp.headers.set(CACHE_CONTROL, WEB_MAX_AGE);
+	resp.headers.append(CDN_CACHE_CONTROL, CLOUDFLARE_MAX_AGE);
+
 	if (cache && platform.context?.waitUntil) {
-    // we can't just use a new response with the same body here,
-    // because SvelteKit then gets "readablestream locked to a
-    // reader" errors.
+		// we can't just use a new response with the same body here,
+		// because SvelteKit then gets "readablestream locked to a
+		// reader" errors.
 		const cacheResp = resp.clone();
-		resp.headers.set(CACHE_CONTROL, 'public, s-maxage=604800');
 		platform.context.waitUntil(cache.put(normalisedUrl, cacheResp));
 	}
 
