@@ -6,5 +6,10 @@ node_modules
 .env
 .env.*
 !.env.sample
-.yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 .wrangler
