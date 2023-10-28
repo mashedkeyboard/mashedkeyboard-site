@@ -82,6 +82,17 @@ export async function getTaggedPosts(tag: string): Promise<PostMetadata[]> {
 }
 
 /**
+ * Sorts posts by their sort order.
+ *
+ * @export
+ * @param {Post[]} posts an array of posts
+ * @return {Post[]} the same array sorted
+ */
+export function sortPosts(posts: Post[]) {
+    return posts.sort((p1, p2) => p2.getSortOrder() - p1.getSortOrder());
+}
+
+/**
  * postsToMeta takes an array of {@link Post}s and
  * turns them into metadata for those posts.
  * 
@@ -89,5 +100,5 @@ export async function getTaggedPosts(tag: string): Promise<PostMetadata[]> {
  * @return {PostMetadata[]} the corresponding metadata
  */
 function postsToMeta(posts: Post[]): PostMetadata[] {
-    return posts.sort((p1, p2) => p2.getSortOrder() - p1.getSortOrder()).map((post) => post.getMetadata());
+    return sortPosts(posts).map((post) => post.getMetadata());
 }

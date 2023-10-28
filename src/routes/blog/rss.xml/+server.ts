@@ -1,4 +1,4 @@
-import { loadPosts } from "$lib/blog/PostManager";
+import { loadPosts, sortPosts } from "$lib/blog/PostManager";
 import { blogTitle } from "$lib/blog/Settings";
 import { urlFor, urlForPost } from "$lib/Helpers";
 
@@ -9,7 +9,7 @@ export async function GET({ fetch }) {
     // not ever running live.
     // Design inspired by https://www.davidwparker.com/posts/how-to-make-an-rss-feed-in-sveltekit
 
-    const posts = await loadPosts();
+    const posts = sortPosts(Object.values((await loadPosts()).slugs));
 
     const feed = `<?xml version="1.0" encoding="utf-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -20,7 +20,7 @@ export async function GET({ fetch }) {
 <lastBuildDate>${(new Date()).toUTCString()}</lastBuildDate>
 <link>${urlFor('/blog')}</link>
 <ttl>60</ttl>
-${(await Promise.all(Object.values(posts.slugs).map(async (post) => {
+${(await Promise.all(posts.slice(0, 10).map(async (post) => {
     let enclosure = '';
     const url = urlForPost(post);
     const image = post.getImage();
