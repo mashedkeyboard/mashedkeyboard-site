@@ -13,6 +13,7 @@ const CLOUDFLARE_MAX_AGE = 'max-age=604800';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function GET({ params, platform }) {
+	console.log("fetch called for mentions endpoint");
 	const resolvedSlug = resolveSlug(params);
 
 	const normalisedUrl = urlFor(`blog/${resolvedSlug}/mentions.json`);
@@ -38,12 +39,12 @@ export async function GET({ params, platform }) {
 			.bind(resolvedSlug)
 			.all<Omit<Webmention, 'mfItem'> & {mfItem: string}>();
 
-    allMentions = results.map((res) => {
-      return {
-        ...res,
-        mfItem: JSON.parse(res.mfItem)
-      } as Webmention;
-    })
+		allMentions = results.map((res) => {
+		return {
+			...res,
+			mfItem: JSON.parse(res.mfItem)
+		} as Webmention;
+		})
 	} else {
 		throw error(500, 'no db found');
 	}
@@ -79,8 +80,10 @@ export async function GET({ params, platform }) {
 		// because SvelteKit then gets "readablestream locked to a
 		// reader" errors.
 		const cacheResp = resp.clone();
+		console.log("storing in cache");
 		platform.context.waitUntil(cache.put(normalisedUrl, cacheResp));
 	}
 
+	console.log("end return resp");
 	return resp;
 }
