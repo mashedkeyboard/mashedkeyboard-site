@@ -30,8 +30,7 @@
 	itemtype="https://schema.org/BlogPosting"
 	itemid={urlForPost(post)}
 	class="h-entry">
-	<!-- svelte-ignore a11y-missing-content -->
-	<a class="u-author" href="/" aria-hidden="true"></a>
+	<link class="u-author" href="/" itemprop="author" />
 	<header>
 		<PostImage {post} headerBg={true} />
 		<div>
