@@ -33,7 +33,7 @@ const config = {
 		'.svelte',
 		'.svx'
 	],
-	preprocess: [sveltePreprocess({preserve: ['ld+json'], scss: {includePaths: ['src/lib/scss'], prependData: `@import 'global';`}}), mdsvex({
+	preprocess: [sveltePreprocess({preserve: ['ld+json'], scss: {includePaths: ['src/lib/scss'], prependData: `@import '_variables';`}}), mdsvex({
 		remarkPlugins: [[a11yEmoji], [setBlogPlaintext], [setBlogImages]]
 	})]
 };
