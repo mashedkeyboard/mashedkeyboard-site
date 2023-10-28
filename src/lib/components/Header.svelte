@@ -52,10 +52,10 @@
 </script>
 
 <header class="h-card">
-	<link class="u-url" href="/" />
-	<picture class="me" on:touchstart|preventDefault={(e) => tapCount += 1} style:rotate={isPrompting ? "-" + ((tapCount - 5) * 2) + "deg" : "0deg"}>
-		<source type="image/avif" srcset={meAvif} />
-		<source type="image/webp" srcset={meWebp} />
+	<link class="u-url" href="/" itemprop="author" />
+	<picture class="me" on:touchstart|preventDefault={(e) => tapCount += 1} style:transform={`rotate(${isPrompting ? "-" + ((tapCount - 5) * 2) + "deg" : "0deg"})`}>
+		<source type="image/avif" sizes="12.54em" srcset={meAvif} />
+		<source type="image/webp" sizes="12.54em" srcset={meWebp} />
 		<img src={mePng} class="p-name" width="400" height="418" alt="Curtis Parfitt-Ford" />
 	</picture>
 	<div class="header-text">

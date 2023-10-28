@@ -7,8 +7,14 @@
 
 {#if post.getImage()}
 	<picture class:headerBg>
-		<source type="image/avif" srcset={post.getImage()?.avifSrcsetImage} />
-		<source type="image/webp" srcset={post.getImage()?.webpSrcsetImage} />
+		<!--
+			We need a width to give here, but this component is used in different places.
+			For now, we'll give the width of 80% of the browser viewport, as thanks to the
+			container design, the image will never be more than that, and that will keep us
+			loading something appropriately-sized.
+		-->
+		<source type="image/avif" sizes="75vw" srcset={post.getImage()?.avifSrcsetImage} />
+		<source type="image/webp" sizes="75vw" srcset={post.getImage()?.webpSrcsetImage} />
 		<img
 			src={post.getImage()?.fallbackImage}
 			alt={post.getImage()?.alt}
