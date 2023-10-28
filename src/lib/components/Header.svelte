@@ -52,8 +52,7 @@
 </script>
 
 <header class="h-card">
-	<!-- svelte-ignore a11y-missing-content -->
-	<a class="u-url" href="/" aria-hidden="true"></a>
+	<link class="u-url" href="/" />
 	<picture class="me" on:touchstart|preventDefault={(e) => tapCount += 1} style:rotate={isPrompting ? "-" + ((tapCount - 5) * 2) + "deg" : "0deg"}>
 		<source type="image/avif" srcset={meAvif} />
 		<source type="image/webp" srcset={meWebp} />
