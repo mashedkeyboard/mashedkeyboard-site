@@ -1,4 +1,5 @@
 <script>
+    import { PUBLIC_ENV } from "$env/static/public";
     import globalStyles from '$lib/scss/global.scss?inline';
 
     import signika from '@fontsource/signika-negative/files/signika-negative-latin-variable-wghtOnly-normal.woff2';
@@ -40,6 +41,11 @@
     {#each [signika, cabin, cabin_italic] as font}
     <link rel="preload" as="font" href={font} type="font/woff2" />
     {/each}
+
+    {#if PUBLIC_ENV && PUBLIC_ENV.toUpperCase() != 'PRODUCTION'}
+    <meta name="robots" content="noindex, nofollow">
+    {/if}
+
 
     <title>{$page.data.meta_title}</title>
 
