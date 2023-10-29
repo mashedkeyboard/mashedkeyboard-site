@@ -8,6 +8,7 @@ export async function load({ params }) {
     return getPost(resolveSlug(params)).then((post) => {
         return {
             post: post,
+            has_own_h1: true,
             meta_title: post.getTitle(),
             social_image: post.getImage()?.fallbackImage,
             description: post.getSummary(),

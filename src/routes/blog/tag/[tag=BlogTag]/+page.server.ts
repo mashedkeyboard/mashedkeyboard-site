@@ -6,6 +6,8 @@ export async function load({ params }) {
     return {
         tag: params.tag,
         posts: JSON.stringify(posts),
-        meta_title: `Posts tagged ${params.tag}: Curtis Parfitt-Ford`
+        has_own_h1: true,
+        meta_title: `Posts tagged ${params.tag}: Curtis Parfitt-Ford`,
+        description: `All the posts on Curtis' blog that've been tagged with ${params.tag}.`
     };
   }

@@ -5,5 +5,11 @@
 
     let mentions: Webmention[] = $page.data.mentions;
 </script>
-<h2>Mentions for <a href="./">{$page.data.postName}</a></h2>
+<h1>Mentions for <a href="./">{$page.data.postName}</a></h1>
 <Mentions {mentions} mastodonPostUrl={$page.data.postMastoUrl} />
+
+<style lang="scss">
+	h1 {
+		font-size: 2rem !important;
+	}
+</style>

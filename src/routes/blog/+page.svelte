@@ -18,7 +18,7 @@
 <section class="h-feed" itemscope itemtype="https://schema.org/BlogPosting">
 	<link class="u-url" href={urlFor('blog')} itemprop="url" />
     <header>
-        <h2 itemprop="name" class="p-name">{blogTitle}</h2>
+        <h1 itemprop="name" class="p-name">{blogTitle}</h1>
         <a href="/blog/rss.xml" class="rss"><FaIcon icon={faRss} /><span>{' '}RSS feed</span></a>
     </header>
     <p><small>No promises as to how often this gets updated, but sometimes there's things longer than a Toot that I want to share.</small></p>
@@ -34,6 +34,10 @@
 
         @media screen and (max-width: calc($mobile-break - 1px)) {
             display: block;
+        }
+
+        h1 {
+            font-size: 2rem;
         }
 
         a.rss {

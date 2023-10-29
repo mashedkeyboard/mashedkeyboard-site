@@ -24,6 +24,12 @@
 	export let heading: string | null = null;
 
 	/**
+	 * Whether the header should be a H1, or just a nicely-styled span.
+	 * @type {String | null}
+	 */
+	 export let useH1: boolean = true;
+
+	/**
 	 * tapCount contains the number of taps on the picture since the last count started.
 	 */
 	let tapCount = 0;
@@ -60,9 +66,9 @@
 	</picture>
 	<div class="header-text">
 		<div class="title">
-			<h1 class:main-title={heading === null}>
+			<svelte:element this={useH1 ? 'h1' : 'div'} class="header-heading" class:main-title={heading === null}>
 				<span class="allow-smaller"><strong>Hi!</strong> {#if heading === null} I'm{/if}</span> {#if heading === null} Curtis{:else}{heading}{/if}
-			</h1>
+			</svelte:element>
 			<div class="pronouns">{#if heading === null}My pronouns are <Pronouns />{:else}Curtis Parfitt-Ford (<Pronouns />){/if} 🏳️‍🌈</div>
 		</div>
 		<div class="contact-icons">
@@ -104,8 +110,10 @@
             border-bottom-right-radius: 0;
 		}
 
-		h1 {
+		.header-heading {
 			font-size: 2rem;
+			margin: 0.67em 0;
+			line-height: 1.1;
 			
 			@media screen and (min-width: $tiny_break) {
 				font-size: 3rem;
@@ -144,14 +152,14 @@
 				display: flex;
 				flex-direction: column-reverse;
 				margin-bottom: -2em;
-				h1 {
+				.header-heading {
 					margin-bottom: 0;
 				}
 			}
 		}
 
 		@media screen and (max-width: calc($mobile_break - 1px)) {
-			.header-text h1 .allow-smaller {
+			.header-text .header-heading .allow-smaller {
 				font-size: 1.5rem;
 				display: block;
 			}

@@ -34,6 +34,8 @@
     }
 
     const canonicalPath = urlFor($page.url.pathname);
+
+    const notProduction = PUBLIC_ENV && PUBLIC_ENV.toUpperCase() != 'PRODUCTION';
 </script>
 
 <svelte:head>
@@ -42,8 +44,8 @@
     <link rel="preload" as="font" href={font} type="font/woff2" />
     {/each}
 
-    {#if PUBLIC_ENV && PUBLIC_ENV.toUpperCase() != 'PRODUCTION'}
-    <meta name="robots" content="noindex, nofollow">
+    {#if $page.data.noindex || notProduction}
+    <meta name="robots" content="noindex{notProduction ? ', nofollow' : ''}">
     {/if}
 
 
@@ -72,7 +74,7 @@
 <a href="#content" class="skip-link">Skip to main content</a>
 
 <div class="container">
-    <Header heading={$page.data.heading || null} on:easter={(e) => showConsole = true} />
+    <Header heading={$page.data.heading || null} useH1={$page.data.has_own_h1 ? !$page.data.has_own_h1 : true} on:easter={(e) => showConsole = true} />
     <main id="content">
         <slot></slot>
     </main>

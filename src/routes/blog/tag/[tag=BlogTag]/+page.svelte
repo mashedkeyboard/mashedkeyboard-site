@@ -8,7 +8,7 @@
 </script>
 
 <div class="h-feed">
-    <h2 class="p-name">Posts tagged "#{$page.data.tag}"</h2>
+    <h1 class="p-name">Posts tagged "#{$page.data.tag}"</h1>
 
     {#if posts.length}
         <PostList postMeta={posts} />
