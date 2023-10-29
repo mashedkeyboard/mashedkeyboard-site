@@ -45,7 +45,13 @@
 	article {
 		background-color: $primary_dark;
 		padding: 1em;
-		margin: 1em;
+		margin-left: -1em;
+		margin-right: -1em;
+		margin-bottom: 1em;
+
+		@media screen and (min-width: $mobile_break) {
+			margin: 1em;	
+		}
 
 		a {
             color: $light;
