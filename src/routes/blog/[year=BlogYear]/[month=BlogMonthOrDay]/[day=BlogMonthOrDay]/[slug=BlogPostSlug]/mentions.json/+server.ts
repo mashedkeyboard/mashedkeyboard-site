@@ -7,9 +7,9 @@ import { urlFor } from '$lib/Helpers';
 export const prerender = false;
 
 const CACHE_CONTROL = 'Cache-Control';
-const WEB_MAX_AGE = 'public, max-age=60, stale-while-revalidate=30'
+const WEB_MAX_AGE = 'public, max-age=30, stale-while-revalidate=30'
 const CDN_CACHE_CONTROL = 'CDN-Cache-Control';
-const CLOUDFLARE_MAX_AGE = 'max-age=604800';
+const CLOUDFLARE_MAX_AGE = 'max-age=60';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function GET({ params, platform }) {
