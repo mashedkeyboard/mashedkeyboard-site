@@ -1,6 +1,10 @@
 <script>
     import globalStyles from '$lib/scss/global.scss?inline';
 
+    import signika from '@fontsource/signika-negative/files/signika-negative-latin-variable-wghtOnly-normal.woff2';
+    import cabin from '@fontsource/cabin/files/cabin-latin-variable-wghtOnly-normal.woff2';
+    import cabin_italic from '@fontsource/cabin/files/cabin-latin-variable-wghtOnly-italic.woff2';
+
     import Header from '$lib/components/Header.svelte';
 
     import Console from '$lib/components/Console.svelte';
@@ -32,6 +36,11 @@
 </script>
 
 <svelte:head>
+    <!-- Preload our fonts before the browser starts parsing CSS -->
+    {#each [signika, cabin, cabin_italic] as font}
+    <link rel="preload" as="font" href={font} type="font/woff2" />
+    {/each}
+
     <title>{$page.data.meta_title}</title>
 
     <link rel="canonical" href={canonicalPath}>
