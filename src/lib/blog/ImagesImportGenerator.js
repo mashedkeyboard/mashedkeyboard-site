@@ -16,7 +16,7 @@ export const GENERATED_IMAGES = {
  * @param {string} format the desired format
  */
 function generateSrcsetQueryForFormat(format) {
-    return `w=500;900;1200&format=${format}&srcset`;
+    return `w=500;900;1200&format=${format}&as=srcset`;
 }
 
 // regexes taken from https://github.com/pngwn/MDsveX/blob/master/packages/mdsvex/src/transformers/index.ts#L106,
