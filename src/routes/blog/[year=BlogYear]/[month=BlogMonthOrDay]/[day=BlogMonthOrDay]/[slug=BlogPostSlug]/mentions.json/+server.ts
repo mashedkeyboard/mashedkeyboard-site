@@ -35,7 +35,7 @@ export async function GET({ params, platform }) {
 			console.log('No response in cache');
 		}
 		const { results } = await db
-			.prepare('SELECT url, date, type, mfItem FROM mentions WHERE slug = ?')
+			.prepare('SELECT url, date, type, mfItem FROM mentions WHERE slug = ? ORDER BY date ASC')
 			.bind(resolvedSlug)
 			.all<Omit<Webmention, 'mfItem'> & {mfItem: string}>();
 
