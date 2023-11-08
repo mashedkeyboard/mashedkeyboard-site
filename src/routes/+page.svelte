@@ -1,6 +1,6 @@
 <script>
 	import { urlFor } from '$lib/Helpers';
-  import me_png from '../assets/img/me.webp?width=1200&format=png';
+  import me_png from '../assets/img/me.webp?w=1200&format=png';
 
   let json_ld = `<script type="application/ld+json">
         {

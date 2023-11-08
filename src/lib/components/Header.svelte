@@ -1,11 +1,11 @@
 <script lang="ts">
 	// below lines are ts-ignored due to their using imagetools
 	// @ts-ignore
-	import meAvif from '../../assets/img/me.webp?width=150;300;600;1200&format=avif&as=srcset';
+	import meAvif from '../../assets/img/me.webp?w=150;300;600;1200&format=avif&as=srcset';
 	// @ts-ignore
-	import meWebp from '../../assets/img/me.webp?width=150;300;600;1200&format=webp&as=srcset';
+	import meWebp from '../../assets/img/me.webp?w=150;300;600;1200&format=webp&as=srcset';
 	// @ts-ignore
-	import mePng from '../../assets/img/me.webp?width=400&format=png';
+	import mePng from '../../assets/img/me.webp?w=400&format=png';
 	
 	import Nav from '$lib/components/Nav.svelte';
 
