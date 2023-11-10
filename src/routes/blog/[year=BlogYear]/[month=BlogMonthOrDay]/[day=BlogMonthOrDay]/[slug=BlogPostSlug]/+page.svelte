@@ -114,10 +114,11 @@
 	.p-summary {
 		@include light-mode {
 			color: $primary_dark;
+			border-bottom: 0.2em dashed $primary;
 		}
 
 		@include dark-mode {
-			background-color: $primary_dark;
+			background-color: darken($primary, 30%);
             color: $light;
 
 			:global(a) {
