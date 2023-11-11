@@ -75,6 +75,7 @@
             @include light-mode {
                 color: $primary_dark;
             }
+            margin-right: 1em;
         }
     }
 </style>

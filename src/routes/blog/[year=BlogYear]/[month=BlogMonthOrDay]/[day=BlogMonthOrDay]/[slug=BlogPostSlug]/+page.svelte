@@ -138,11 +138,10 @@
 
 	.e-content {
 		:global(aside) {
-			float: right;
-			max-width: 50%;
-			text-align: right;
-
 			@media screen and (min-width: $mobile-break) {
+				float: right;
+				text-align: right;
+				max-width: 50%;
 				margin-left: 1.5em;
 			}
 
