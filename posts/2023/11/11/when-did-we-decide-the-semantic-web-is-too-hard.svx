@@ -5,6 +5,7 @@ summary: "The whole #Web is based on #HTML. So, why don't we value it being writ
 image: laptop.jpg
 imageAlt: "An open laptop, sitting on a desk, on which HTML and CSS are being written in Sublime Text."
 toots: https://social.mashed.cloud/@curtispf/111318079457442689
+mastodon_post: https://social.mashed.cloud/@curtispf/111394201861380124
 ---
 <script>
     import Toot from '$lib/components/Toot.svelte';
