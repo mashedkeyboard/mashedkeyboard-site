@@ -7,8 +7,10 @@
 	import Mentions from '$lib/components/blog/Mentions.svelte';
 	import { onMount } from 'svelte';
 	import { urlForPost } from '$lib/Helpers';
+	import type Status from 'tsl-mastodon-api/lib/JSON/Status';
 
 	const post: Post = $page.data.post;
+	const toots: Map<string, Status> = $page.data.toots;
 
 	let mentionsRequest: Promise<Response> = new Promise(() => {});
 
@@ -49,7 +51,7 @@
 		</div>
 	{/if}
 	<div class="e-content" itemprop="articleBody">
-		<svelte:component this={post.getBody()} />
+		<svelte:component this={post.getBody()} toots={toots} />
 	</div>
 
 	{#await mentionsRequest}
@@ -132,5 +134,19 @@
 		padding-left: 3em;
 		padding-right: 3em;
 		font-style: italic;
+	}
+
+	.e-content {
+		:global(aside) {
+			float: right;
+			max-width: 50%;
+			text-align: right;
+
+			@media screen and (min-width: $mobile-break) {
+				margin-left: 1.5em;
+			}
+
+			margin-bottom: 1em;
+		}
 	}
 </style>
