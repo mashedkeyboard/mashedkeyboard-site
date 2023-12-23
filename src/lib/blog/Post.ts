@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte';
-import type { GENERATED_IMAGES } from './BlogScriptGenerator';
+import type { GENERATED_IMAGES } from './BlogParser';
 import type { PostMetadata } from './PostMetadata';
 
 export type BlogPostImage = {[key in keyof typeof GENERATED_IMAGES]: string} & {alt: string}
@@ -18,7 +18,6 @@ export class Post {
     private image?: BlogPostImage;
     private summary?: string;
     private mastodon_post?: string;
-    private toots?: string[];
 
     private plaintext: string;
     private body?: SvelteComponent;
@@ -28,7 +27,7 @@ export class Post {
     constructor(
         slug: string, title: string, date: Date,
         image: BlogPostImage | undefined, summary: string | undefined,
-        mastodon_post: string | undefined, toots: string[] | undefined,
+        mastodon_post: string | undefined,
         plaintext: string, body?: SvelteComponent
     ) {
         this.slug = slug;
@@ -37,7 +36,6 @@ export class Post {
         this.image = image;
         this.summary = summary;
         this.mastodon_post = mastodon_post;
-        this.toots = toots;
 
         this.plaintext = plaintext.slice(0, 500);
         this.body = body;
@@ -60,7 +58,6 @@ export class Post {
             importedModule.images,
             importedModule.metadata.summary,
             importedModule.metadata.mastodon_post,
-            importedModule.metadata.toots?.split(','),
             importedModule.metadata.plaintext || 'No text',
             importedModule.default
         )
@@ -71,7 +68,7 @@ export class Post {
             metadata.slug, metadata.title,
             new Date(metadata.date), metadata.image,
             metadata.summary, metadata.mastodon_post,
-            undefined, metadata.plaintext
+            metadata.plaintext
         );
     }
 
@@ -190,5 +187,4 @@ export class Post {
     public getDate() { return this.date; }
     public getBody() { return this.body; }
     public getMastodonPost() { return this.mastodon_post; }
-    public getToots() { return this.toots; }
 }

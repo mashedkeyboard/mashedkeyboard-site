@@ -1,10 +1,20 @@
 import { visit } from 'unist-util-visit'
 import toCamel from 'just-camel-case'
+// All these local imports need to be .js for the sake of ts-import
+// because they're being imported into svelte.config.js, which is
+// JS-only :(
+import type { ParserResult } from './ParserResult.js';
+import type { VFile } from 'vfile';
+import type { Root } from 'mdast';
+import { addToots } from './parsers/Toots.js';
+import { addOpenGraphLinks } from './parsers/OpenGraphLinks.js';
 
 /**
  * This plugin builds upon brilliant work from pngwn and mattjennings on GitHub.
  * Thanks to both of them!
  */
+
+const modules: BlogParser[] = [addToots, addOpenGraphLinks];
 
 export const GENERATED_IMAGES = {
     avifSrcsetImage: generateSrcsetQueryForFormat('avif'),
@@ -15,7 +25,7 @@ export const GENERATED_IMAGES = {
 /**
  * @param {string} format the desired format
  */
-function generateSrcsetQueryForFormat(format) {
+function generateSrcsetQueryForFormat(format: string) {
     return `w=500;900;1200&format=${format}&as=srcset`;
 }
 
@@ -28,17 +38,16 @@ const RE_MODULE_SCRIPT = new RegExp(
 );
 const RE_SCRIPT_START = /<script(?:\s+?[a-zA-z]+(=(?:["']){0,1}[a-zA-Z0-9]+(?:["']){0,1}){0,1})*\s*?>/
 const RE_SRC = /src\s*=\s*"(.+?)"/;
-const RE_TOOT = /<Toot>[\s\n]*([^<]+)[\s\n]*<\/Toot>/g;
 
-export default function setBlogMetadata() {
-  return function transformer(/** @type {import('mdast').Root} */ tree, /** @type {import('vfile').VFile} */ vFile) {
+export default function remark() {
+  return async function transformer(tree: Root, vFile: VFile) {
     const urls = new Map()
     const url_count = new Map()
 
     /**
      * @param {string} url the image URL to transform
      */
-    function transformUrl(url) {
+    function transformUrl(url: string) {
       if (url.startsWith('.')) {
         let camel = toCamel(url)
         const count = url_count.get(camel)
@@ -79,7 +88,7 @@ export default function setBlogMetadata() {
     })
 
     // add imports _and_ exports for metadata images
-    const typedFrontmatterData = /** @type {{image?: string, imageAlt?: string}} */ (vFile.data.fm);
+    const typedFrontmatterData = vFile.data.fm as {image?: string, imageAlt?: string};
     const image = (typedFrontmatterData?.image);
     if (image) {
         Object.entries(GENERATED_IMAGES).forEach(([key, query]) => {
@@ -92,40 +101,18 @@ export default function setBlogMetadata() {
     }
 
     let scripts = ''
-    let hasToots = false;
     urls.forEach((x) => (scripts += `import ${x.id} from "${x.path}";\n`))
 
-    // add toot markup
-    visit(tree, 'html', (node) => {
-      node.value = node.value.replaceAll(RE_TOOT, (_, url) => {
-        if (!vFile.data.fm) vFile.data.fm = {};
-        // @ts-ignore
-        if (vFile.data.fm.toots) {
-          // @ts-ignore
-          vFile.data.fm.toots += ',';
-        } else {
-          // @ts-ignore
-          vFile.data.fm.toots = '';
-        }
-        // @ts-ignore
-        vFile.data.fm.toots += url;
-        
-        if (!hasToots) {
-          scripts += `import Toot from '$lib/components/Toot.svelte'; export let toots;`;
-
-          hasToots = true;
-        }
-
-        return `<Toot url="${url}" {toots} />`;
-      });
-    })
+    for (const mod of modules) {
+      scripts += (await mod(tree, vFile)).scripts.join("\n");
+    }
 
     let is_script = false
 
     visit(tree, 'html', (node) => {
       if (RE_SCRIPT_START.test(node.value)) {
         is_script = true
-        node.value = node.value.replace(RE_SCRIPT_START, (/** @type {string} */ script) => {
+        node.value = node.value.replace(RE_SCRIPT_START, (/** @type {string} */ script: any) => {
           return `${script}\n${scripts}\n`
         })
       }
@@ -148,7 +135,7 @@ export default function setBlogMetadata() {
 
         visit(tree, 'html', (node) => {
             if (RE_MODULE_SCRIPT.test(node.value)) {
-                node.value = node.value.replace(RE_MODULE_SCRIPT, (/** @type {string} */ script) => {
+                node.value = node.value.replace(RE_MODULE_SCRIPT, (/** @type {string} */ script: any) => {
                     return `${script}\n${exportedImages}`
                 })
             }
@@ -163,3 +150,5 @@ export default function setBlogMetadata() {
     }
   }
 }
+
+export type BlogParser = (tree: Root, vFile: VFile) => Promise<ParserResult>;

@@ -3,7 +3,9 @@ import sveltePreprocess from 'svelte-preprocess';
 import { mdsvex } from "mdsvex";
 import a11yEmoji from '@fec/remark-a11y-emoji';
 import setBlogPlaintext from './src/lib/blog/PlaintextGenerator.js';
-import setBlogMetadata from './src/lib/blog/BlogScriptGenerator.js';
+import * as tsImport from 'ts-import';
+
+const blogParser = await tsImport.load('./src/lib/blog/BlogParser.ts', { mode: tsImport.LoadMode.Compile, compiledJsExtension: ".js" });
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -34,7 +36,7 @@ const config = {
 		'.svx'
 	],
 	preprocess: [sveltePreprocess({preserve: ['ld+json'], scss: {includePaths: ['src/lib/scss'], prependData: `@import '_variables';`}}), mdsvex({
-		remarkPlugins: [[a11yEmoji], [setBlogPlaintext], [setBlogMetadata]]
+		remarkPlugins: [[a11yEmoji], [setBlogPlaintext], [blogParser.default]]
 	})]
 };
 

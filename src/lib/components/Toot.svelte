@@ -4,12 +4,11 @@
 	import FaIcon from "./FAIcon.svelte";
 	import { faMastodon } from "@fortawesome/free-brands-svg-icons";
 
-	export let url: string;
-    export let toots: Map<string, Status>;
+    export let status: string;
 
     let tootWithEmojis: string;
 
-    const toot = toots.get(url);
+    const toot = JSON.parse(status) as Status;
 
     if (toot) {
         tootWithEmojis = toot.emojis.reduce((tootContent, newEmoji) => {
