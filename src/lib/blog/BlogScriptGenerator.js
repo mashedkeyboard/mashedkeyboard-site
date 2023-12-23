@@ -28,8 +28,9 @@ const RE_MODULE_SCRIPT = new RegExp(
 );
 const RE_SCRIPT_START = /<script(?:\s+?[a-zA-z]+(=(?:["']){0,1}[a-zA-Z0-9]+(?:["']){0,1}){0,1})*\s*?>/
 const RE_SRC = /src\s*=\s*"(.+?)"/;
+const RE_TOOT = /<Toot>[\s\n]*([^<]+)[\s\n]*<\/Toot>/g;
 
-export default function setBlogImages() {
+export default function setBlogMetadata() {
   return function transformer(/** @type {import('mdast').Root} */ tree, /** @type {import('vfile').VFile} */ vFile) {
     const urls = new Map()
     const url_count = new Map()
@@ -91,7 +92,33 @@ export default function setBlogImages() {
     }
 
     let scripts = ''
+    let hasToots = false;
     urls.forEach((x) => (scripts += `import ${x.id} from "${x.path}";\n`))
+
+    // add toot markup
+    visit(tree, 'html', (node) => {
+      node.value = node.value.replaceAll(RE_TOOT, (_, url) => {
+        if (!vFile.data.fm) vFile.data.fm = {};
+        // @ts-ignore
+        if (vFile.data.fm.toots) {
+          // @ts-ignore
+          vFile.data.fm.toots += ',';
+        } else {
+          // @ts-ignore
+          vFile.data.fm.toots = '';
+        }
+        // @ts-ignore
+        vFile.data.fm.toots += url;
+        
+        if (!hasToots) {
+          scripts += `import Toot from '$lib/components/Toot.svelte'; export let toots;`;
+
+          hasToots = true;
+        }
+
+        return `<Toot url="${url}" {toots} />`;
+      });
+    })
 
     let is_script = false
 

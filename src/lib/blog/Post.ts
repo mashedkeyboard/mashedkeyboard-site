@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte';
-import type { GENERATED_IMAGES } from './ImagesImportGenerator';
+import type { GENERATED_IMAGES } from './BlogScriptGenerator';
 import type { PostMetadata } from './PostMetadata';
 
 export type BlogPostImage = {[key in keyof typeof GENERATED_IMAGES]: string} & {alt: string}

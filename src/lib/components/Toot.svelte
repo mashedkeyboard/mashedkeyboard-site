@@ -65,7 +65,7 @@
             list-style: none;
         }
 
-        .content p :global(img) {
+        :global(.content p img) {
             width: 1em;
         }
 

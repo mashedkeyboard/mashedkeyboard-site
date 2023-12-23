@@ -4,21 +4,12 @@ date: 2023-11-11T18:28:15.400Z
 summary: "The whole #Web is based on #HTML. So, why don't we value it being written well and semantically meaningful? MySpace proved anyone can write it - yet now we don't seem to care about writing it well. That's sad."
 image: laptop.jpg
 imageAlt: "An open laptop, sitting on a desk, on which HTML and CSS are being written in Sublime Text."
-toots: https://social.mashed.cloud/@curtispf/111318079457442689
 mastodon_post: https://social.mashed.cloud/@curtispf/111394201861380124
 ---
-<script>
-    import Toot from '$lib/components/Toot.svelte';
-    export let toots;
-</script>
-
 MySpace has been rattling around in my head for a little while now, not for the platform itself but for the side effects it had. I was too young to actually be there myself(!), but the folks on it at the time were big fans of the idea of being able to customise their homepages - even those who wouldn't normally be interested in the Web. I went out to Mastodon to check I wasn't hallucinating this: sure enough, it wasn't just techy people, it seems.
 
 <aside>
-<Toot
-    url="https://social.mashed.cloud/@curtispf/111318079457442689"
-    {toots}
-/>
+    <Toot>https://social.mashed.cloud/@curtispf/111318079457442689</Toot>
 </aside>
 
 It's definitely true to say that the Web's moved on a lot since those days. HTML5, CSS3 and modern JavaScript are all substantially more complex than they were at the time. Even so, the fundamental basis on which the Web works hasn't changed - HTML and CSS are still the core of what a web page is. Yet, over the last decade and with the advent of things like React, we've moved increasingly towards a model where the HTML output of web pages is considered by many to be almost as irrelevant as the assembly code that C compiles down to. This... well, this seems <em><strong>bad</strong></em>.
