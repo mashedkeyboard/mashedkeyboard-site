@@ -5,7 +5,7 @@
     const ogData = JSON.parse(data) as OgObject;
 </script>
 
-<a href={ogData.ogUrl}>
+<a href={ogData.ogUrl} target="_blank">
     <img src={ogData.ogImage[0].url} alt={alt || ogData.ogDescription || "The Open Graph link image for this link."} />
     <span>
         <span>{ogData.ogTitle}</span>
