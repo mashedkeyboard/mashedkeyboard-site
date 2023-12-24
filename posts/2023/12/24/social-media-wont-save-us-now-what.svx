@@ -4,7 +4,7 @@ date: 2023-12-24T11:58:33.757Z
 summary: >-
   Meta's #Threads wants to federate. Federated instances, rightly, shouldn't
   trust #Meta to be a good actor - but ethical challenges can sometimes conflict
-  with the practicalities of connecting people throug the #Fediverse. So, where
+  with the practicalities of connecting people through the #Fediverse. So, where
   and how do we draw that line?
 image: mastodon.jpg
 imageAlt: >-
