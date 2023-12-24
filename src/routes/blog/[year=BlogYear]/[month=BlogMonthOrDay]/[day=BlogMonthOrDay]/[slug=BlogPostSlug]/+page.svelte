@@ -137,12 +137,21 @@
 	}
 
 	.e-content {
-		:global(aside) {
+		:global(aside), :global(figure) {
 			@media screen and (min-width: $mobile-break) {
 				float: right;
 				text-align: right;
 				max-width: 50%;
 				margin-left: 1.5em;
+			}
+
+			:global(img) {
+				max-width: 100%;
+			}
+
+
+			:global(figcaption) {
+				text-align: center;
 			}
 
 			margin-bottom: 1em;
