@@ -1,10 +1,16 @@
 ---
 title: Social media won't save us. Now what?
 date: 2023-12-24T11:58:33.757Z
-summary: |-
-    Meta's #Threads wants to federate. Federated instances, rightly, shouldn't trust #Meta to be a good actor - but ethical challenges can sometimes conflict with the practicalities of connecting people throug the #Fediverse. So, where and how do we draw that line?
+summary: >-
+  Meta's #Threads wants to federate. Federated instances, rightly, shouldn't
+  trust #Meta to be a good actor - but ethical challenges can sometimes conflict
+  with the practicalities of connecting people throug the #Fediverse. So, where
+  and how do we draw that line?
 image: mastodon.jpg
-imageAlt: A picture of a computer and a phone looking at mastodon.social, a popular Mastodon instance on the Fediverse.
+imageAlt: >-
+  A picture of a computer and a phone looking at mastodon.social, a popular
+  Mastodon instance on the Fediverse.
+mastodon_post: 'https://social.mashed.cloud/@curtispf/111635501684666220'
 ---
 Earlier in December, [Meta started testing ActivityPub with Threads](https://www.theverge.com/2023/12/13/24000120/threads-meta-activitypub-test-mastodon), marking the start of a long-promised integration with the Fediverse - one which many were sceptical would ever arrive. To say that reactions to this were mixed would be a rather extreme understatement: to an external observer, though, the number of existing Fediverse users who were less-than-welcoming to the presence of Threads, to say the least, might seem strange. After all, to have a social media giant come onto the same federated protocol and offer people an easier way of taking part should be great, right?
 
