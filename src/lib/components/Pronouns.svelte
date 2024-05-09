@@ -1,1 +1,1 @@
-<em class="p-gender-identity">he/they</em>
+<em class="p-gender-identity">they/he</em>
