@@ -3,14 +3,15 @@ import type { Post } from "./blog/Post";
 
 /**
  * urlFor gets the full URL to a path, or to the root
- * if no path is specified.
+ * if no path is specified. No-op if the provided path
+ * is already a URL.
  *
  * @export
- * @param {string} [path=''] the path to get the URL for: defaults to the root
+ * @param {string} [pathOrUrl=''] the path to get the URL for: defaults to the root
  * @return {string} the full URL
  */
-export function urlFor(path: string = '') {
-    return `https://${PUBLIC_HOSTNAME}/${path.replace(/^\//, '')}`;
+export function urlFor(pathOrUrl: string = '') {
+    return pathOrUrl.match(/^https?:\/\//) ? pathOrUrl : `https://${PUBLIC_HOSTNAME}/${pathOrUrl.replace(/^\//, '')}`;
 }
 
 /**

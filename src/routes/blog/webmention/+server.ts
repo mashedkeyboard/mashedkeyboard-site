@@ -10,32 +10,32 @@ const TRUSTED_THIRD_PARTY_MICROFORMATS_SOURCES = ['brid.gy']
 export const prerender = false;
 
 export async function POST({ request, platform }) {
-    const formData = await request.formData().catch(() => { throw error(400) });
-    if (!(formData.has('source') && formData.has('target'))) throw error(400, 'webmentions must specify a source and target');
+    const formData = await request.formData().catch(() => { error(400); });
+    if (!(formData.has('source') && formData.has('target'))) error(400, 'webmentions must specify a source and target');
 
 	const db = platform?.env?.BLOGDB;
-    if (!db) throw error(500, 'no db found');
+    if (!db) error(500, 'no db found');
 
     const customCache = await getCustomCache(platform?.caches);
 
     const sourceUrl = new URL(formData.get('source')!.toString());
     const targetUrl = new URL(formData.get('target')!.toString());
 
-    if (targetUrl.hostname !== PUBLIC_HOSTNAME) throw error(400, `that doesn't look like a webmention for ${PUBLIC_HOSTNAME}`);
-    if (targetUrl == sourceUrl) throw error(400, "a page can't mention itself!");
+    if (targetUrl.hostname !== PUBLIC_HOSTNAME) error(400, `that doesn't look like a webmention for ${PUBLIC_HOSTNAME}`);
+    if (targetUrl == sourceUrl) error(400, "a page can't mention itself!");
 
     const matchesTarget = (urlString: string) => urlString == targetUrl.toString();
     const fetchAbortController = new AbortController();
     setTimeout(() => fetchAbortController.abort(), 5000);
 
     return await fetch(sourceUrl, {headers: {accept: 'text/html'}, signal: fetchAbortController.signal}).then(async (response) => {
-        if (response.status !== 200) throw error(422, 'source URL returned a non-200 status code');
+        if (response.status !== 200) error(422, 'source URL returned a non-200 status code');
 
         const responseText = await response.text();
 
         const containsLink = responseText.includes(targetUrl.toString());
 
-        if (!containsLink) throw error(422, 'URL did not appear to have valid reference to this target');
+        if (!containsLink) error(422, 'URL did not appear to have valid reference to this target');
         
         const mf2Items = mf2(responseText, {baseUrl: sourceUrl.toString()}).items;
         
@@ -74,9 +74,9 @@ export async function POST({ request, platform }) {
 
             return new Response();
         } else {
-            throw error(500, dbErr);
+            error(500, dbErr);
         }
     }, (e) => {
-        throw error(422, `source URL could not be reached: ${e}`);
+        error(422, `source URL could not be reached: ${e}`);
     });
 }

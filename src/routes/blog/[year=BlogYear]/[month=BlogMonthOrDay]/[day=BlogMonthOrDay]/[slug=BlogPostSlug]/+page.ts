@@ -19,5 +19,5 @@ export async function load({ params }) {
                 "article:published_time": post.getDate().toISOString(),
             }
         };
-    }).catch(() => { throw error(404, {message: 'No such post'}) } )
+    }).catch(() => { error(404, {message: 'No such post'}); } )
   }

@@ -46,7 +46,7 @@ export async function GET({ params, platform }) {
 		} as Webmention;
 		})
 	} else {
-		throw error(500, 'no db found');
+		error(500, 'no db found');
 	}
 
 	let mentionsSet = new Set(allMentions);
