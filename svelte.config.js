@@ -1,11 +1,14 @@
 import adapter from '@sveltejs/adapter-cloudflare';
-import sveltePreprocess from 'svelte-preprocess';
-import { mdsvex } from "mdsvex";
+import { sveltePreprocess } from 'svelte-preprocess';
+import { mdsvex } from 'mdsvex';
 import a11yEmoji from '@fec/remark-a11y-emoji';
 import setBlogPlaintext from './src/lib/blog/PlaintextGenerator.js';
 import * as tsImport from 'ts-import';
 
-const blogParser = await tsImport.load('./src/lib/blog/BlogParser.ts', { mode: tsImport.LoadMode.Compile, compiledJsExtension: ".js" });
+const blogParser = await tsImport.load('./src/lib/blog/BlogParser.ts', {
+	mode: tsImport.LoadMode.Compile,
+	compiledJsExtension: '.js'
+});
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -31,13 +34,16 @@ const config = {
 			}
 		}
 	},
-	extensions: [
-		'.svelte',
-		'.svx'
-	],
-	preprocess: [sveltePreprocess({preserve: ['ld+json'], scss: {includePaths: ['src/lib/scss'], prependData: `@import '_variables';`}}), mdsvex({
-		remarkPlugins: [[a11yEmoji], [setBlogPlaintext], [blogParser.default]]
-	})]
+	extensions: ['.svelte', '.svx'],
+	preprocess: [
+		sveltePreprocess({
+			preserve: ['ld+json'],
+			scss: { includePaths: ['src/lib/scss'], prependData: `@import '_variables';` }
+		}),
+		mdsvex({
+			remarkPlugins: [[a11yEmoji], [setBlogPlaintext], [blogParser.default]]
+		})
+	]
 };
 
 export default config;

@@ -1,1 +1,1 @@
-export const blogTitle = "Thoughts on tech and society";
+export const blogTitle = 'Thoughts on tech and society';

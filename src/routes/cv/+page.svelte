@@ -29,14 +29,18 @@
 	</p>
 
 	<p>
-		<strong>I passionately believe in the power of humans combined with software to change the world for
-		good</strong>, and see myself as someone who can help lead that change. Having
+		<strong>
+			I passionately believe in the power of humans combined with software to change the world for
+			good
+		</strong>, and see myself as someone who can help lead that change. Having
 		<strong>founded my own company</strong>
 		just two months after turning 17 to help campaigns I believed in realise their goals, I've got clear
-		experience working in a <strong>self-motivated</strong> fashion to achieve key objectives.
-		Unlike many other candidates, I bring this experience on day one -
-		<strong>soft skills along with the technical experience</strong> coming with it - meaning a faster
-		onboarding process and a greater value to your team.
+		experience working in a
+		<strong>self-motivated</strong>
+		fashion to achieve key objectives. Unlike many other candidates, I bring this experience on day one
+		-
+		<strong>soft skills along with the technical experience</strong>
+		coming with it - meaning a faster onboarding process and a greater value to your team.
 	</p>
 </section>
 
@@ -44,9 +48,11 @@
 	<section class="places">
 		<h3><FaIcon icon={faBriefcase} /> Places I've worked</h3>
 		<details>
-			<summary
-				><FaIcon icon={faLaptopCode} /> <strong>Full Stack Developer</strong> at Poteris: July 2023 &mdash;
-				present</summary>
+			<summary>
+				<FaIcon icon={faLaptopCode} />
+				<strong>Full Stack Developer</strong>
+				at Poteris: July 2023 &mdash; present
+			</summary>
 			<p>
 				Poteris is a non-profit agency working with organisations to create positive change through
 				technology, in particular in the third sector and civic technology spaces. As part a core
@@ -62,9 +68,11 @@
 			</p>
 		</details>
 		<details>
-			<summary
-				><FaIcon icon={faAddressCard} /> <strong>Director</strong> at Loudspeek: February 2019 &mdash;
-				present</summary>
+			<summary>
+				<FaIcon icon={faAddressCard} />
+				<strong>Director</strong>
+				at Loudspeek: February 2019 &mdash; present
+			</summary>
 			<p>
 				Loudspeek provides digital advocacy solutions to some of the UK's largest progressive change
 				campaigns and charities. I am the founder and director, and wrote the codebase myself, which
@@ -76,9 +84,11 @@
 			</p>
 		</details>
 		<details>
-			<summary
-				><FaIcon icon={faLaptopCode} /> <strong>Computer Scientist</strong> at Netcraft: July to September
-				2022</summary>
+			<summary>
+				<FaIcon icon={faLaptopCode} />
+				<strong>Computer Scientist</strong>
+				at Netcraft: July to September 2022
+			</summary>
 			<p>
 				I spent the summer between my second and third years at university working at Netcraft's
 				London office as a Computer Scientist. In this role I designed and developed automated
@@ -88,9 +98,11 @@
 			</p>
 		</details>
 		<details>
-			<summary
-				><FaIcon icon={faScaleBalanced} /> <strong>SPARK Scheme Participant</strong> at Clifford Chance:
-				July 2021</summary>
+			<summary>
+				<FaIcon icon={faScaleBalanced} />
+				<strong>SPARK Scheme Participant</strong>
+				at Clifford Chance: July 2021
+			</summary>
 			<p>
 				In my first year at university, this undergraduate placement scheme gave me an opportunity
 				to experience a Magic Circle law firm. Having won my place on the scheme through my being
@@ -105,9 +117,11 @@
 	<section class="volunteering">
 		<h3>My volunteering <FaIcon icon={faHandPeace} /></h3>
 		<details>
-			<summary
-				><FaIcon icon={faAmbulance} />
-				<strong>Emergency Ambulance Crew</strong> at St John Ambulance: October 2022 &mdash; present</summary>
+			<summary>
+				<FaIcon icon={faAmbulance} />
+				<strong>Emergency Ambulance Crew</strong>
+				at St John Ambulance: October 2022 &mdash; present
+			</summary>
 			<p>
 				St John Ambulance is now the UK's national Ambulance Auxiliary, meaning we provide support
 				to NHS ambulance services across the UK all year round.
@@ -118,9 +132,11 @@
 			</p>
 		</details>
 		<details>
-			<summary
-				><FaIcon icon={faHandsHoldingCircle} /> <strong>Trustee</strong> at the University of Southampton
-				Students' Union: July 2022 &mdash; July 2023</summary>
+			<summary>
+				<FaIcon icon={faHandsHoldingCircle} />
+				<strong>Trustee</strong>
+				at the University of Southampton Students' Union: July 2022 &mdash; July 2023
+			</summary>
 			<p>
 				I served as a Student Trustee of SUSU - the University of Southampton Students' Union - in
 				my final year of study at the University of Southampton. In this role I was responsible for
@@ -134,10 +150,11 @@
 			</p>
 		</details>
 		<details>
-			<summary
-				><FaIcon icon={faCalendarCheck} />
-				<strong>Unit Events Lead</strong> at St John Ambulance University of Southampton: June 2021 &mdash;
-				May 2023</summary>
+			<summary>
+				<FaIcon icon={faCalendarCheck} />
+				<strong>Unit Events Lead</strong>
+				at St John Ambulance University of Southampton: June 2021 &mdash; May 2023
+			</summary>
 			<p>
 				St John Ambulance is the UK's auxiliary ambulance service, its leading first aid charity,
 				and its national health volunteer reserve. Student Volunteering Units in St John act as
@@ -151,9 +168,11 @@
 			</p>
 		</details>
 		<details>
-			<summary
-				><FaIcon icon={faMicrochip} /> <strong>Technical Officer</strong> at the University of Southampton
-				LGBTQ+ Society: November 2020 &mdash; July 2022</summary>
+			<summary>
+				<FaIcon icon={faMicrochip} />
+				<strong>Technical Officer</strong>
+				at the University of Southampton LGBTQ+ Society: November 2020 &mdash; July 2022
+			</summary>
 			<p>
 				The UoS LGBTQ+ Society is the Students' Union society for students from gender and sexual
 				minorities (GSMs). In my role as Technical Officer, I was responsible not only for digital
@@ -173,8 +192,9 @@
 			<li>
 				<span class="fa-li"><FaIcon icon={faTrophy} /></span>
 				Clifford Chance Young Activist of the Year in the
-				<a href="https://undergraduateoftheyear.com/winners/2021" target="_blank" rel="noreferrer"
-					>TARGETjobs Undergraduate of the Year Awards 2021</a>
+				<a href="https://undergraduateoftheyear.com/winners/2021" target="_blank" rel="noreferrer">
+					TARGETjobs Undergraduate of the Year Awards 2021
+				</a>
 			</li>
 			<li>
 				<span class="fa-li"><FaIcon icon={faNewspaper} /></span>
@@ -182,8 +202,10 @@
 				<a
 					href="https://www.theguardian.com/education/2020/aug/16/a-level-student-launches-legal-bid-against-ofqual"
 					target="_blank"
-					rel="noreferrer">various UK and international media</a> in relation to legal action pursued
-				against Ofqual in 2020
+					rel="noreferrer">
+					various UK and international media
+				</a>
+				in relation to legal action pursued against Ofqual in 2020
 			</li>
 			<li>
 				<span class="fa-li"><FaIcon icon={faPenNib} /></span>
@@ -191,7 +213,9 @@
 				<a
 					href="https://www.orwellfoundation.com/the-orwell-youth-prize/2018-youth-prize/previous-winners-youth/2016-winners/"
 					target="_blank"
-					rel="noreferrer">Orwell Youth Prize 2016</a>
+					rel="noreferrer">
+					Orwell Youth Prize 2016
+				</a>
 			</li>
 		</ul>
 	</section>

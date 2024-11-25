@@ -1,22 +1,19 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 
-	/**
-	 * The title of the link.
-	 * @type {String}
-	 */
-	export let title;
+	interface Props {
+		title: string;
+		href: string;
+	}
 
-	/**
-	 * The href to link the link to.
-	 * @type {String}
-	 */
-	export let href;
+	let { title, href }: Props = $props();
 
-	$: isActive = href == '/' ? $page.route.id == href : $page.route.id?.startsWith(href);
+	let isActive = $derived(href == '/' ? $page.route.id == href : $page.route.id?.startsWith(href));
 </script>
 
-<a {href} class:active={isActive} class:subrouteActive={isActive && href != $page.route.id}>{title}</a>
+<a {href} class:active={isActive} class:subrouteActive={isActive && href != $page.route.id}>
+	{title}
+</a>
 
 <style lang="scss">
 	@import '../scss/_variables';
@@ -49,7 +46,7 @@
 
 		@media screen and (min-width: $mobile-break) {
 			border-radius: 0.5em;
-			
+
 			&:first-of-type {
 				border-left: $nav_link_border;
 			}

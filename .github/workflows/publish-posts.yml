@@ -1,24 +1,24 @@
 name: Publish new posts
 
 on:
-  check_run:
-    types: [completed]
+    check_run:
+        types: [completed]
 
 jobs:
-  publish-post:
-    runs-on: ubuntu-latest
-    environment: Production
+    publish-post:
+        runs-on: ubuntu-latest
+        environment: Production
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      - run: yarn install
-      - run: node --loader ts-node/esm scripts/PublishPosts.ts
-        env:
-          PUBLIC_HOSTNAME: ${{ vars.PUBLIC_HOSTNAME }}
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Add Mastodon URLs to newly-created posts
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '20'
+            - run: yarn install
+            - run: node --loader ts-node/esm scripts/PublishPosts.ts
+              env:
+                  PUBLIC_HOSTNAME: ${{ vars.PUBLIC_HOSTNAME }}
+            - uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                  commit_message: Add Mastodon URLs to newly-created posts

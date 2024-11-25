@@ -1,11 +1,16 @@
 <script lang="ts">
+	import WebmentionCard from './WebmentionCard.svelte';
 	import { VALID_WEBMENTION_TARGET_TYPE, type Webmention } from '$lib/blog/Webmention';
 	import { onMount } from 'svelte';
 
-	export let mention: Webmention;
-	export let li: boolean;
-	export let reply: boolean = false;
-	export let isInline = false;
+	interface Props {
+		mention: Webmention;
+		li: boolean;
+		reply?: boolean;
+		isInline?: boolean;
+	}
+
+	let { mention, li, reply = false, isInline = false }: Props = $props();
 
 	const mentionUrl = new URL(mention.url);
 
@@ -43,7 +48,7 @@
 
 	const mentionDate = new Date(mention.date);
 
-	let url: string;
+	let url: string = $state();
 
 	onMount(() => (url = window.location.href));
 </script>
@@ -59,7 +64,9 @@
 					href={isMicroformatRoot(author) && author.properties.url
 						? author.properties.url[0].toString()
 						: mention.url}
-					rel="nofollow">{authorName}</a>
+					rel="nofollow">
+					{authorName}
+				</a>
 				{#if i + 1 != authors.length}
 					{' '}and
 				{/if}
@@ -81,7 +88,7 @@
 		{#if mention.replies}
 			{#each mention.replies as reply}
 				<ol class="reply">
-					<svelte:self mention={reply} li reply isInline />
+					<WebmentionCard mention={reply} li reply isInline />
 				</ol>
 			{/each}
 		{/if}

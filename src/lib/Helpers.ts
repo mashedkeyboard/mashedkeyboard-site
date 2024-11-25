@@ -1,5 +1,5 @@
-import { PUBLIC_HOSTNAME } from "$env/static/public";
-import type { Post } from "./blog/Post";
+import { PUBLIC_HOSTNAME } from '$env/static/public';
+import type { Post } from './blog/Post';
 
 /**
  * urlFor gets the full URL to a path, or to the root
@@ -11,7 +11,9 @@ import type { Post } from "./blog/Post";
  * @return {string} the full URL
  */
 export function urlFor(pathOrUrl: string = '') {
-    return pathOrUrl.match(/^https?:\/\//) ? pathOrUrl : `https://${PUBLIC_HOSTNAME}/${pathOrUrl.replace(/^\//, '')}`;
+	return pathOrUrl.match(/^https?:\/\//)
+		? pathOrUrl
+		: `https://${PUBLIC_HOSTNAME}/${pathOrUrl.replace(/^\//, '')}`;
 }
 
 /**
@@ -22,5 +24,5 @@ export function urlFor(pathOrUrl: string = '') {
  * @return {string} the full URL
  */
 export function urlForPost(post: Post) {
-    return urlFor(`blog/${post.getSlug()}`);
+	return urlFor(`blog/${post.getSlug()}`);
 }

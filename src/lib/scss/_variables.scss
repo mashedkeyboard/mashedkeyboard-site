@@ -11,13 +11,13 @@ $dark: #202020;
 $light: #f2f2f2;
 
 @mixin light-mode {
-    @media (prefers-color-scheme: light), print {
-        @content;
-    }
+	@media (prefers-color-scheme: light), print {
+		@content;
+	}
 }
 
 @mixin dark-mode {
-    @media screen and not (prefers-color-scheme: light) {
-        @content;
-    }
+	@media screen and not (prefers-color-scheme: light) {
+		@content;
+	}
 }

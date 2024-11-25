@@ -1,25 +1,25 @@
 <script>
 	import NavLink from '$lib/components/NavLink.svelte';
-	import {afterNavigate} from '$app/navigation';
-	import {faEllipsisVertical, faSquareXmark} from '@fortawesome/free-solid-svg-icons';
+	import { afterNavigate } from '$app/navigation';
+	import { faEllipsisVertical, faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 	import FaIcon from '$lib/components/FAIcon.svelte';
 
-	let showNav = false;
+	let showNav = $state(false);
 
 	afterNavigate(() => {
 		showNav = false;
 	});
 </script>
 
-<button class="openMenu" on:click={() => (showNav = true)}>
-    <FaIcon icon={faEllipsisVertical} /> Menu
+<button class="openMenu" onclick={() => (showNav = true)}>
+	<FaIcon icon={faEllipsisVertical} /> Menu
 </button>
 
 <nav class={showNav ? 'mobile-open' : ''}>
 	<div class="menu-title">
 		<h2>Curtis Parfitt-Ford</h2>
-		<button on:click={() => (showNav = false)}>
-			<FaIcon icon={faSquareXmark} opts={{title: "Close menu"}} />
+		<button onclick={() => (showNav = false)}>
+			<FaIcon icon={faSquareXmark} opts={{ title: 'Close menu' }} />
 		</button>
 	</div>
 	<NavLink title="Home" href="/" />
@@ -28,15 +28,15 @@
 </nav>
 
 <noscript>
-    <!-- Don't allow the mobile menu to show if there's no JS -->
-    <style>
-        nav {
-            display: flex !important;
-        }
-        button.openMenu {
-            display: none;
-        }
-    </style>
+	<!-- Don't allow the mobile menu to show if there's no JS -->
+	<style>
+		nav {
+			display: flex !important;
+		}
+		button.openMenu {
+			display: none;
+		}
+	</style>
 </noscript>
 
 <style lang="scss">
@@ -58,14 +58,14 @@
 				position: fixed;
 				background: $dark;
 
-                @include light-mode {
-                    background: $light;
-                }
+				@include light-mode {
+					background: $light;
+				}
 
 				width: 100%;
 				height: 100vh;
-                z-index: 10000;
-                overflow: hidden;
+				z-index: 10000;
+				overflow: hidden;
 				top: 0;
 				padding: 0;
 				flex-direction: column;
@@ -74,7 +74,7 @@
 
 				.menu-title {
 					display: flex;
-                    color: $light;
+					color: $light;
 					justify-content: space-between;
 					padding: 1em;
 					background-color: $primary;
@@ -99,19 +99,19 @@
 			display: flex;
 		}
 
-        @media not screen {
-            display: none;
-        }
+		@media not screen {
+			display: none;
+		}
 	}
 
 	button.openMenu {
 		z-index: 999 !important;
-		
+
 		width: 100%;
 		border: none;
 		font-size: 1em;
 		background-color: $primary_dark;
-        color: $light;
+		color: $light;
 		text-transform: lowercase;
 		@media screen and (min-width: $mobile-break), not screen {
 			display: none;

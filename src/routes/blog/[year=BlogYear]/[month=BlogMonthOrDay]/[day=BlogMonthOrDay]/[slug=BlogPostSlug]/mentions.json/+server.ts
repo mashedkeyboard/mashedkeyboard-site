@@ -7,13 +7,13 @@ import { urlFor } from '$lib/Helpers';
 export const prerender = false;
 
 const CACHE_CONTROL = 'Cache-Control';
-const WEB_MAX_AGE = 'public, max-age=30, stale-while-revalidate=30'
+const WEB_MAX_AGE = 'public, max-age=30, stale-while-revalidate=30';
 const CDN_CACHE_CONTROL = 'CDN-Cache-Control';
 const CLOUDFLARE_MAX_AGE = 'max-age=60';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function GET({ params, platform }) {
-	console.log("fetch called for mentions endpoint");
+	console.log('fetch called for mentions endpoint');
 	const resolvedSlug = resolveSlug(params);
 
 	const normalisedUrl = urlFor(`blog/${resolvedSlug}/mentions.json`);
@@ -26,7 +26,7 @@ export async function GET({ params, platform }) {
 		console.log(normalisedUrl);
 		const cachedResponse = await cache.match(normalisedUrl);
 		if (cachedResponse) {
-      		const response = new Response(cachedResponse.body, cachedResponse);
+			const response = new Response(cachedResponse.body, cachedResponse);
 
 			console.log(JSON.stringify(response.headers));
 
@@ -37,14 +37,14 @@ export async function GET({ params, platform }) {
 		const { results } = await db
 			.prepare('SELECT url, date, type, mfItem FROM mentions WHERE slug = ? ORDER BY date ASC')
 			.bind(resolvedSlug)
-			.all<Omit<Webmention, 'mfItem'> & {mfItem: string}>();
+			.all<Omit<Webmention, 'mfItem'> & { mfItem: string }>();
 
 		allMentions = results.map((res) => {
-		return {
-			...res,
-			mfItem: JSON.parse(res.mfItem)
-		} as Webmention;
-		})
+			return {
+				...res,
+				mfItem: JSON.parse(res.mfItem)
+			} as Webmention;
+		});
 	} else {
 		error(500, 'no db found');
 	}
@@ -80,10 +80,10 @@ export async function GET({ params, platform }) {
 		// because SvelteKit then gets "readablestream locked to a
 		// reader" errors.
 		const cacheResp = resp.clone();
-		console.log("storing in cache");
+		console.log('storing in cache');
 		platform.context.waitUntil(cache.put(normalisedUrl, cacheResp));
 	}
 
-	console.log("end return resp");
+	console.log('end return resp');
 	return resp;
 }

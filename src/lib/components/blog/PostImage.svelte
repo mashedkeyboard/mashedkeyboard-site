@@ -1,8 +1,12 @@
 <script lang="ts">
 	import type { Post } from '$lib/blog/Post';
 
-	export let post: Post;
-	export let headerBg: boolean = false;
+	interface Props {
+		post: Post;
+		headerBg?: boolean;
+	}
+
+	let { post, headerBg = false }: Props = $props();
 </script>
 
 {#if post.getImage()}

@@ -12,18 +12,20 @@
 	const post: Post = $page.data.post;
 	const toots: Map<string, Status> = $page.data.toots;
 
-	let mentionsRequest: Promise<Response> = new Promise(() => {});
+	let mentionsRequest: Promise<Response> = $state(new Promise(() => {}));
 
 	let mentionsPath = `/blog/${post.getSlug()}/mentions`;
 
 	onMount(() => {
 		mentionsRequest = fetch(`${mentionsPath}.json`);
 	});
+
+	const SvelteComponent = post.getBody();
 </script>
 
 <svelte:head>
 	<link href="/blog/webmention" rel="webmention" />
-    <link href="/" rel="author" />
+	<link href="/" rel="author" />
 	<link href="https://brid.gy/publish/mastodon" />
 </svelte:head>
 
@@ -51,7 +53,7 @@
 		</div>
 	{/if}
 	<div class="e-content" itemprop="articleBody">
-		<svelte:component this={post.getBody()} toots={toots} />
+		<SvelteComponent {toots} />
 	</div>
 
 	{#await mentionsRequest}
@@ -121,7 +123,7 @@
 
 		@include dark-mode {
 			background-color: darken($primary, 30%);
-            color: $light;
+			color: $light;
 
 			:global(a) {
 				color: #fff;
@@ -137,7 +139,8 @@
 	}
 
 	.e-content {
-		:global(aside), :global(figure) {
+		:global(aside),
+		:global(figure) {
 			@media screen and (min-width: $mobile-break) {
 				float: right;
 				text-align: right;
@@ -148,7 +151,6 @@
 			:global(img) {
 				max-width: 100%;
 			}
-
 
 			:global(figcaption) {
 				text-align: center;

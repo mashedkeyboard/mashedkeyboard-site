@@ -1,80 +1,86 @@
 <script lang="ts">
-	import type Status from "tsl-mastodon-api/lib/JSON/Status";
-    import sanitizeHtml from 'sanitize-html';
-	import FaIcon from "./FAIcon.svelte";
-	import { faMastodon } from "@fortawesome/free-brands-svg-icons";
+	import type Status from 'tsl-mastodon-api/lib/JSON/Status';
+	import sanitizeHtml from 'sanitize-html';
+	import FaIcon from './FAIcon.svelte';
+	import { faMastodon } from '@fortawesome/free-brands-svg-icons';
 
-    export let status: string;
+	interface Props {
+		status: string;
+	}
 
-    let tootWithEmojis: string;
+	let { status }: Props = $props();
 
-    const toot = JSON.parse(status) as Status;
+	let tootWithEmojis: string | undefined = $state();
 
-    if (toot) {
-        tootWithEmojis = toot.emojis.reduce((tootContent, newEmoji) => {
-            return tootContent.replaceAll(
-                `:${newEmoji.shortcode}:`,
-                `<img src="${newEmoji.static_url}" alt="${newEmoji.shortcode} emoji"
+	const toot = JSON.parse(status) as Status;
+
+	if (toot) {
+		tootWithEmojis = toot.emojis.reduce((tootContent, newEmoji) => {
+			return tootContent.replaceAll(
+				`:${newEmoji.shortcode}:`,
+				`<img src="${newEmoji.static_url}" alt="${newEmoji.shortcode} emoji"
                       referrerpolicy="no-referrer" loading="lazy"
                       fetchpriority="low" />`
-            );
-        }, toot.content)
-    }
+			);
+		}, toot.content);
+	}
 </script>
 
 {#if toot}
-    <article>
-        <a href={toot.url} class="masto-icon">
-            <FaIcon opts={{title: "Toot from Mastodon", classes: "fa-2xl"}} icon={faMastodon} />
-        </a>
+	<article>
+		<a href={toot.url} class="masto-icon">
+			<FaIcon opts={{ title: 'Toot from Mastodon', classes: 'fa-2xl' }} icon={faMastodon} />
+		</a>
 
-        <section class="author">
-            <a href={toot.account.url}>{toot.account.display_name}</a> <a href={toot.url}>tooted</a>:
-        </section>
-        <section class="content">
-            <p>
-                {@html sanitizeHtml(tootWithEmojis, {
-                    allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
-                  })}
-            </p>
-        </section>
-        {#if toot.poll}
-            <section>
-                <h4>Poll responses</h4>
-                <ol>
-                {#each toot.poll.options as option}
-                <li>{option.title}: {option.votes_count || 0 / toot.poll.votes_count}%</li>
-                {/each}
-                </ol>
-            </section>
-        {/if}
-    </article>
+		<section class="author">
+			<a href={toot.account.url}>{toot.account.display_name}</a>
+			<a href={toot.url}>tooted</a>
+			:
+		</section>
+		<section class="content">
+			<p>
+				{@html sanitizeHtml(tootWithEmojis ?? '', {
+					allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+				})}
+			</p>
+		</section>
+		{#if toot.poll}
+			<section>
+				<h4>Poll responses</h4>
+				<ol>
+					{#each toot.poll.options as option}
+						<li>{option.title}: {option.votes_count || 0 / toot.poll.votes_count}%</li>
+					{/each}
+				</ol>
+			</section>
+		{/if}
+	</article>
 {/if}
 
 <style lang="scss">
-    article {
-        border: 1px solid $light;
-        @include light-mode {
-            border: 1px solid $primary_dark;
-        }
+	article {
+		border: 1px solid $light;
+		@include light-mode {
+			border: 1px solid $primary_dark;
+		}
 
-        padding: 1em;
+		padding: 1em;
 
-        ol {
-            list-style: none;
-        }
+		ol {
+			list-style: none;
+		}
 
-        :global(.content p img) {
-            width: 1em;
-        }
+		:global(.content p img) {
+			width: 1em;
+		}
 
-        a.masto-icon {
-            float: left;
-            color: $light;
-            @include light-mode {
-                color: $primary_dark;
-            }
-            margin-right: 1em;
-        }
-    }
+		a.masto-icon {
+			float: left;
+			color: $light;
+			@include light-mode {
+				color: $primary_dark;
+			}
+			margin-right: 1em;
+		}
+	}
 </style>

@@ -4,7 +4,7 @@
 	import PostImage from '$lib/components/blog/PostImage.svelte';
 	import PostDate from './PostDate.svelte';
 
-	export let postMeta;
+	let { postMeta } = $props();
 	let posts: Post[] = postMeta.map((thisPost: PostMetadata) => Post.fromMetadata(thisPost));
 </script>
 
@@ -16,7 +16,7 @@
 				itemscope
 				itemtype="https://schema.org/BlogPosting"
 				class="h-entry">
-				<a itemprop="url" class="u-url" href='/blog/{post.getSlug()}'>
+				<a itemprop="url" class="u-url" href="/blog/{post.getSlug()}">
 					<div>
 						<PostImage {post} />
 					</div>
@@ -50,20 +50,20 @@
 		margin-bottom: 1em;
 
 		@media screen and (min-width: $mobile_break) {
-			margin: 1em;	
+			margin: 1em;
 		}
 
 		a {
-            color: $light;
+			color: $light;
 			text-decoration: none;
 			display: block;
 			margin: -1em;
 			padding: 1em;
 
-            h3 {
-                font-weight: bold;
-                font-size: 1.5em;
-            }
+			h3 {
+				font-weight: bold;
+				font-size: 1.5em;
+			}
 
 			div {
 				margin: -1em;
@@ -71,17 +71,17 @@
 			}
 		}
 
-        @include light-mode {
-            background: none;
-            border: 1px solid $primary_dark;
+		@include light-mode {
+			background: none;
+			border: 1px solid $primary_dark;
 
-            a {
-                color: $dark;
+			a {
+				color: $dark;
 
-                h3 {
-                    color: $primary_dark;
-                }
-            }
-        }
+				h3 {
+					color: $primary_dark;
+				}
+			}
+		}
 	}
 </style>

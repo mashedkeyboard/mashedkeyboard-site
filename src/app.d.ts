@@ -1,4 +1,4 @@
-import { Cache, D1Database, CacheStorage, ExecutionContext } from '@cloudflare/workers-types'
+import { Cache, D1Database, CacheStorage, ExecutionContext } from '@cloudflare/workers-types';
 
 declare global {
 	// See https://kit.svelte.dev/docs/types#app

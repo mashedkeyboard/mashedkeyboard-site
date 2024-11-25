@@ -1,4 +1,4 @@
-import type { BlogPostImage } from "./Post";
+import type { BlogPostImage } from './Post';
 
 /**
  * PostMetadata contains a minimal amount of content relating to an
@@ -8,23 +8,23 @@ import type { BlogPostImage } from "./Post";
  * @interface PostMetadata
  */
 export interface PostMetadata {
-    slug: string;
+	slug: string;
 
-    title: string;
+	title: string;
 
-    /**
-     * date is stored in metadata as a Unix timestamp.
-     *
-     * @type {number}
-     * @memberof PostMetadata
-     */
-    date: number;
+	/**
+	 * date is stored in metadata as a Unix timestamp.
+	 *
+	 * @type {number}
+	 * @memberof PostMetadata
+	 */
+	date: number;
 
-    image?: BlogPostImage;
+	image?: BlogPostImage;
 
-    summary?: string;
+	summary?: string;
 
-    plaintext: string;
+	plaintext: string;
 
-    mastodon_post?: string;
+	mastodon_post?: string;
 }

@@ -6,81 +6,118 @@
 	import meWebp from '../../assets/img/me.webp?w=150;300;600;1200&format=webp&as=srcset';
 	// @ts-ignore
 	import mePng from '../../assets/img/me.webp?w=400&format=png';
-	
+
 	import Nav from '$lib/components/Nav.svelte';
 
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	import FaIcon from './FAIcon.svelte';
-	import {faEnvelopeOpenText} from '@fortawesome/free-solid-svg-icons';
-	import {faMastodon} from '@fortawesome/free-brands-svg-icons';
-	import {faGithub} from '@fortawesome/free-brands-svg-icons';
+	import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
+	import { faMastodon } from '@fortawesome/free-brands-svg-icons';
+	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import Pronouns from './Pronouns.svelte';
 
-	/**
-	 * The heading for the header.
-	 * @type {String | null}
-	 */
-	export let heading: string | null = null;
+	interface Props {
+		/**
+		 * The heading for the header.
+		 */
+		heading?: string | null;
 
-	/**
-	 * Whether the header should be a H1, or just a nicely-styled span.
-	 * @type {String | null}
-	 */
-	 export let useH1: boolean = true;
+		/**
+		 * Whether the header should be a H1, or just a nicely-styled span.
+		 */
+		useH1: boolean;
+
+		/**
+		 * A callback to run on easter triggers.
+		 */
+		oneaster: () => void;
+	}
+
+	let { heading = null, useH1 = true, oneaster = () => {} }: Props = $props();
 
 	/**
 	 * tapCount contains the number of taps on the picture since the last count started.
 	 */
-	let tapCount = 0;
+	let tapCount = $state(0);
 
 	/**
 	 * isPrompting is true if the tapCount has exceeded the prompt threshold, and the
 	 * user is now being prompted for the egg.
 	 */
-	let isPrompting = false;
+	let isPrompting = $state(false);
 
 	onMount(async () => {
 		// reset number of taps every 1.5 seconds if it's not in prompting mode yet
-		window.setTimeout(() => {if (!isPrompting) tapCount = 0}, 1500);
+		window.setTimeout(() => {
+			if (!isPrompting) tapCount = 0;
+		}, 1500);
 	});
 
-	const dispatch = createEventDispatcher();
-
-	$: if (tapCount > 5) {
-		isPrompting = true;
-		if (tapCount >= 15) {
-			dispatch('easter');
-			isPrompting = false;
-			tapCount = 0;
+	$effect(() => {
+		if (tapCount > 5) {
+			isPrompting = true;
+			if (tapCount >= 15) {
+				oneaster();
+				isPrompting = false;
+				tapCount = 0;
+			}
 		}
-	}
+	});
 </script>
 
 <header class="h-card">
 	<link class="u-url" href="/" itemprop="author" />
-	<picture class="me" on:touchstart|preventDefault={(e) => tapCount += 1} style:transform={`rotate(${isPrompting ? "-" + ((tapCount - 5) * 2) + "deg" : "0deg"})`}>
+	<picture
+		class="me"
+		ontouchstart={(e) => {
+			e.preventDefault();
+			tapCount += 1;
+		}}
+		style:transform={`rotate(${isPrompting ? '-' + (tapCount - 5) * 2 + 'deg' : '0deg'})`}>
 		<source type="image/avif" sizes="12.54em" srcset={meAvif} />
 		<source type="image/webp" sizes="12.54em" srcset={meWebp} />
 		<img src={mePng} class="p-name" width="400" height="418" alt="Curtis Parfitt-Ford" />
 	</picture>
 	<div class="header-text">
 		<div class="title">
-			<svelte:element this={useH1 ? 'h1' : 'div'} class="header-heading" class:main-title={heading === null}>
-				<span class="allow-smaller"><strong>Hi!</strong> {#if heading === null} I'm{/if}</span> {#if heading === null} Curtis{:else}{heading}{/if}
+			<svelte:element
+				this={useH1 ? 'h1' : 'div'}
+				class="header-heading"
+				class:main-title={heading === null}>
+				<span class="allow-smaller">
+					<strong>Hi!</strong>
+					{#if heading === null}
+						I'm{/if}
+				</span>
+				{#if heading === null}
+					Curtis{:else}{heading}{/if}
 			</svelte:element>
-			<div class="pronouns">{#if heading === null}My pronouns are <Pronouns />{:else}Curtis Parfitt-Ford (<Pronouns />){/if} 🏳️‍🌈</div>
+			<div class="pronouns">
+				{#if heading === null}My pronouns are <Pronouns />{:else}Curtis Parfitt-Ford (<Pronouns />){/if}
+				🏳️‍🌈
+			</div>
 		</div>
 		<div class="contact-icons">
 			<span class="contact-intro">find me on:</span>
-			<a rel="me noreferrer" target="_blank" href="https://social.mashed.cloud/@curtispf" class="u-url" aria-label="Mastodon">
-				<FaIcon icon={faMastodon} opts={{title: "Mastodon", classes: "fa-2xl"}} />
+			<a
+				rel="me noreferrer"
+				target="_blank"
+				href="https://social.mashed.cloud/@curtispf"
+				class="u-url"
+				aria-label="Mastodon">
+				<FaIcon icon={faMastodon} opts={{ title: 'Mastodon', classes: 'fa-2xl' }} />
 			</a>
-			<a rel="me noreferrer" target="_blank" href="https://github.com/mashedkeyboard" class="u-url" aria-label="GitHub">
-				<FaIcon icon={faGithub} opts={{title: "GitHub", classes: "fa-2xl"}} />
+			<a
+				rel="me noreferrer"
+				target="_blank"
+				href="https://github.com/mashedkeyboard"
+				class="u-url"
+				aria-label="GitHub">
+				<FaIcon icon={faGithub} opts={{ title: 'GitHub', classes: 'fa-2xl' }} />
 			</a>
 			<a href="mailto:curtis@mashedkeyboard.me" class="u-email" aria-label="Email">
-				<FaIcon icon={faEnvelopeOpenText} opts={{title: "Email", classes: "fa-2xl"}} />
+				<FaIcon icon={faEnvelopeOpenText} opts={{ title: 'Email', classes: 'fa-2xl' }} />
 			</a>
 		</div>
 	</div>
@@ -106,15 +143,15 @@
 
 		@media screen and (min-width: $tablet_break) {
 			border-radius: 1em;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
 		}
 
 		.header-heading {
 			font-size: 2rem;
 			margin: 0.67em 0;
 			line-height: 1.1;
-			
+
 			@media screen and (min-width: $tiny_break) {
 				font-size: 3rem;
 			}
@@ -125,7 +162,7 @@
 				@media screen and (min-width: $mobile_break) {
 					font-size: 4rem;
 				}
-				
+
 				& + .pronouns {
 					@media screen and (min-width: $tablet_break) {
 						margin-top: -3em;

@@ -5,46 +5,46 @@
 @import '@fontsource/cabin/variable-italic.css';
 
 :root {
-  font-family: CabinVariable, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+	font-family: CabinVariable, Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: $primary_dark;
-  @include light-mode {
-    background-color: lighten($primary, 10%);
-  }
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: $primary_dark;
+	@include light-mode {
+		background-color: lighten($primary, 10%);
+	}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  min-height: 100vh;
+	margin: 0;
+	display: flex;
+	min-height: 100vh;
 
-  @media screen and (min-width: $tablet_break) {
-    place-items: center;
-    place-content: center;
-  }
+	@media screen and (min-width: $tablet_break) {
+		place-items: center;
+		place-content: center;
+	}
 }
 
 *:link {
-  color: lighten($primary, 10%);
-  @include light-mode {
-    color: $primary_dark;
-  }
+	color: lighten($primary, 10%);
+	@include light-mode {
+		color: $primary_dark;
+	}
 }
 
 *:visited {
-  color: lighten($primary, 5%);
-  @include light-mode {
-    color: lighten($primary_dark, 5%);
-  }
+	color: lighten($primary, 5%);
+	@include light-mode {
+		color: lighten($primary_dark, 5%);
+	}
 }
