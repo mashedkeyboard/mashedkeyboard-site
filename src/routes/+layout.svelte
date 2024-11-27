@@ -106,27 +106,60 @@
 	}
 
 	.container {
+		// Flag
+		@media screen and (min-width: $tablet_break) {
+			&:after {
+				z-index: -1;
+				height: 25em;
+				width: 30em;
+				position: absolute;
+				content: "";
+				left: -11em;
+				top: 10em;
+				margin: auto;
+				transform: rotate(-45deg);
+				border-top-left-radius: 1em !important;
+				border-top-right-radius: 1em !important;
+				background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), $enby;
+			}
+		}
+
 		max-width: $tablet_break;
 		width: 100vw;
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
 
-		background: $dark;
+		// Dark background
+		// Done in a pseudoelement so as to not interfere with the flag
+		&:before {
+			background: $dark;
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: fixed;
 
-		@include light-mode {
-			background-color: $light;
-			color: $dark;
+			@media screen and (min-width: $tablet_break) {
+				border-radius: 1rem;
+			}
+
+			@include light-mode {
+				background-color: $light;
+				color: $dark;
+			}
 		}
 
 		@media screen and (min-width: $tablet_break) {
-			border-radius: 1rem;
 			min-height: 0;
 		}
 
 		@media screen and (min-width: $tablet_break) {
 			margin: 2em 0;
 			filter: drop-shadow(0 0 2rem rgba($primary_dark, 0.8));
+		}
+
+		main {
+			position: relative;
 		}
 
 		:global {

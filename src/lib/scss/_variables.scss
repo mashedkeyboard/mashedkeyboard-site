@@ -10,6 +10,12 @@ $primary_light: lighten($primary, 20%);
 $dark: #202020;
 $light: #f2f2f2;
 
+$enby: linear-gradient(to bottom,
+	#FCF434 0%, #FCF434 25%,
+	#FFFFFF 25%, #FFFFFF 50%,
+	#9C59D1 50%, #9C59D1 75%,
+	#2C2C2C 75%, #2C2C2C 100%);
+
 @mixin light-mode {
 	@media (prefers-color-scheme: light), print {
 		@content;

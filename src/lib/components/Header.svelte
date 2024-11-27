@@ -1,11 +1,11 @@
 <script lang="ts">
 	// below lines are ts-ignored due to their using imagetools
 	// @ts-ignore
-	import meAvif from '../../assets/img/me.webp?w=150;300;600;1200&format=avif&as=srcset';
+	import meAvif from '../../assets/img/me.png?w=150;300;600;1200&format=avif&as=srcset';
 	// @ts-ignore
-	import meWebp from '../../assets/img/me.webp?w=150;300;600;1200&format=webp&as=srcset';
+	import meWebp from '../../assets/img/me.png?w=150;300;600;1200&format=webp&as=srcset';
 	// @ts-ignore
-	import mePng from '../../assets/img/me.webp?w=400&format=png';
+	import mePng from '../../assets/img/me.png?w=400&format=png';
 
 	import Nav from '$lib/components/Nav.svelte';
 
@@ -74,7 +74,7 @@
 			e.preventDefault();
 			tapCount += 1;
 		}}
-		style:transform={`rotate(${isPrompting ? '-' + (tapCount - 5) * 2 + 'deg' : '0deg'})`}>
+		style:transform={`rotate(${isPrompting ? (tapCount - 5) * 2 + 'deg' : '0deg'})`}>
 		<source type="image/avif" sizes="12.54em" srcset={meAvif} />
 		<source type="image/webp" sizes="12.54em" srcset={meWebp} />
 		<img src={mePng} class="p-name" width="400" height="418" alt="Curtis Parfitt-Ford" />
@@ -130,6 +130,7 @@
 	header {
 		display: flex;
 		padding: 3em;
+		overflow: hidden;
 
 		background: $primary;
 		transition: background-color 0.1s ease-in-out;
@@ -204,18 +205,22 @@
 
 		.me,
 		.me img {
-			height: 30vw;
+			height: 55vw;
 			flex: 1;
 			padding: 1.5em;
 			width: auto;
+			z-index: 2;
+			transform-origin: bottom left;
 
 			@media screen and (min-width: $mobile_break) {
 				height: 40vw;
-				padding-left: 2em;
+				padding-left: 1.5em;
 			}
 
 			@media screen and (min-width: $tablet_break) {
-				height: 12em;
+				height: 18em;
+				margin-top: -7em;
+				margin-bottom: -10em;
 			}
 
 			margin-left: -3em;
