@@ -149,6 +149,10 @@
 			}
 		}
 
+		@include light-mode {
+			color: $dark;
+		}
+
 		@media screen and (min-width: $tablet_break) {
 			min-height: 0;
 		}
