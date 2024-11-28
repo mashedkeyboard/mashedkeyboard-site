@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type OgObject } from 'open-graph-scraper/dist/lib/types';
+	import { type OgObject } from 'open-graph-scraper/types';
 
 	interface Props {
 		data: string;
