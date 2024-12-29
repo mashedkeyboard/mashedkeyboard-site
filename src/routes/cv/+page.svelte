@@ -292,7 +292,7 @@
 	</section>
 </div>
 <aside class="end">
-	Convinced? <a href="mailto:curtis@mashedkeyboard.me">Pop me an email.</a>
+	Convinced? <a href="mailto:cv@cpf.sh">Pop me an email.</a>
 </aside>
 
 <style lang="scss">

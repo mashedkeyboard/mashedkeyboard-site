@@ -116,7 +116,7 @@
 				aria-label="GitHub">
 				<FaIcon icon={faGithub} opts={{ title: 'GitHub', classes: 'fa-2xl' }} />
 			</a>
-			<a href="mailto:curtis@mashedkeyboard.me" class="u-email" aria-label="Email">
+			<a href="mailto:website@cpf.sh" class="u-email" aria-label="Email">
 				<FaIcon icon={faEnvelopeOpenText} opts={{ title: 'Email', classes: 'fa-2xl' }} />
 			</a>
 		</div>

@@ -11,6 +11,7 @@
             "name": "Curtis Parfitt-Ford",
             "image": "${urlFor(me_png)}",
             "url": "${urlFor()}",
+			"email": "wm@cpf.sh",
             "sameAs": [
                 "https://mashedkeyboard.me/",
                 "https://twitter.com/mashedkeyboard",
