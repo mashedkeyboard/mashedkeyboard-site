@@ -120,12 +120,10 @@
 {/if}
 
 <style lang="scss">
-	@import '../scss/_variables';
-
 	.console-overlay {
 		position: absolute;
 		z-index: 1000;
-		color: $light;
+		color: vars.$light;
 
 		.console {
 			position: fixed;
@@ -134,14 +132,15 @@
 			margin: 1em;
 			width: calc(100% - 2em);
 
-			background: rgba($primary_dark, 0.9);
-			@media screen and (min-width: $desktop_break) {
-				background: rgba(0, 0, 0, 0.7);
-			}
+			background: rgba(vars.$primary_dark, 0.9);
 
 			max-height: 95%;
 			overflow-y: scroll;
 			min-height: 50%;
+
+			@media screen and (min-width: vars.$desktop_break) {
+				background: rgba(0, 0, 0, 0.7);
+			}
 
 			button {
 				position: sticky;
@@ -149,7 +148,7 @@
 				top: 2em;
 				margin: 2em;
 				text-transform: uppercase;
-				color: $light;
+				color: vars.$light;
 				border: 1px solid white;
 				padding: 1em;
 				background: none;
@@ -157,7 +156,7 @@
 				cursor: pointer;
 
 				&:hover {
-					background: $primary;
+					background: vars.$primary;
 				}
 			}
 

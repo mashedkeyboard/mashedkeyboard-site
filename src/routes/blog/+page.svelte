@@ -40,7 +40,7 @@
 		justify-content: space-between;
 		align-items: center;
 
-		@media screen and (max-width: calc($mobile-break - 1px)) {
+		@media screen and (max-width: calc(vars.$mobile-break - 1px)) {
 			display: block;
 		}
 
@@ -49,28 +49,28 @@
 		}
 
 		a.rss {
-			color: $light;
+			color: vars.$light;
 			font-size: 0.8em;
 			text-decoration: none;
-			border-bottom: 1px solid $light;
+			border-bottom: 1px solid vars.$light;
 
-			@include light-mode {
-				color: $primary_dark;
-				border-bottom: 1px solid $primary_dark;
+			@include vars.light-mode {
+				color: vars.$primary_dark;
+				border-bottom: 1px solid vars.$primary_dark;
 			}
 
-			@media screen and (min-width: calc($tablet-break)) {
+			@media screen and (min-width: calc(vars.$tablet-break)) {
 				span {
 					display: none;
 				}
 
 				padding: 1em;
-				border: 1px solid $light;
+				border: 1px solid vars.$light;
 				font-size: 1em;
 
-				@include light-mode {
-					background-color: $light;
-					border: 1px solid $primary_dark;
+				@include vars.light-mode {
+					background-color: vars.$light;
+					border: 1px solid vars.$primary_dark;
 				}
 			}
 		}

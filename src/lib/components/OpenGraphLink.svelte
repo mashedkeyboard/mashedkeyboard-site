@@ -33,8 +33,8 @@
 		}
 
 		> span {
-			background: $primary;
-			color: $light;
+			background: vars.$primary;
+			color: vars.$light;
 			width: 100%;
 			padding: 1em;
 			display: block;

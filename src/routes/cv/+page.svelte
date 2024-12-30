@@ -296,6 +296,8 @@
 </aside>
 
 <style lang="scss">
+	@use "sass:color";
+
 	.intro {
 		text-align: center;
 	}
@@ -304,16 +306,16 @@
 		padding-bottom: 1em;
 		border: 0.3em dashed #353535;
 
-		@include light-mode {
-			border-color: $primary_dark;
-		}
-
 		border-left: none;
 		border-right: none;
 
+		@include vars.light-mode {
+			border-color: vars.$primary_dark;
+		}
+
 		h3 {
-			@include light-mode {
-				color: $primary_dark;
+			@include vars.light-mode {
+				color: vars.$primary_dark;
 			}
 
 			:global(svg) {
@@ -350,17 +352,17 @@
 			flex-wrap: wrap;
 
 			// Handle our borders for light theme here
-			@include light-mode {
-				border-bottom: 2px solid $primary_dark;
-				border-right: 2px solid $primary_dark;
+			@include vars.light-mode {
+				border-bottom: 2px solid vars.$primary_dark;
+				border-right: 2px solid vars.$primary_dark;
 				& > section {
-					border-top: 2px solid $primary_dark;
-					border-left: 2px solid $primary_dark;
+					border-top: 2px solid vars.$primary_dark;
+					border-left: 2px solid vars.$primary_dark;
 					margin-top: -2px;
 					margin-left: -2px;
 
 					h4 {
-						color: $primary_dark;
+						color: vars.$primary_dark;
 					}
 				}
 			}
@@ -368,19 +370,20 @@
 			& > section {
 				display: inline-block;
 
+				padding: 2em;
+
 				// Light theme borders are dealt with earlier
-				@include dark-mode {
-					background-color: darken($primary, 30%);
+				@include vars.dark-mode {
+					background-color: color.adjust(vars.$primary, $lightness: -30%);
 
 					&:nth-of-type(3n-1) {
-						background-color: darken($primary, 40%);
+						background-color: color.adjust(vars.$primary, $lightness: -40%);
 					}
 					&:nth-of-type(3n) {
-						background-color: darken($primary, 50%);
+						background-color: color.adjust(vars.$primary, $lightness: -50%);
 					}
 				}
 
-				padding: 2em;
 				aside {
 					h6 {
 						margin: 0;
@@ -397,21 +400,21 @@
 	details {
 		background: #252525;
 		border: 2px solid #232323;
+		padding: 0 2em;
+
 		&:not(:first-of-type) {
 			border-top: none;
 		}
 
-		@include light-mode {
+		@include vars.light-mode {
 			background: #f4f4f4;
-			border: 1px solid $primary-dark;
+			border: 1px solid vars.$primary-dark;
 		}
-
-		padding: 0 2em;
 
 		&[open] {
 			background: #303030;
 
-			@include light-mode {
+			@include vars.light-mode {
 				background: #e8e8e8;
 			}
 		}
@@ -421,15 +424,15 @@
 			padding: 2em;
 			width: 100%;
 
-			:global(svg) {
-				margin-right: 0.2em;
-			}
-
 			transition: background-color 0.2s ease-in-out;
 
 			&:hover {
-				background-color: rgba($primary, 0.5);
+				background-color: rgba(vars.$primary, 0.5);
 				cursor: pointer;
+			}
+
+			:global(svg) {
+				margin-right: 0.2em;
 			}
 		}
 	}

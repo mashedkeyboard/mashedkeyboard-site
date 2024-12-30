@@ -1,4 +1,5 @@
-@import '_variables';
+@use "sass:color";
+@use '_vars';
 @import 'normalize.css';
 @import '@fontsource/signika-negative/variable.css';
 @import '@fontsource/cabin/variable.css';
@@ -12,16 +13,17 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: $primary_dark;
-	@include light-mode {
-		background-color: lighten($primary, 10%);
-	}
+	background-color: vars.$primary_dark;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+
+	@include vars.light-mode {
+		background-color: color.adjust(vars.$primary, $lightness: 10%);
+	}
 }
 
 body {
@@ -29,22 +31,24 @@ body {
 	display: flex;
 	min-height: 100vh;
 
-	@media screen and (min-width: $tablet_break) {
+	@media screen and (min-width: vars.$tablet_break) {
 		place-items: center;
 		place-content: center;
 	}
 }
 
 *:link {
-	color: lighten($primary, 10%);
-	@include light-mode {
-		color: $primary_dark;
+	color: color.adjust(vars.$primary, $lightness: 10%);
+
+	@include vars.light-mode {
+		color: vars.$primary_dark;
 	}
 }
 
 *:visited {
-	color: lighten($primary, 5%);
-	@include light-mode {
-		color: lighten($primary_dark, 5%);
+	color: color.adjust(vars.$primary, $lightness: 5%);
+	
+	@include vars.light-mode {
+		color: color.adjust(vars.$primary_dark, $lightness: 5%);
 	}
 }

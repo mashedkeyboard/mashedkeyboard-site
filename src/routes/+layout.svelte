@@ -93,11 +93,11 @@
 		position: absolute;
 		top: -3em;
 
-		background: $dark;
-		color: $light;
-		@include light-mode {
-			background-color: $light;
-			color: $dark;
+		background: vars.$dark;
+		color: vars.$light;
+		@include vars.light-mode {
+			background-color: vars.$light;
+			color: vars.$dark;
 		}
 
 		&:focus {
@@ -106,8 +106,33 @@
 	}
 
 	.container {
+		max-width: vars.$tablet_break;
+		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+
+		// Dark background
+		// Done in a pseudoelement so as to not interfere with the flag
+		&:before {
+			background: vars.$dark;
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: fixed;
+
+			@media screen and (min-width: vars.$tablet_break) {
+				border-radius: 1rem;
+			}
+
+			@include vars.light-mode {
+				background-color: vars.$light;
+				color: vars.$dark;
+			}
+		}
+
 		// Flag
-		@media screen and (min-width: $tablet_break) {
+		@media screen and (min-width: vars.$tablet_break) {
 			&:after {
 				z-index: -1;
 				height: 25em;
@@ -120,46 +145,21 @@
 				transform: rotate(-45deg);
 				border-top-left-radius: 1em !important;
 				border-top-right-radius: 1em !important;
-				background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), $enby;
+				background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), vars.$enby;
 			}
 		}
 
-		max-width: $tablet_break;
-		width: 100vw;
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-
-		// Dark background
-		// Done in a pseudoelement so as to not interfere with the flag
-		&:before {
-			background: $dark;
-			content: "";
-			width: 100%;
-			height: 100%;
-			position: fixed;
-
-			@media screen and (min-width: $tablet_break) {
-				border-radius: 1rem;
-			}
-
-			@include light-mode {
-				background-color: $light;
-				color: $dark;
-			}
+		@include vars.light-mode {
+			color: vars.$dark;
 		}
 
-		@include light-mode {
-			color: $dark;
-		}
-
-		@media screen and (min-width: $tablet_break) {
+		@media screen and (min-width: vars.$tablet_break) {
 			min-height: 0;
 		}
 
-		@media screen and (min-width: $tablet_break) {
+		@media screen and (min-width: vars.$tablet_break) {
 			margin: 2em 0;
-			filter: drop-shadow(0 0 2rem rgba($primary_dark, 0.8));
+			filter: drop-shadow(0 0 2rem rgba(vars.$primary_dark, 0.8));
 		}
 
 		main {

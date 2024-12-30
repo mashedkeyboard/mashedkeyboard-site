@@ -38,7 +38,7 @@ const config = {
 	preprocess: [
 		sveltePreprocess({
 			preserve: ['ld+json'],
-			scss: { includePaths: ['src/lib/scss'], prependData: `@import '_variables';` }
+			scss: { includePaths: ['src/lib/scss'], prependData: `@use '_vars';` }
 		}),
 		mdsvex({
 			remarkPlugins: [[a11yEmoji], [setBlogPlaintext], [blogParser.default]]

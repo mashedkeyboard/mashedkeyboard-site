@@ -73,42 +73,43 @@
 </article>
 
 <style lang="scss">
+	@use "sass:color";
+
 	header {
-		@include light-mode {
-			color: $primary_dark;
-		}
-
-		@include dark-mode {
-			background-color: $primary_dark;
-		}
-
 		padding: 1em;
 		padding-top: 5em;
 		margin: 0 -3em;
 		margin-top: -4.1em;
 		text-align: right;
+		position: relative;
 
-		@media screen and (max-width: calc($mobile-break - 1px)) {
-			margin-top: -3em;
+		@include vars.light-mode {
+			color: vars.$primary_dark;
 		}
 
-		position: relative;
+		@include vars.dark-mode {
+			background-color: vars.$primary_dark;
+		}
+
+		@media screen and (max-width: calc(vars.$mobile-break - 1px)) {
+			margin-top: -3em;
+		}
 
 		div {
 			position: relative;
 			z-index: 2;
 			background-color: rgba(0, 0, 0, 0.5);
 
-			@include light-mode {
-				background-color: rgba(255, 255, 255, 0.7);
-			}
-
 			padding: 1em;
 			padding-top: 5em;
 			margin: -1em;
 			margin-top: -5em;
 
-			@media screen and (max-width: calc($mobile-break - 1px)) {
+			@include vars.light-mode {
+				background-color: rgba(255, 255, 255, 0.7);
+			}
+
+			@media screen and (max-width: calc(vars.$mobile-break - 1px)) {
 				padding-top: 3em;
 				margin-top: -3em;
 			}
@@ -116,32 +117,34 @@
 	}
 
 	.p-summary {
-		@include light-mode {
-			color: $primary_dark;
-			border-bottom: 0.2em dashed $primary;
-		}
-
-		@include dark-mode {
-			background-color: darken($primary, 30%);
-			color: $light;
-
-			:global(a) {
-				color: #fff;
-			}
-		}
-
 		padding: 1em;
 		margin-left: -3em;
 		margin-right: -3em;
 		padding-left: 3em;
 		padding-right: 3em;
 		font-style: italic;
+
+		@include vars.light-mode {
+			color: vars.$primary_dark;
+			border-bottom: 0.2em dashed vars.$primary;
+		}
+
+		@include vars.dark-mode {
+			background-color: color.adjust(vars.$primary, $lightness: -30%);
+			color: vars.$light;
+
+			:global(a) {
+				color: #fff;
+			}
+		}
 	}
 
 	.e-content {
 		:global(aside),
 		:global(figure) {
-			@media screen and (min-width: $mobile-break) {
+			margin-bottom: 1em;
+			
+			@media screen and (min-width: vars.$mobile-break) {
 				float: right;
 				text-align: right;
 				max-width: 50%;
@@ -155,8 +158,6 @@
 			:global(figcaption) {
 				text-align: center;
 			}
-
-			margin-bottom: 1em;
 		}
 	}
 </style>

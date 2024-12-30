@@ -16,35 +16,34 @@
 </a>
 
 <style lang="scss">
-	@import '../scss/_variables';
+	@use "sass:color";
 
-	$nav_link_border: 1px solid $primary_dark;
+	$nav_link_border: 1px solid vars.$primary_dark;
 
 	a {
 		padding: 0.5em 1em;
 		text-decoration: none;
-		color: $light;
+		color: vars.$light;
 		border-top: $nav_link_border;
 		border-bottom: $nav_link_border;
-		background-color: $dark;
-
-		@include light-mode {
-			color: $dark;
-			background-color: $light;
-		}
-
-		font-weight: 800;
-
-		@media screen and (min-width: $mobile-break) {
-			width: 100%;
-		}
-
-		text-align: center;
+		background-color: vars.$dark;
 
 		transition: background-color 0.2s ease-in-out;
 		transition: color 0.2s ease-in-out;
 
-		@media screen and (min-width: $mobile-break) {
+		font-weight: 800;
+		text-align: center;
+
+		@include vars.light-mode {
+			color: vars.$dark;
+			background-color: vars.$light;
+		}
+
+		@media screen and (min-width: vars.$mobile-break) {
+			width: 100%;
+		}		
+
+		@media screen and (min-width: vars.$mobile-break) {
 			border-radius: 0.5em;
 
 			&:first-of-type {
@@ -57,29 +56,28 @@
 		}
 
 		&.active {
-			background: darken($primary, 20%);
-			color: $light;
+			background: color.adjust(vars.$primary, $lightness: -20%);
+			color: vars.$light;
 		}
 
 		&.subrouteActive {
-			background: darken($primary, 30%);
+			background: color.adjust(vars.$primary, $lightness: -30%);
 		}
 
 		&:hover {
-			background-color: rgba($primary, 0.7);
+			background-color: rgba(vars.$primary, 0.7);
+			cursor: pointer;
 
-			@include light-mode {
+			@include vars.light-mode {
 				&.active {
-					background-color: lighten($primary, 10%);
+					background-color: color.adjust(vars.$primary, $lightness: 10%);
 				}
 
 				&:not(.active) {
-					background-color: darken($light, 5%);
-					color: $primary;
+					background-color: color.adjust(vars.$light, $lightness: -5%);
+					color: vars.$primary;
 				}
 			}
-
-			cursor: pointer;
 		}
 
 		&:not(:first-of-type) {

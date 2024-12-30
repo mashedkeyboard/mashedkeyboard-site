@@ -66,7 +66,7 @@
 			width: 350px;
 		}
 
-		@media screen and (min-width: $desktop_break) {
+		@media screen and (min-width: vars.$desktop_break) {
 			position: absolute;
 			left: -84px;
 			width: 84px;

@@ -125,24 +125,24 @@
 <Nav />
 
 <style lang="scss">
-	@import '../scss/_variables';
+	@use "sass:color";
 
 	header {
 		display: flex;
 		padding: 3em;
 		overflow: hidden;
 
-		background: $primary;
+		background: vars.$primary;
 		transition: background-color 0.1s ease-in-out;
 
-		color: $light;
+		color: vars.$light;
 		align-items: end;
 		justify-content: space-between;
 
 		will-change: filter;
 		transition: filter 1s;
 
-		@media screen and (min-width: $tablet_break) {
+		@media screen and (min-width: vars.$tablet_break) {
 			border-radius: 1em;
 			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
@@ -150,42 +150,43 @@
 
 		.header-heading {
 			font-size: 2rem;
+			font-weight: 400;
+			font-family: 'Signika NegativeVariable';
+
 			margin: 0.67em 0;
 			line-height: 1.1;
 
-			@media screen and (min-width: $tiny_break) {
+			@media screen and (min-width: vars.$tiny_break) {
 				font-size: 3rem;
 			}
 
 			&.main-title {
 				font-size: 15vw;
 
-				@media screen and (min-width: $mobile_break) {
+				@media screen and (min-width: vars.$mobile_break) {
 					font-size: 4rem;
 				}
 
 				& + .pronouns {
-					@media screen and (min-width: $tablet_break) {
+					@media screen and (min-width: vars.$tablet_break) {
 						margin-top: -3em;
 					}
 				}
 			}
-			font-weight: 400;
-			font-family: 'Signika NegativeVariable';
 		}
 
 		.pronouns {
 			color: #171717;
-			@media screen and (min-width: $tablet_break) {
+			@media screen and (min-width: vars.$tablet_break) {
 				margin-top: -2em;
 				margin-bottom: 1em;
 			}
-			@media screen and (max-width: calc($mobile_break - 1px)) {
+			@media screen and (max-width: calc(vars.$mobile_break - 1px)) {
 				font-size: 0.8em;
 			}
 		}
 
-		@media screen and (max-width: calc($tablet_break - 1px)) {
+		@media screen and (max-width: calc(vars.$tablet_break - 1px)) {
 			.header-text {
 				display: flex;
 				flex-direction: column-reverse;
@@ -196,7 +197,7 @@
 			}
 		}
 
-		@media screen and (max-width: calc($mobile_break - 1px)) {
+		@media screen and (max-width: calc(vars.$mobile_break - 1px)) {
 			.header-text .header-heading .allow-smaller {
 				font-size: 1.5rem;
 				display: block;
@@ -212,26 +213,34 @@
 			z-index: 2;
 			transform-origin: bottom left;
 
-			@media screen and (min-width: $mobile_break) {
+			margin-left: -3em;
+			margin-bottom: -3em;
+
+			@media screen and (min-width: vars.$mobile_break) {
 				height: 40vw;
 				padding-left: 1.5em;
 			}
 
-			@media screen and (min-width: $tablet_break) {
+			@media screen and (min-width: vars.$tablet_break) {
 				height: 18em;
 				margin-top: -7em;
 				margin-bottom: -10em;
 			}
-
-			margin-left: -3em;
-			margin-bottom: -3em;
 		}
 
 		&:hover {
-			filter: drop-shadow(0 0 1em rgba($primary, 0.8));
+			filter: drop-shadow(0 0 1em rgba(vars.$primary, 0.8));
 		}
 
 		.contact-icons {
+			padding: 1rem;
+			margin: -1rem;
+			margin-left: -0.5rem;
+			background: color.adjust(vars.$primary, $lightness: -25%);
+			border-radius: 1em;
+			display: inline-block;
+			line-height: 2.5em;
+			
 			& > * {
 				&:not(:last-child) {
 					margin-right: 1em;
@@ -239,29 +248,21 @@
 			}
 
 			:global(svg) {
-				color: $light;
+				color: vars.$light;
 			}
 
 			.contact-intro {
-				@media screen and (max-width: calc($tablet_break - 1px)) {
+				@media screen and (max-width: calc(vars.$tablet_break - 1px)) {
 					display: block;
 					margin-bottom: 1em;
 				}
 			}
 
-			padding: 1rem;
-			margin: -1rem;
-			margin-left: -0.5rem;
-			background: darken($primary, 25%);
-			border-radius: 1em;
-			display: inline-block;
-			line-height: 2.5em;
-
 			span {
 				line-height: 1em;
 			}
 
-			@media screen and (min-width: $tablet_break) {
+			@media screen and (min-width: vars.$tablet_break) {
 				margin-top: 0.1em;
 			}
 		}

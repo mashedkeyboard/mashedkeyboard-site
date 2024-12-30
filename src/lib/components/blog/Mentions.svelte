@@ -34,7 +34,7 @@
 
 <style lang="scss">
 	.wm-intro {
-		border-left: 1em solid $primary;
+		border-left: 1em solid vars.$primary;
 		padding: 0.1em 1em;
 
 		p {

@@ -1,12 +1,13 @@
+@use "sass:color";
 $desktop_break: 1024px;
 $tablet_break: 768px;
 $mobile_break: 480px;
 $tiny_break: 350px;
 
 $primary: rgb(231, 76, 59);
-$primary_dark: darken($primary, 20%);
+$primary_dark: color.adjust($primary, $lightness: -20%);
 // used where primary has text on top of it!
-$primary_light: lighten($primary, 20%);
+$primary_light: color.adjust($primary, $lightness: 20%);
 $dark: #202020;
 $light: #f2f2f2;
 

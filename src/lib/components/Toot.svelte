@@ -59,12 +59,12 @@
 
 <style lang="scss">
 	article {
-		border: 1px solid $light;
-		@include light-mode {
-			border: 1px solid $primary_dark;
-		}
-
+		border: 1px solid vars.$light;
 		padding: 1em;
+
+		@include vars.light-mode {
+			border: 1px solid vars.$primary_dark;
+		}
 
 		ol {
 			list-style: none;
@@ -76,11 +76,12 @@
 
 		a.masto-icon {
 			float: left;
-			color: $light;
-			@include light-mode {
-				color: $primary_dark;
-			}
+			color: vars.$light;
 			margin-right: 1em;
+
+			@include vars.light-mode {
+				color: vars.$primary_dark;
+			}
 		}
 	}
 </style>

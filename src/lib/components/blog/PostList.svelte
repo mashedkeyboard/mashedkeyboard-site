@@ -43,18 +43,18 @@
 	}
 
 	article {
-		background-color: $primary_dark;
+		background-color: vars.$primary_dark;
 		padding: 1em;
 		margin-left: -1em;
 		margin-right: -1em;
 		margin-bottom: 1em;
 
-		@media screen and (min-width: $mobile_break) {
+		@media screen and (min-width: vars.$mobile_break) {
 			margin: 1em;
 		}
 
 		a {
-			color: $light;
+			color: vars.$light;
 			text-decoration: none;
 			display: block;
 			margin: -1em;
@@ -71,15 +71,15 @@
 			}
 		}
 
-		@include light-mode {
+		@include vars.light-mode {
 			background: none;
-			border: 1px solid $primary_dark;
+			border: 1px solid vars.$primary_dark;
 
 			a {
-				color: $dark;
+				color: vars.$dark;
 
 				h3 {
-					color: $primary_dark;
+					color: vars.$primary_dark;
 				}
 			}
 		}
