@@ -47,7 +47,7 @@ body {
 
 *:visited {
 	color: color.adjust(vars.$primary, $lightness: 5%);
-	
+
 	@include vars.light-mode {
 		color: color.adjust(vars.$primary_dark, $lightness: 5%);
 	}

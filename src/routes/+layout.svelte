@@ -111,6 +111,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+		position: relative;
 
 		// Dark background
 		// Done in a pseudoelement so as to not interfere with the flag
@@ -119,7 +120,9 @@
 			content: "";
 			width: 100%;
 			height: 100%;
-			position: fixed;
+			position: absolute;
+			top: 0;
+			left: 0;
 
 			@media screen and (min-width: vars.$tablet_break) {
 				border-radius: 1rem;
