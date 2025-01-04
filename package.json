@@ -64,5 +64,5 @@
 		"ts-import": "^5.0.0-beta.0",
 		"tsl-mastodon-api": "^0.4.1"
 	},
-	"packageManager": "yarn@4.0.0"
+	"packageManager": "yarn@4.6.0"
 }
