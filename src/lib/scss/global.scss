@@ -52,3 +52,7 @@ body {
 		color: color.adjust(vars.$primary_dark, $lightness: 5%);
 	}
 }
+
+.primary_dark {
+	color: vars.$primary_dark;
+}

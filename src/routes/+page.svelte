@@ -16,7 +16,8 @@
                 "https://mashedkeyboard.me/",
                 "https://twitter.com/mashedkeyboard",
                 "https://github.com/mashedkeyboard",
-                "https://social.mashed.cloud/@curtispf"
+                "https://social.mashed.cloud/@curtispf",
+				"https://orcid.org/0009-0005-6695-2439"
             ]
         }
     <\/script>`;

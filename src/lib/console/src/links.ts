@@ -24,6 +24,9 @@ export const Links: CommandClass = class {
 			case 'social':
 				window.location.href = 'https://social.mashed.cloud/@curtispf';
 				break;
+			case 'scrimblo':
+				window.location.href = 'https://scrimblo.foundation';
+				break;
 			default:
 				return "I don't know how to send you there, sorry :(";
 		}

@@ -14,6 +14,7 @@
 	import Console from '$lib/components/Console.svelte';
 
 	import socialimg from '../assets/img/social.jpg';
+	import Footer from '$lib/components/Footer.svelte';
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -84,6 +85,7 @@
 	<main id="content">
 		{@render children?.()}
 	</main>
+	<Footer />
 </div>
 
 <Console bind:showConsole />
@@ -171,12 +173,12 @@
 
 		:global {
 			& > * {
-				&:not(header, nav) {
+				z-index: 1;
+
+				&:not(header, nav, footer) {
 					padding: 0.5rem 3rem 0.5rem 3rem;
 					margin: 0;
 				}
-
-				z-index: 1;
 
 				&:not(:first-child) {
 					border-top-left-radius: 0;
@@ -191,11 +193,6 @@
 				&:not(:last-child) {
 					border-bottom-left-radius: 0;
 					border-bottom-right-radius: 0;
-				}
-
-				&:last-child {
-					padding-bottom: 1.5em;
-					flex-grow: 1;
 				}
 
 				h1 {
