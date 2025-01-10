@@ -65,7 +65,7 @@ export async function GET({ params, platform }) {
 			for (let replyUrl of inReplyTo) {
 				const trimmedUrl = replyUrl.toString().replace('https://social.mashed.cloud/web/statuses/', '');
 				if (mentionsIds[trimmedUrl]) {
-					const replyToMention = mentionsIds[replyUrl.toString()];
+					const replyToMention = mentionsIds[trimmedUrl];
 					replyToMention.replies ||= [];
 					replyToMention.replies.push(mention);
 					mentionsSet.delete(mention);
