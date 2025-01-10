@@ -50,16 +50,22 @@ export async function GET({ params, platform }) {
 	}
 
 	let mentionsSet = new Set(allMentions);
-	let mentionsUrls = Object.fromEntries(
-		allMentions.map((mention) => [mention.mfItem?.properties?.url || mention.url, mention])
+	let mentionsIds = Object.fromEntries(
+		allMentions.map((mention) => [
+			mention.mfItem?.properties?.uid?.toString()?.replace('tag:social.mashed.cloud,2013:', '')
+			|| mention.mfItem?.properties?.url
+			|| mention.url,
+			mention
+		])
 	);
 
 	mentionsSet.forEach((mention) => {
 		const inReplyTo = mention.mfItem?.properties?.['in-reply-to'];
 		if (inReplyTo) {
 			for (let replyUrl of inReplyTo) {
-				if (mentionsUrls[replyUrl.toString()]) {
-					const replyToMention = mentionsUrls[replyUrl.toString()];
+				const trimmedUrl = replyUrl.toString().replace('https://social.mashed.cloud/web/statuses/', '');
+				if (mentionsIds[trimmedUrl]) {
+					const replyToMention = mentionsIds[replyUrl.toString()];
 					replyToMention.replies ||= [];
 					replyToMention.replies.push(mention);
 					mentionsSet.delete(mention);
