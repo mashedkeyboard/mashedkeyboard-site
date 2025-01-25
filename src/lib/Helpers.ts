@@ -1,4 +1,4 @@
-import { PUBLIC_HOSTNAME } from '$env/static/public';
+import { PUBLIC_HOSTNAME, PUBLIC_ENV } from '$env/static/public';
 import type { Post } from './blog/Post';
 
 /**
@@ -13,7 +13,7 @@ import type { Post } from './blog/Post';
 export function urlFor(pathOrUrl: string = '') {
 	return pathOrUrl.match(/^https?:\/\//)
 		? pathOrUrl
-		: `https://${PUBLIC_HOSTNAME}/${pathOrUrl.replace(/^\//, '')}`;
+		: `http${PUBLIC_ENV === 'dev' ? '' : 's'}://${PUBLIC_HOSTNAME}/${pathOrUrl.replace(/^\//, '')}`;
 }
 
 /**

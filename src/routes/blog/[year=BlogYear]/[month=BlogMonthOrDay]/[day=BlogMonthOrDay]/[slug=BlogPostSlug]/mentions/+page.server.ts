@@ -1,5 +1,6 @@
 import { resolveSlug } from '../SlugResolver';
 import { getPost } from '$lib/blog/PostManager';
+import { urlForPost } from '$lib/Helpers';
 
 export const prerender = false;
 
@@ -9,7 +10,7 @@ export async function load({ params, fetch }) {
 	return {
 		meta_title: `Mentions: ${post.getTitle()}`,
 		has_own_h1: true,
-		mentions: await fetch(`/blog/${resolveSlug(params)}/mentions.json`).then((resp) => resp.json()),
+		mentions: await fetch(`${urlForPost(post)}/mentions.json`).then((resp) => resp.json()),
 		postName: post.getTitle(),
 		postMastoUrl: post.getMastodonPost(),
 		noindex: true,
