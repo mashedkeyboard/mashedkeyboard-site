@@ -34,8 +34,7 @@
 
 		<section class="author">
 			<a href={toot.account.url}>{toot.account.display_name}</a>
-			<a href={toot.url}>tooted</a>
-			:
+			<a href={toot.url}>tooted</a>:
 		</section>
 		<section class="content">
 			<p>
@@ -43,6 +42,7 @@
 					allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
 				})}
 			</p>
+			<p class="date"><date datetime={toot.created_at}>{new Date(toot.created_at).toLocaleString()}</date></p>
 		</section>
 		{#if toot.poll}
 			<section>
@@ -83,5 +83,10 @@
 				color: vars.$primary_dark;
 			}
 		}
+	}
+
+	.date {
+		font-style: italic;
+		font-size: 0.8em;
 	}
 </style>

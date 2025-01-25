@@ -27,8 +27,9 @@ export async function loadPosts(): Promise<PostCache> {
 						const post = await Post.fromModule(slug, typedImportedFile);
 
 						for (const tag of post.getTags()) {
-							posts.tags[tag] ||= [];
-							posts.tags[tag].push(post);
+							const normalisedTag = tag.toLowerCase();
+							posts.tags[normalisedTag] ||= [];
+							posts.tags[normalisedTag].push(post);
 						}
 
 						res({ [slug]: post });
@@ -83,10 +84,11 @@ export async function getPost(slug: string): Promise<Post> {
  * @return {Promise<Post[]>} the metadata of the posts for the tag, or a promise rejection if there was no such post
  */
 export async function getTaggedPosts(tag: string): Promise<PostMetadata[]> {
+	const normalisedTag = tag.toLowerCase();
 	return await loadPosts().then(
 		(posts) =>
 			new Promise((res, rej) =>
-				posts.tags[tag] ? res(postsToMeta(posts.tags[tag])) : rej('No such tag')
+				posts.tags[normalisedTag] ? res(postsToMeta(posts.tags[normalisedTag])) : rej('No such tag')
 			)
 	);
 }
