@@ -1,10 +1,14 @@
 ---
 title: Engineers don't make public squares. People do
 date: 2025-01-25T18:26:42.624Z
-summary: "Recreating a positive #socialmedia experience needs complex, #interdisciplinary work. It's not enough to just be technically better on the #Fediverse: we have to change social norms, too, if we're to have any hope of abating the enshittification. CW for mentions of misogyny and queerphobia."
+summary: >-
+  Recreating a positive #socialmedia experience needs complex,
+  #interdisciplinary work. It's not enough to just be technically better on the
+  #Fediverse: we have to change social norms, too, if we're to have any hope of
+  abating the enshittification. CW for mentions of misogyny and queerphobia.
 image: social-media.jpg
-imageAlt: >-
-  A close-up of a smartphone with various social media apps installed.
+imageAlt: A close-up of a smartphone with various social media apps installed.
+mastodon_post: 'https://social.mashed.cloud/@curtispf/113890588130575558'
 ---
 I was chatting with a friend recently who's made the decision to quit social media wholesale, simply seeing it now as draining. Hearing that rings true, but it hurts, too. My experience of the social web growing up as part of the first "digital-native" generation was on balance a positive one; though there were _plenty_ of potential (and all-too-often actual) harms associated with having access to [_Everyone, Everywhere, All Of The Time_](https://www.youtube.com/watch?v=k1BneeJTDcU), it also allowed me to find communities of people who were like me. The friends I made during my undergraduate degree had far more in common with the people I spoke to online growing up than they did with the people I was friends with in high school; the Internet allowed me to find those people earlier, and there were certainly times where it really did help me express myself and discover parts of my identity.
 
