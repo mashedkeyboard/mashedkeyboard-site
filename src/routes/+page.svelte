@@ -25,6 +25,7 @@
 
 <svelte:head>
 	{@html json_ld}
+	<link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/blog/rss.xml" />
 </svelte:head>
 
 <section class="makestuff">
