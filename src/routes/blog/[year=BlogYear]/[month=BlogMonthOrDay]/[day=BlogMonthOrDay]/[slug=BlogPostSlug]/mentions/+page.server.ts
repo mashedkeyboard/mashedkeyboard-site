@@ -9,7 +9,7 @@ export async function load({ params, fetch }) {
 	return {
 		meta_title: `Mentions: ${post.getTitle()}`,
 		has_own_h1: true,
-		mentions: await (await fetch(`/blog/${resolveSlug(params)}/mentions.json`)).json(),
+		mentions: await fetch(`/blog/${resolveSlug(params)}/mentions.json`).then((resp) => resp.json()),
 		postName: post.getTitle(),
 		postMastoUrl: post.getMastodonPost(),
 		noindex: true,
