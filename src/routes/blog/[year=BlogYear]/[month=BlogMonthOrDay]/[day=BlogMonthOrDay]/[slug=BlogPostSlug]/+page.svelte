@@ -75,6 +75,10 @@
 <style lang="scss">
 	@use "sass:color";
 
+	article {
+		padding-bottom: 1em;
+	}
+
 	header {
 		padding: 1em;
 		padding-top: 5em;
