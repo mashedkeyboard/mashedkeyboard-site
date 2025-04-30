@@ -15,7 +15,6 @@
 	import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
 	import { faMastodon } from '@fortawesome/free-brands-svg-icons';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
-	import Pronouns from './Pronouns.svelte';
 
 	interface Props {
 		/**
@@ -94,8 +93,9 @@
 					Curtis{:else}{heading}{/if}
 			</svelte:element>
 			<div class="pronouns">
-				{#if heading === null}My pronouns are <Pronouns />{:else}Curtis Parfitt-Ford (<Pronouns />){/if}
-				🏳️‍🌈
+				{#if heading === null}any pronouns <abbr title="non-binary" class="p-gender-identity"
+						>enby</abbr
+					>{:else}Curtis Parfitt-Ford{/if} 🏳️‍🌈
 			</div>
 		</div>
 		<div class="contact-icons">
@@ -125,7 +125,7 @@
 <Nav />
 
 <style lang="scss">
-	@use "sass:color";
+	@use 'sass:color';
 
 	header {
 		display: flex;
@@ -240,7 +240,7 @@
 			border-radius: 1em;
 			display: inline-block;
 			line-height: 2.5em;
-			
+
 			& > * {
 				&:not(:last-child) {
 					margin-right: 1em;
