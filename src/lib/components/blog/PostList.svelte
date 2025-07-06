@@ -51,6 +51,7 @@
 
 		@media screen and (min-width: vars.$mobile_break) {
 			margin: 1em;
+			height: calc(100% - 4em);
 		}
 
 		a {
