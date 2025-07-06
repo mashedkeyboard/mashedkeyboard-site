@@ -1,6 +1,6 @@
 ---
 title: We are all creatives. GenAI threatens us all
-date: 2025-07-06T14:19:11.083Z
+date: 2025-07-06T16:54:22.000Z
 image: sad-ai.jpg
 imageAlt: "An IKEA BLÅHAJ next to a laptop computer, on which a piece of blurred software is open with the \"sparkles\" emoji that's been co-opted to represent AI functionality. The emoji has a sad face superimposed over the middle of the largest sparkle."
 summary: "You might not see yourself as an artist, and #GenAI may not be \"taking your job\", but it threatens lowering all our standards for what the world we live in looks like. When we all come to face the results of that, we'll have nobody but ourselves to blame."
