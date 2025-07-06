@@ -146,7 +146,9 @@
 	.e-content {
 		:global(aside),
 		:global(figure) {
+			margin: 0;
 			margin-bottom: 1em;
+			padding: 1em;
 			
 			@media screen and (min-width: vars.$mobile-break) {
 				float: right;
@@ -161,6 +163,15 @@
 
 			:global(figcaption) {
 				text-align: center;
+			}
+		}
+		
+		// has to be separate for now - see https://github.com/sveltejs/vite-plugin-svelte/issues/1161
+		:global(figure:has(figcaption)) {
+			border: 1px solid vars.$light;
+
+			@include vars.light-mode {
+				border: 1px solid vars.$primary_dark;
 			}
 		}
 	}
