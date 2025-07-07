@@ -7,7 +7,7 @@
 </script>
 
 <h1>
-	Mentions for <a href="./">{$page.data.postName}</a>
+	Mentions for <a href="{$page.data.postUrl}">{$page.data.postName}</a>
 </h1>
 <Mentions {mentions} mastodonPostUrl={$page.data.postMastoUrl} />
 
