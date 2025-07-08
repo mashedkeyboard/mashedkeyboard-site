@@ -1,3 +1,7 @@
+name = "mashedkeyboard"
+compatibility_flags = [ "nodejs_compat" ]
+compatibility_date = "2025-05-25"
+
 [[d1_databases]]
 binding = "PREVIEW"
 database_name = "blog-preview"
