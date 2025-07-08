@@ -11,7 +11,7 @@ export async function load({ params, platform }) {
 	return {
 		meta_title: `Mentions: ${post.getTitle()}`,
 		has_own_h1: true,
-		mentions: (await getMentionsJson({ params, platform })).json(),
+		mentions: await (await getMentionsJson({ params, platform })).json(),
 		postName: post.getTitle(),
 		postUrl: urlForPost(post),
 		postMastoUrl: post.getMastodonPost(),
