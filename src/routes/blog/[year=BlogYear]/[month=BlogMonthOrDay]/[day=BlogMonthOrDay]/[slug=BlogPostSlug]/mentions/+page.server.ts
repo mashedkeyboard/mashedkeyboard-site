@@ -1,4 +1,4 @@
-import { resolveSlug } from '../SlugResolver';
+import { resolveSlug } from '$lib/blog/SlugResolver';
 import { getPost } from '$lib/blog/PostManager';
 import { urlForPost } from '$lib/Helpers';
 

@@ -1,5 +1,5 @@
 import { error, json } from '@sveltejs/kit';
-import { resolveSlug } from '../SlugResolver';
+import { resolveSlug } from '$lib/blog/SlugResolver';
 import type { Webmention } from '$lib/blog/Webmention';
 import { getCustomCache } from '$lib/Cache';
 import { urlFor } from '$lib/Helpers';
