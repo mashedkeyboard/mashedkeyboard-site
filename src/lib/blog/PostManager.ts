@@ -69,10 +69,16 @@ export async function getAllPostMetadata(): Promise<PostMetadata[]> {
  * @return {Promise<Post>} the post, or a promise rejection if there was no such post
  */
 export async function getPost(slug: string): Promise<Post> {
-	return await loadPosts().then(
-		(posts) =>
-			new Promise((res, rej) => (posts.slugs[slug] ? res(posts.slugs[slug]) : rej('No such post')))
-	);
+	if (posts.slugs[slug]) return posts.slugs[slug];
+
+	try {
+		// the relative path here is required by virtue of
+		// https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
+		const typedImportedFile = (await import(`../../../posts/${slug}.svx`)) as ImportedPostFile;
+		return Post.fromModule(slug, typedImportedFile);
+	} catch {
+		throw new Error('No such post');
+	}
 }
 
 /**
