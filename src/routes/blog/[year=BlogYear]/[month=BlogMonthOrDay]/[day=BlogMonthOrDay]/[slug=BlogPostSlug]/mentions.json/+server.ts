@@ -1,8 +1,9 @@
 import { error, json } from '@sveltejs/kit';
-import { resolveSlug } from '../SlugResolver';
+import { resolveSlug } from '$lib/blog/SlugResolver';
 import type { Webmention } from '$lib/blog/Webmention';
 import { getCustomCache } from '$lib/Cache';
 import { urlFor } from '$lib/Helpers';
+import type { RequestEvent } from './$types';
 
 export const prerender = false;
 
@@ -12,7 +13,7 @@ const CDN_CACHE_CONTROL = 'CDN-Cache-Control';
 const CLOUDFLARE_MAX_AGE = 'max-age=60';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function GET({ params, platform }) {
+export async function GET({ params, platform }: Pick<RequestEvent, 'params' | 'platform'>) {
 	console.log('fetch called for mentions endpoint');
 	const resolvedSlug = resolveSlug(params);
 

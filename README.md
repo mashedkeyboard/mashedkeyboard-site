@@ -2,7 +2,7 @@
 
 It's live at https://cpf.sh/.
 
-Use node 16 or greater to build - I use node 18.
+Use node 22 to build.
 
 To build, run `npm run build`.
 

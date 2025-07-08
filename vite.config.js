@@ -12,6 +12,9 @@ const config = {
 		fs: {
 			allow: [join(wsRoot, 'posts')]
 		}
+	},
+	build: {
+		sourcemap: true
 	}
 };
 

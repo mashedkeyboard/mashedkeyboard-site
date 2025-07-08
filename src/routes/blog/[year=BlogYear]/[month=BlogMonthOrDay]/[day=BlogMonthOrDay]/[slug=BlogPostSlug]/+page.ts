@@ -1,5 +1,5 @@
 import { getPost } from '$lib/blog/PostManager.js';
-import { resolveSlug } from './SlugResolver.js';
+import { resolveSlug } from '$lib/blog/SlugResolver.js';
 import { error } from '@sveltejs/kit';
 import { urlFor } from '$lib/Helpers.js';
 import type Status from 'tsl-mastodon-api/lib/JSON/Status';

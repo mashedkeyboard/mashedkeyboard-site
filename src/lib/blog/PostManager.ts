@@ -1,3 +1,4 @@
+import { explodeSlug, type FullURLSlugString } from './SlugResolver';
 import { Post, type ImportedPostFile } from './Post';
 import type { PostMetadata } from './PostMetadata';
 
@@ -65,14 +66,24 @@ export async function getAllPostMetadata(): Promise<PostMetadata[]> {
  * a given slug.
  *
  * @export
- * @param {string} slug the slug of the post to retrieve
+ * @param {FullURLSlugString} slug the slug of the post to retrieve
  * @return {Promise<Post>} the post, or a promise rejection if there was no such post
  */
-export async function getPost(slug: string): Promise<Post> {
-	return await loadPosts().then(
-		(posts) =>
-			new Promise((res, rej) => (posts.slugs[slug] ? res(posts.slugs[slug]) : rej('No such post')))
-	);
+export async function getPost(slug: FullURLSlugString): Promise<Post> {
+	if (posts.slugs[slug]) return posts.slugs[slug];
+
+	const slugArray = explodeSlug(slug);
+
+	try {
+		// the relative and weird pre-split path here is required by virtue of
+		// https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
+		const typedImportedFile = (await import(
+			`../../../posts/${slugArray[0]}/${slugArray[1]}/${slugArray[2]}/${slugArray[3]}.svx`
+		)) as ImportedPostFile;
+		return Post.fromModule(slug, typedImportedFile);
+	} catch (e) {
+		throw new Error('No such post');
+	}
 }
 
 /**
