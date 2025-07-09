@@ -23,7 +23,7 @@
 			src={post.getImage()?.fallbackImage}
 			alt={post.getImage()?.alt}
 			itemprop="image"
-			class="u-photo" />
+			class="u-featured" />
 	</picture>
 {/if}
 
