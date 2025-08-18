@@ -1,0 +1,35 @@
+{
+  "icon": {
+    "desktop": {
+      "regularIconTransformation": {
+        "type": "background",
+        "backgroundColor": "#e74c3b",
+        "backgroundRadius": 0.7,
+        "imageScale": 1
+      },
+      "darkIconType": "none"
+    },
+    "touch": {
+      "transformation": {
+        "type": "background",
+        "backgroundColor": "#e74c3b",
+        "backgroundRadius": 0,
+        "imageScale": 1
+      },
+      "appTitle": "Curtis P-F"
+    },
+    "webAppManifest": {
+      "transformation": {
+        "type": "background",
+        "backgroundColor": "#e74c3b",
+        "backgroundRadius": 0,
+        "imageScale": 1
+      },
+      "backgroundColor": "#a72315",
+      "name": "Curtis Parfitt-Ford",
+      "shortName": "Curtis",
+      "themeColor": "#e74c3b"
+    }
+  },
+  "path": "/"
+}

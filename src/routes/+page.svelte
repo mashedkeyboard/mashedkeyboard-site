@@ -1,7 +1,7 @@
 <script>
 	import { urlFor } from '$lib/Helpers';
 	// @ts-ignore
-	import me_png from '../assets/img/me.webp?w=1200&format=png';
+	import me_png from '../assets/img/me.png?w=1200&format=png';
 	import prac_badge from '../assets/img/prac-badge.svg';
 
 	let json_ld = `<script type="application/ld+json">
@@ -29,22 +29,31 @@
 </svelte:head>
 
 <section class="makestuff">
-	<h2>I make stuff and ask questions</h2>
+	<h2>About me</h2>
 	<p>
-		I wear many hats: software engineer, student paramedic, activist, tech policy wonk, and even a beanie in the winter. I work for <a href="https://poteris.co.uk/">Poteris</a>, a non-profit
-		tech-for-good consultancy.
+		I wear many hats: software engineer, student paramedic, activist, tech policy wonk, and even a
+		beanie in the winter. I work for
+		<a href="https://poteris.co.uk/" target="_blank">Poteris</a>,
+		a non-profit tech-for-good consultancy.
 	</p>
 	<p>
-		I'm particularly interested in human-computer interaction and the policy surrounding it.
-		Technology gives us a lot of power, but that poses huge dangers if it's not properly regulated.
+		I'm an Emergency Ambulance Crew with
+		<a href="https://www.sja.org.uk/" target="_blank">St John Ambulance</a>,
+		and am studying for a pre-registration MSc in Paramedic Science.
+		(Sorry, I can't give you medical advice online!)
 	</p>
 	<p>
-		I run <a href="https://loudspeek.cc/">Loudspeek</a>, a digital lobbying system for UK political
-		campaigns.
+		I'm beginning to develop a portfolio of research: you can find some of my work on
+		<a href="https://orcid.org/0009-0005-6695-2439" target="_blank">my ORCiD</a>.
+		I'm particularly interested in research relating to health technology or out-of-hospital
+		urgent and emergency care, with a focus on keeping patients in the community for longer.
 	</p>
 	<p>
-		I'm an Emergency Ambulance Crew with <a href="https://www.sja.org.uk/">St John Ambulance</a>, and am studying for a pre-registration MSc in
-		Paramedic Science.
+		When you catch me thinking about computers, I'm probably thinking about ethics, policy, health
+		tech, and human-computer interaction. With technology comes power, and power poses huge dangers
+		when misused. To try to leverage that power for good instead, I run
+		<a href="https://loudspeek.cc/" target="_blank">Loudspeek</a>, a digital lobbying system
+		for progressive political campaigns in the UK.
 	</p>
 	<p>
 		This site is open source: <a
@@ -54,10 +63,8 @@
 			the code is on GitHub
 		</a>.
 	</p>
-	<a href="https://practitioner.sh/" title="I am a Practitioner Technologist" class="prac-badge">
-		<img
-			alt="I am a Practitioner Technologist: learn more about my commitment"
-			src={prac_badge} />
+	<a href="https://practitioner.sh/" target="_blank" title="I am a Practitioner Technologist" class="prac-badge">
+		<img alt="I am a Practitioner Technologist: learn more about my commitment" src={prac_badge} />
 	</a>
 </section>
 
