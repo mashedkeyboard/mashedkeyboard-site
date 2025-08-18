@@ -13,7 +13,7 @@
 
 	import Console from '$lib/components/Console.svelte';
 
-	import socialimg from '../assets/img/social.jpg';
+	import socialimg from '../assets/img/social.png';
 	import Footer from '$lib/components/Footer.svelte';
 
 	interface Props {
