@@ -5,6 +5,6 @@ export function load({ params }) {
 		heading: `This is my CV`,
 		social_title: "Curtis Parfitt-Ford's CV",
 		description:
-			"I'm a candidate who offers the advantages of someone with experience in the industry alongside a fresh and highly motivated mind, with a keen and curious interest in technology and digital regulation."
+			"I'm an interdisciplinary professional with clinical, technical, and academic experience across pre-hospital emergency care, web software engineering, and human-computer interaction."
 	};
 }
