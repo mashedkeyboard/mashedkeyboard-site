@@ -76,7 +76,7 @@
 		style:transform={`rotate(${isPrompting ? (tapCount - 5) * 2 + 'deg' : '0deg'})`}>
 		<source type="image/avif" sizes="12.54em" srcset={meAvif} />
 		<source type="image/webp" sizes="12.54em" srcset={meWebp} />
-		<img src={mePng} class="u-photo p-name" width="400" height="418" alt="Curtis Parfitt-Ford" />
+		<img src={mePng} class="u-photo p-name" width="400" height="418" alt="cpf" />
 	</picture>
 	<div class="header-text">
 		<div class="title">
@@ -90,12 +90,12 @@
 						I'm{/if}
 				</span>
 				{#if heading === null}
-					Curtis{:else}{heading}{/if}
+					cpf{:else}{heading}{/if}
 			</svelte:element>
 			<div class="pronouns">
 				{#if heading === null}any pronouns <abbr title="non-binary" class="p-gender-identity"
 						>enby</abbr
-					>{:else}Curtis Parfitt-Ford{/if} 🏳️‍🌈
+					>{:else}you're reading cpf.sh{/if} 🏳️‍🌈
 			</div>
 		</div>
 		<div class="contact-icons">

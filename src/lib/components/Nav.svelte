@@ -17,7 +17,7 @@
 
 <nav class={showNav ? 'mobile-open' : ''}>
 	<div class="menu-title">
-		<h2>Curtis Parfitt-Ford</h2>
+		<h2>cpf.sh</h2>
 		<button onclick={() => (showNav = false)}>
 			<FaIcon icon={faSquareXmark} opts={{ title: 'Close menu' }} />
 		</button>

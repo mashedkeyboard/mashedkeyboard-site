@@ -16,7 +16,7 @@
         "backgroundRadius": 0,
         "imageScale": 1
       },
-      "appTitle": "Curtis P-F"
+      "appTitle": "cpf"
     },
     "webAppManifest": {
       "transformation": {
@@ -26,8 +26,8 @@
         "imageScale": 1
       },
       "backgroundColor": "#a72315",
-      "name": "Curtis Parfitt-Ford",
-      "shortName": "Curtis",
+      "name": "cpf.sh",
+      "shortName": "cpf",
       "themeColor": "#e74c3b"
     }
   },

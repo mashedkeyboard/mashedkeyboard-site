@@ -15,7 +15,7 @@ export async function GET({ fetch }) {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <atom:link href="${urlFor('/blog/rss.xml')}" rel="self" type="application/rss+xml" />
-<title>Curtis Parfitt-Ford</title>
+<title>cpf.sh blog</title>
 <description>${blogTitle}</description>
 <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 <link>${urlFor('/blog')}</link>

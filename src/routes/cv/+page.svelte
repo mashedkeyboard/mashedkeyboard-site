@@ -20,7 +20,7 @@
 </script>
 
 <section class="intro">
-	<h2>Curtis Parfitt-Ford</h2>
+	<h2>C Parfitt-Ford</h2>
 
 	<p>
 		I'm an <strong>interdisciplinary professional</strong> with clinical, technical, and academic experience

@@ -8,7 +8,7 @@
         {
             "@context": "http://schema.org/",
             "@type": "Person",
-            "name": "Curtis Parfitt-Ford",
+            "name": "C Parfitt-Ford",
             "image": "${urlFor(me_png)}",
             "url": "${urlFor()}",
 			"email": "wm@cpf.sh",

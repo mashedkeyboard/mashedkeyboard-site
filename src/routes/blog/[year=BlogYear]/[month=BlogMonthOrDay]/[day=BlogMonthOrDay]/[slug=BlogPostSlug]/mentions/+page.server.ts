@@ -16,6 +16,6 @@ export async function load({ params, platform }) {
 		postUrl: urlForPost(post),
 		postMastoUrl: post.getMastodonPost(),
 		noindex: true,
-		description: `What people have been saying about "${post.getTitle()}" by Curtis Parfitt-Ford.`
+		description: `What people have been saying about "${post.getTitle()}" on cpf.sh.`
 	};
 }
