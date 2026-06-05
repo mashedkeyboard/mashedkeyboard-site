@@ -22,7 +22,7 @@ export const Links: CommandClass = class {
 			case 'mastodon':
 			case 'masto':
 			case 'social':
-				window.location.href = 'https://social.mashed.cloud/@curtispf';
+				window.location.href = 'https://fedi.cpf.sh/@c';
 				break;
 			case 'scrimblo':
 				window.location.href = 'https://scrimblo.foundation';

@@ -103,7 +103,7 @@
 			<a
 				rel="me noreferrer"
 				target="_blank"
-				href="https://social.mashed.cloud/@curtispf"
+				href="https://fedi.cpf.sh/@c"
 				class="u-url"
 				aria-label="Mastodon">
 				<FaIcon icon={faMastodon} opts={{ title: 'Mastodon', classes: 'fa-2xl' }} />
