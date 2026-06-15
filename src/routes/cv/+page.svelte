@@ -10,10 +10,6 @@
 		faAmbulance,
 		faHandsHoldingCircle,
 		faMicrochip,
-		faAward,
-		faTrophy,
-		faNewspaper,
-		faPenNib,
 		faBuildingColumns,
 		faMessage
 	} from '@fortawesome/free-solid-svg-icons';
@@ -208,40 +204,6 @@
 				the Union itself having a record of their membership of the Society.
 			</p>
 		</details>
-	</section>
-
-	<section class="awards">
-		<h3><FaIcon icon={faAward} /> Achievements and awards</h3>
-		<ul class="fa-ul">
-			<li>
-				<span class="fa-li"><FaIcon icon={faTrophy} /></span>
-				Clifford Chance Young Activist of the Year in the
-				<a href="https://undergraduateoftheyear.com/winners/2021" target="_blank" rel="noreferrer">
-					TARGETjobs Undergraduate of the Year Awards 2021
-				</a>
-			</li>
-			<li>
-				<span class="fa-li"><FaIcon icon={faNewspaper} /></span>
-				Appeared in
-				<a
-					href="https://www.theguardian.com/education/2020/aug/16/a-level-student-launches-legal-bid-against-ofqual"
-					target="_blank"
-					rel="noreferrer">
-					various UK and international media
-				</a>
-				in relation to legal action pursued against Ofqual in 2020
-			</li>
-			<li>
-				<span class="fa-li"><FaIcon icon={faPenNib} /></span>
-				Highly commended by the George Orwell Foundation in the
-				<a
-					href="https://www.orwellfoundation.com/the-orwell-youth-prize/2018-youth-prize/previous-winners-youth/2016-winners/"
-					target="_blank"
-					rel="noreferrer">
-					Orwell Youth Prize 2016
-				</a>
-			</li>
-		</ul>
 	</section>
 
 	<section class="qualifications">
