@@ -25,16 +25,15 @@
 		deliver value in unusual ways!
 	</p>
 	<p>
-		Having founded my own company just two months after turning 17 to help campaigns I believed in
-		realise their goals, I've got clear experience working in a self-motivated fashion to achieve
-		key objectives. I've also developed mentorship and teaching skills, both in software teams and
-		in clinical contexts: I love sharing the things I've learned, and, in turn, learning from
-		others.
+		Coming from a background of computer science into urgent and emergency care isn't the traditional route into healthcare;
+		I chose to switch because I'm deeply passionate about high-quality patient care. As a clinician, I'm eager to go above
+		and beyond for my patients: my research, both undergraduate and postgraduate, pushes healthcare to be better for those we
+		serve. I've also developed mentorship and teaching skills, both in software teams and in clinical contexts: I love sharing
+		the things I've learned, and, in turn, learning from others.
 	</p>
 	<p>
-		I've a keen and curious interest in research, particularly in health technology and
-		out-of-hospital urgent and emergency care. I'm beginning to develop a portfolio of work in these
-		areas.
+		I've a keen and curious interest in health technology and out-of-hospital urgent and emergency care. I'm beginning to develop a
+		research portfolio in these areas, alongside my clinical practice.
 	</p>
 </section>
 
