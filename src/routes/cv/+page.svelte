@@ -253,41 +253,6 @@
 					<p>Event Manager</p>
 				</section>
 			</section>
-			<section class="flex-30">
-				<h4>NationBuilder</h4>
-				<section>
-					<p>Certified Developer</p>
-				</section>
-			</section>
-			<section class="flex-50">
-				<h4>Elthorne Park High School</h4>
-				<section>
-					<p>Extended Project Qualification &mdash; A*</p>
-					<p>A levels:</p>
-					<ul>
-						<li>Mathematics &mdash; A*</li>
-						<li>Spanish &mdash; A*</li>
-						<li>Further Mathematics &mdash; A</li>
-						<li>Physics &mdash; A</li>
-					</ul>
-				</section>
-				<section>
-					<p>GCSEs:</p>
-					<ul>
-						<li>Computer Science &mdash; 9</li>
-						<li>Spanish &mdash; 9</li>
-						<li>History &mdash; 9</li>
-						<li>Physics &mdash; 9</li>
-						<li>English Language &mdash; 9</li>
-						<li>Biology &mdash; 9</li>
-						<li>Chemistry &mdash; 8</li>
-						<li>Mathematics &mdash; 8</li>
-						<li>English Literature &mdash; 8</li>
-						<li>Religious Studies &mdash; A*</li>
-						<li>D&T: Resistant Materials Technology &mdash; A</li>
-					</ul>
-				</section>
-			</section>
 		</div>
 	</section>
 	<section class="references">
