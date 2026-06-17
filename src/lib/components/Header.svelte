@@ -93,7 +93,7 @@
 					cpf{:else}{heading}{/if}
 			</svelte:element>
 			<div class="pronouns">
-				{#if heading === null}any pronouns <abbr title="non-binary" class="p-gender-identity"
+				{#if heading === null}they/she <abbr title="non-binary" class="p-gender-identity"
 						>enby</abbr
 					>{:else}you're reading cpf.sh{/if} 🏳️‍🌈
 			</div>
