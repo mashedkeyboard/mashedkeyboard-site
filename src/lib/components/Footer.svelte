@@ -9,7 +9,6 @@
 <footer>
 	<ul>
 		<li><a href="https://orcid.org/0009-0005-6695-2439" title="Open Researcher and Contributor ID" target="_blank"><FaIcon icon={faOrcid} /> ORCID</a></li>
-		<li><a href="/cpf.asc" target="_blank"><FaIcon icon={faLock} /> PGP key</a></li>
 		<li><a href="https://scrimblo.foundation/" target="_blank"><FaIcon icon={faCubes} /> Scrimblo Foundation</a></li>
 		<li>
 			<span class="fa-layers fa-fw" title="no genAI used">
