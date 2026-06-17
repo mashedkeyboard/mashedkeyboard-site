@@ -169,9 +169,30 @@
 		// has to be separate for now - see https://github.com/sveltejs/vite-plugin-svelte/issues/1161
 		:global(figure:has(figcaption)) {
 			border: 1px solid vars.$light;
+			text-align: center;
 
 			@include vars.light-mode {
 				border: 1px solid vars.$primary_dark;
+			}
+		}
+
+		:global(blockquote) {
+			position: relative;
+
+			&::before, &::after {
+				font-size: 4em;
+				position: absolute;
+			}
+
+			&::before {
+				content: '“';
+				left: -.5em;
+			}
+
+			&::after {
+				content: '”';
+				right: -.3em;
+				bottom: -.2em;
 			}
 		}
 	}

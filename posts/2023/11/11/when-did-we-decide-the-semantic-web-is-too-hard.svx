@@ -8,9 +8,11 @@ mastodon_post: https://social.mashed.cloud/@curtispf/111394201861380124
 ---
 MySpace has been rattling around in my head for a little while now, not for the platform itself but for the side effects it had. I was too young to actually be there myself(!), but the folks on it at the time were big fans of the idea of being able to customise their homepages - even those who wouldn't normally be interested in the Web. I went out to Mastodon to check I wasn't hallucinating this: sure enough, it wasn't just techy people, it seems.
 
-<aside>
-    <Toot>https://social.mashed.cloud/@curtispf/111318079457442689</Toot>
-</aside>
+<figure>
+    <img src="./poll.svg" alt="A partial Venn/Euler diagram showing three circles with only two being able to be intersected: 'Open and widespread federation', 'Volunteer-run without paid moderation' and 'Safe space'. The first two have an intersection of 'Risk of hellscape', 'Open federation' and 'Safe space' have an intersection 'Cedes control to whatever organisation pays moderators and sets rules', and the final intersection is 'Volunteer-run' with 'Safe space', which is 'Requires the space to be small and unattractive to potential bad actors'." />
+
+    <figcaption>Original Toot read "If you were on #myspace back in the #noughties, was it mostly techy folk you saw using custom HTML/CSS in their profiles, or was it everyone? I get the impression it was a pretty common thing across the board, but want to try and validate that with people who were actually on it at the time!"</figcaption>
+</figure>
 
 It's definitely true to say that the Web's moved on a lot since those days. HTML5, CSS3 and modern JavaScript are all substantially more complex than they were at the time. Even so, the fundamental basis on which the Web works hasn't changed - HTML and CSS are still the core of what a web page is. Yet, over the last decade and with the advent of things like React, we've moved increasingly towards a model where the HTML output of web pages is considered by many to be almost as irrelevant as the assembly code that C compiles down to. This... well, this seems <em><strong>bad</strong></em>.
 
