@@ -8,8 +8,9 @@ export function load({ params }) {
 			'My website has my CV, blog, and links to my research.',
 		open_graph_type: 'profile',
 		open_graph: {
-			'profile:first_name': 'C',
-			'profile:last_name': 'Parfitt-Ford'
+			'profile:first_name': 'Caitlin',
+			'profile:last_name': 'Parfitt-Ford',
+			'profile:username': 'cpf.sh'
 		}
 	};
 }

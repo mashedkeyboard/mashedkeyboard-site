@@ -8,7 +8,12 @@
         {
             "@context": "http://schema.org/",
             "@type": "Person",
-            "name": "C Parfitt-Ford",
+            "name": "Caitlin Parfitt-Ford",
+			"alternateName": "Cait Parfitt-Ford",
+			"givenName": "Caitlin",
+			"familyName": "Parfitt-Ford",
+			"gender": "Non-binary",
+			"pronouns": "they/she",
             "image": "${urlFor(me_png)}",
             "url": "${urlFor()}",
 			"email": "wm@cpf.sh",
