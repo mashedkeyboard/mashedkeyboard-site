@@ -7,22 +7,25 @@
 	let json_ld = `<script type="application/ld+json">
         {
             "@context": "http://schema.org/",
-            "@type": "Person",
-            "name": "Caitlin Parfitt-Ford",
-			"alternateName": "Cait Parfitt-Ford",
-			"givenName": "Caitlin",
-			"familyName": "Parfitt-Ford",
-			"gender": "Non-binary",
-			"pronouns": "they/she",
-            "image": "${urlFor(me_png)}",
-            "url": "${urlFor()}",
-			"email": "wm@cpf.sh",
-            "sameAs": [
-                "https://github.com/mashedkeyboard",
-                "https://fedi.cpf.sh/@c",
-				"https://orcid.org/0009-0005-6695-2439"
-            ]
-        }
+			"@type": "ProfilePage",
+     		"mainEntity": {
+				"@type": "Person",
+				"name": "Caitlin Parfitt-Ford",
+				"alternateName": "Cait Parfitt-Ford",
+				"givenName": "Caitlin",
+				"familyName": "Parfitt-Ford",
+				"gender": "Non-binary",
+				"pronouns": "they/she",
+				"image": "${urlFor(me_png)}",
+				"url": "${urlFor()}",
+				"email": "wm@cpf.sh",
+				"sameAs": [
+					"https://github.com/mashedkeyboard",
+					"https://fedi.cpf.sh/@c",
+					"https://orcid.org/0009-0005-6695-2439"
+				]
+			}
+		}
     <\/script>`;
 </script>
 
