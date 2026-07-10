@@ -3,7 +3,7 @@
     "desktop": {
       "regularIconTransformation": {
         "type": "background",
-        "backgroundColor": "#e74c3b",
+        "backgroundColor": "#a72315",
         "backgroundRadius": 0.7,
         "imageScale": 1
       },
@@ -12,16 +12,16 @@
     "touch": {
       "transformation": {
         "type": "background",
-        "backgroundColor": "#e74c3b",
+        "backgroundColor": "#a72315",
         "backgroundRadius": 0,
         "imageScale": 1
       },
-      "appTitle": "cpf"
+      "appTitle": "cpf.sh"
     },
     "webAppManifest": {
       "transformation": {
         "type": "background",
-        "backgroundColor": "#e74c3b",
+        "backgroundColor": "#a72315",
         "backgroundRadius": 0,
         "imageScale": 1
       },
@@ -31,5 +31,6 @@
       "themeColor": "#e74c3b"
     }
   },
-  "path": "/"
+  "path": "/",
+  "skipMetadataInjection": false
 }
